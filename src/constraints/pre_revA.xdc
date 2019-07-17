@@ -4,7 +4,7 @@ set_property DCI_CASCADE {64} [get_iobanks 65]
 ## HDMI Source (TX) and Sink (RX) implemented by Xilinx Video PHY Controller. See PG230.
 ## HDMI Source Clock that goes to the connector (through AC-coupled re-timer) is using regular I/O in LVDS mode
 #set_property IOSTANDARD LVDS [get_ports hdmi_tx_clk_c_p]
-#set_property PACKAGE_PIN H4 [get_ports hdmi_tx_clk_c_p]
+#set_property PACKAGE_PIN C1 [get_ports hdmi_tx_clk_c_p]
 ## The reference clock for the HDMI TX comes from an external programmable clock generator in through
 ## a GTREFCLK pin. It being constrained by the IP, no other constraints are necessary.
 
@@ -133,7 +133,7 @@ set_property DCI_CASCADE {64} [get_iobanks 65]
 ##set_property -dict { PACKAGE_PIN AA8   IOSTANDARD ANALOG } [get_ports { ja4_v_n }]; #IO_L11N_AD1N_43/44 Sch=ja4_r_n
 ##set_property -dict { PACKAGE_PIN Y9    IOSTANDARD ANALOG } [get_ports { ja4_v_p }]; #IO_L11P_AD1P_43/44 Sch=ja4_r_p
 
-## Platform MCU signals 
+## Platform MCU signals
 #set_property PACKAGE_PIN AC14 [get_ports {mcu_tri_io[0]}];     #IO_L6P_HDGC_44/24 Sch=vadj_level[0]
 #set_property PACKAGE_PIN AC13 [get_ports {mcu_tri_io[1]}];     #IO_L6N_HDGC_44/24 Sch=vadj_level[1]
 #set_property PACKAGE_PIN G10 [get_ports {mcu_tri_io[2]}];      #IO_L3N_AD13N_45/25 Sch=vadj_auton
@@ -172,14 +172,14 @@ set_property PULLUP true [get_ports USB20_OCN]
 #set_property DRIVE 6 [get_ports {eth_jtag_tri_io[*]}]
 
 ##PMOD JB
-#set_property PACKAGE_PIN E15 [get_ports {PMOD_tri_io[0]}];  #IO_L8N_HDGC_AD4N_46/26 Sch=jb[1]
-#set_property PACKAGE_PIN A14 [get_ports {PMOD_tri_io[1]}];  #IO_L2N_AD10N_46/26 Sch=jb[2]
-#set_property PACKAGE_PIN B15 [get_ports {PMOD_tri_io[2]}];  #IO_L1P_AD11P_46/26 Sch=jb[3]  
-#set_property PACKAGE_PIN F15 [get_ports {PMOD_tri_io[3]}];  #IO_L8P_HDGC_AD4P_46/26 Sch=jb[4]
-#set_property PACKAGE_PIN E14 [get_ports {PMOD_tri_io[4]}];  #IO_L6P_HDGC_AD6P_46/26 Sch=jb[7]
-#set_property PACKAGE_PIN B14 [get_ports {PMOD_tri_io[5]}];  #IO_L2P_AD10P_46/26 Sch=jb[8]
-#set_property PACKAGE_PIN D15 [get_ports {PMOD_tri_io[6]}];  #IO_L5P_HDGC_AD7P_46/26 Sch=jb[9]
-#set_property PACKAGE_PIN A15 [get_ports {PMOD_tri_io[7]}];  #IO_L1N_AD11N_46/26 Sch=jb[10]
+#set_property PACKAGE_PIN AE13 [get_ports {PMOD_tri_io[0]}];  #IO_L8N_HDGC_AD4N_46/26 Sch=jb[1]
+#set_property PACKAGE_PIN AG14 [get_ports {PMOD_tri_io[1]}];  #IO_L2N_AD10N_46/26 Sch=jb[2]
+#set_property PACKAGE_PIN AH14 [get_ports {PMOD_tri_io[2]}];  #IO_L1P_AD11P_46/26 Sch=jb[3]
+#set_property PACKAGE_PIN AG13 [get_ports {PMOD_tri_io[3]}];  #IO_L8P_HDGC_AD4P_46/26 Sch=jb[4]
+#set_property PACKAGE_PIN AE14 [get_ports {PMOD_tri_io[4]}];  #IO_L6P_HDGC_AD6P_46/26 Sch=jb[7]
+#set_property PACKAGE_PIN AF13 [get_ports {PMOD_tri_io[5]}];  #IO_L2P_AD10P_46/26 Sch=jb[8]
+#set_property PACKAGE_PIN AE15 [get_ports {PMOD_tri_io[6]}];  #IO_L5P_HDGC_AD7P_46/26 Sch=jb[9]
+#set_property PACKAGE_PIN AH13 [get_ports {PMOD_tri_io[7]}];  #IO_L1N_AD11N_46/26 Sch=jb[10]
 ##PMOD JC
 #set_property PACKAGE_PIN E13 [get_ports {PMOD_tri_io[8]}];  #IO_L6N_HDGC_AD6N_46/26 Sch=jc[1]
 #set_property PACKAGE_PIN G13 [get_ports {PMOD_tri_io[9]}];  #IO_L7P_HDGC_AD5P_46/26 Sch=jc[2]
@@ -190,14 +190,14 @@ set_property PULLUP true [get_ports USB20_OCN]
 #set_property PACKAGE_PIN C14 [get_ports {PMOD_tri_io[14]}]; #IO_L4P_AD8P_46/26 Sch=jc[9]
 #set_property PACKAGE_PIN A13 [get_ports {PMOD_tri_io[15]}]; #IO_L3N_AD9N_46/26 Sch=jc[10]
 ##PMOD JD
-#set_property PACKAGE_PIN AE13 [get_ports {PMOD_tri_io[16]}];   #IO_L4P_AD12P_44/24 Sch=jd[1]
-#set_property PACKAGE_PIN AG14 [get_ports {PMOD_tri_io[17]}];   #IO_L2P_AD14P_44/24 Sch=jd[2]
-#set_property PACKAGE_PIN AH14 [get_ports {PMOD_tri_io[18]}];   #IO_L2N_AD14N_44/24 Sch=jd[3]
-#set_property PACKAGE_PIN AG13 [get_ports {PMOD_tri_io[19]}];   #IO_L3P_AD13P_44/24 Sch=jd[4]
-#set_property PACKAGE_PIN AE14 [get_ports {PMOD_tri_io[20]}];   #IO_L1N_AD15N_44/24 Sch=jd[7]
-#set_property PACKAGE_PIN AF13 [get_ports {PMOD_tri_io[21]}];   #IO_L4N_AD12N_44/24 Sch=jd[8]
-#set_property PACKAGE_PIN AE15 [get_ports {PMOD_tri_io[22]}];   #IO_L1P_AD15P_44/24 Sch=jd[9]
-#set_property PACKAGE_PIN AH13 [get_ports {PMOD_tri_io[23]}];   #IO_L3N_AD13N_44/24 Sch=jd[10]
+#set_property PACKAGE_PIN E15 [get_ports {PMOD_tri_io[16]}];   #IO_L4P_AD12P_44/24 Sch=jd[1]
+#set_property PACKAGE_PIN A14 [get_ports {PMOD_tri_io[17]}];   #IO_L2P_AD14P_44/24 Sch=jd[2]
+#set_property PACKAGE_PIN B15 [get_ports {PMOD_tri_io[18]}];   #IO_L2N_AD14N_44/24 Sch=jd[3]
+#set_property PACKAGE_PIN F15 [get_ports {PMOD_tri_io[19]}];   #IO_L3P_AD13P_44/24 Sch=jd[4]
+#set_property PACKAGE_PIN E14 [get_ports {PMOD_tri_io[20]}];   #IO_L1N_AD15N_44/24 Sch=jd[7]
+#set_property PACKAGE_PIN B14 [get_ports {PMOD_tri_io[21]}];   #IO_L4N_AD12N_44/24 Sch=jd[8]
+#set_property PACKAGE_PIN D15 [get_ports {PMOD_tri_io[22]}];   #IO_L1P_AD15P_44/24 Sch=jd[9]
+#set_property PACKAGE_PIN A15 [get_ports {PMOD_tri_io[23]}];   #IO_L3N_AD13N_44/24 Sch=jd[10]
 
 #set_property IOSTANDARD LVCMOS33 [get_ports {PMOD_*}];
 
@@ -247,7 +247,7 @@ set_property PULLUP true [get_ports USB20_OCN]
 #set_property PACKAGE_PIN AE3 [get_ports {SYZYGY_D_P[2]}]
 #set_property PACKAGE_PIN AE5 [get_ports {SYZYGY_D_P[3]}]
 #set_property PACKAGE_PIN AD7 [get_ports {SYZYGY_D_P[4]}]
-#set_property PACKAGE_PIN AG9 [get_ports {SYZYGY_D_P[5]}]
+#set_property PACKAGE_PIN AG6 [get_ports {SYZYGY_D_P[5]}]
 #set_property PACKAGE_PIN U8 [get_ports {SYZYGY_D_P[6]}]
 #set_property PACKAGE_PIN U9 [get_ports {SYZYGY_D_P[7]}]
 #set_property IOSTANDARD LVDS [get_ports {SYZYGY_D*}]
@@ -281,8 +281,8 @@ set_property PULLUP true [get_ports USB20_OCN]
 #set_property PACKAGE_PIN L3 [get_ports FMC_CLK1_M2C_clk_p]; #IO_L12P_T1U_N10_GC_65 Sch=fmc_clk1_m2c_p
 #set_property -dict { PACKAGE_PIN L6    IOSTANDARD LVDS     } [get_ports { FMC_LA_N[0] }]; #IO_L13N_T2L_N1_GC_QBC_65 Sch=fmc_la00_cc_n
 #set_property -dict { PACKAGE_PIN L7    IOSTANDARD LVDS     } [get_ports { FMC_LA_P[0] }]; #IO_L13P_T2L_N0_GC_QBC_65 Sch=fmc_la00_cc_p
-#set_property -dict { PACKAGE_PIN K1    IOSTANDARD LVDS     } [get_ports { FMC_LA_N[1] }]; #IO_L7N_T1L_N1_QBC_AD13N_65 Sch=fmc_la01_cc_n
-#set_property -dict { PACKAGE_PIN L1    IOSTANDARD LVDS     } [get_ports { FMC_LA_P[1] }]; #IO_L7P_T1L_N0_QBC_AD13P_65 Sch=fmc_la01_cc_p
+#set_property -dict { PACKAGE_PIN H3    IOSTANDARD LVDS     } [get_ports { FMC_LA_N[1] }]; #IO_L7N_T1L_N1_QBC_AD13N_65 Sch=fmc_la01_cc_n
+#set_property -dict { PACKAGE_PIN H4    IOSTANDARD LVDS     } [get_ports { FMC_LA_P[1] }]; #IO_L7P_T1L_N0_QBC_AD13P_65 Sch=fmc_la01_cc_p
 #set_property -dict { PACKAGE_PIN H6    IOSTANDARD LVDS     } [get_ports { FMC_LA_N[2] }]; #IO_L20N_T3L_N3_AD1N_65 Sch=fmc_la_n[02]
 #set_property -dict { PACKAGE_PIN J6    IOSTANDARD LVDS     } [get_ports { FMC_LA_P[2] }]; #IO_L20P_T3L_N2_AD1P_65 Sch=fmc_la_p[02]
 #set_property -dict { PACKAGE_PIN K3    IOSTANDARD LVDS     } [get_ports { FMC_LA_N[3] }]; #IO_L11N_T1U_N9_GC_65 Sch=fmc_la_n[03]
@@ -291,8 +291,8 @@ set_property PULLUP true [get_ports USB20_OCN]
 #set_property -dict { PACKAGE_PIN K2    IOSTANDARD LVDS     } [get_ports { FMC_LA_P[4] }]; #IO_L9P_T1L_N4_AD12P_65 Sch=fmc_la_p[04]
 #set_property -dict { PACKAGE_PIN T6    IOSTANDARD LVDS     } [get_ports { FMC_LA_N[5] }]; #IO_L6N_T0U_N11_AD6N_65 Sch=fmc_la_n[05]
 #set_property -dict { PACKAGE_PIN R6    IOSTANDARD LVDS     } [get_ports { FMC_LA_P[5] }]; #IO_L6P_T0U_N10_AD6P_65 Sch=fmc_la_p[05]
-#set_property -dict { PACKAGE_PIN N8    IOSTANDARD LVDS     } [get_ports { FMC_LA_N[6] }]; #IO_L17N_T2U_N9_AD10N_65 Sch=fmc_la_n[06]
-#set_property -dict { PACKAGE_PIN N9    IOSTANDARD LVDS     } [get_ports { FMC_LA_P[6] }]; #IO_L17P_T2U_N8_AD10P_65 Sch=fmc_la_p[06]
+#set_property -dict { PACKAGE_PIN K1    IOSTANDARD LVDS     } [get_ports { FMC_LA_N[6] }]; #IO_L17N_T2U_N9_AD10N_65 Sch=fmc_la_n[06]
+#set_property -dict { PACKAGE_PIN L1    IOSTANDARD LVDS     } [get_ports { FMC_LA_P[6] }]; #IO_L17P_T2U_N8_AD10P_65 Sch=fmc_la_p[06]
 #set_property -dict { PACKAGE_PIN J9    IOSTANDARD LVDS     } [get_ports { FMC_LA_N[7] }]; #IO_L23N_T3U_N9_65 Sch=fmc_la_n[07]
 #set_property -dict { PACKAGE_PIN K9    IOSTANDARD LVDS     } [get_ports { FMC_LA_P[7] }]; #IO_L23P_T3U_N8_I2C_SCLK_65 Sch=fmc_la_p[07]
 #set_property -dict { PACKAGE_PIN T7    IOSTANDARD LVDS     } [get_ports { FMC_LA_N[8] }]; #IO_L5N_T0U_N9_AD14N_65 Sch=fmc_la_n[08]
@@ -315,10 +315,10 @@ set_property PULLUP true [get_ports USB20_OCN]
 #set_property -dict { PACKAGE_PIN K8    IOSTANDARD LVDS     } [get_ports { FMC_LA_P[16] }]; #IO_L22P_T3U_N6_DBC_AD0P_65 Sch=fmc_la_p[16]
 #set_property -dict { PACKAGE_PIN AD1   IOSTANDARD LVDS     } [get_ports { FMC_LA_N[17] }]; #IO_L16N_T2U_N7_QBC_AD3N_64 Sch=fmc_la17_cc_n
 #set_property -dict { PACKAGE_PIN AD2   IOSTANDARD LVDS     } [get_ports { FMC_LA_P[17] }]; #IO_L16P_T2U_N6_QBC_AD3P_64 Sch=fmc_la17_cc_p
-#set_property -dict { PACKAGE_PIN AG5   IOSTANDARD LVDS     } [get_ports { FMC_LA_N[18] }]; #IO_L10N_T1U_N7_QBC_AD4N_64 Sch=fmc_la18_cc_n
-#set_property -dict { PACKAGE_PIN AG6   IOSTANDARD LVDS     } [get_ports { FMC_LA_P[18] }]; #IO_L10P_T1U_N6_QBC_AD4P_64 Sch=fmc_la18_cc_p
-#set_property -dict { PACKAGE_PIN AC2   IOSTANDARD LVDS     } [get_ports { FMC_LA_N[19] }]; #IO_L17N_T2U_N9_AD10N_64 Sch=fmc_la_n[19]
-#set_property -dict { PACKAGE_PIN AB2   IOSTANDARD LVDS     } [get_ports { FMC_LA_P[19] }]; #IO_L17P_T2U_N8_AD10P_64 Sch=fmc_la_p[19]
+#set_property -dict { PACKAGE_PIN AH9   IOSTANDARD LVDS     } [get_ports { FMC_LA_N[18] }]; #IO_L10N_T1U_N7_QBC_AD4N_64 Sch=fmc_la18_cc_n
+#set_property -dict { PACKAGE_PIN AG9   IOSTANDARD LVDS     } [get_ports { FMC_LA_P[18] }]; #IO_L10P_T1U_N6_QBC_AD4P_64 Sch=fmc_la18_cc_p
+#set_property -dict { PACKAGE_PIN AC3   IOSTANDARD LVDS     } [get_ports { FMC_LA_N[19] }]; #IO_L17N_T2U_N9_AD10N_64 Sch=fmc_la_n[19]
+#set_property -dict { PACKAGE_PIN AC4   IOSTANDARD LVDS     } [get_ports { FMC_LA_P[19] }]; #IO_L17P_T2U_N8_AD10P_64 Sch=fmc_la_p[19]
 #set_property -dict { PACKAGE_PIN AB3   IOSTANDARD LVDS     } [get_ports { FMC_LA_N[20] }]; #IO_L15N_T2L_N5_AD11N_64 Sch=fmc_la_n[20]
 #set_property -dict { PACKAGE_PIN AB4   IOSTANDARD LVDS     } [get_ports { FMC_LA_P[20] }]; #IO_L15P_T2L_N4_AD11P_64 Sch=fmc_la_p[20]
 #set_property -dict { PACKAGE_PIN AG1   IOSTANDARD LVDS     } [get_ports { FMC_LA_N[21] }]; #IO_L24N_T3U_N11_64 Sch=fmc_la_n[21]
@@ -343,8 +343,8 @@ set_property PULLUP true [get_ports USB20_OCN]
 #set_property -dict { PACKAGE_PIN AB7   IOSTANDARD LVDS     } [get_ports { FMC_LA_P[30] }]; #IO_L5P_T0U_N8_AD14P_64 Sch=fmc_la_p[30]
 #set_property -dict { PACKAGE_PIN AG8   IOSTANDARD LVDS     } [get_ports { FMC_LA_N[31] }]; #IO_L8N_T1L_N3_AD5N_64 Sch=fmc_la_n[31]
 #set_property -dict { PACKAGE_PIN AF8   IOSTANDARD LVDS     } [get_ports { FMC_LA_P[31] }]; #IO_L8P_T1L_N2_AD5P_64 Sch=fmc_la_p[31]
-#set_property -dict { PACKAGE_PIN AC3   IOSTANDARD LVDS     } [get_ports { FMC_LA_N[32] }]; #IO_L14N_T2L_N3_GC_64 Sch=fmc_la_n[32]
-#set_property -dict { PACKAGE_PIN AC4   IOSTANDARD LVDS     } [get_ports { FMC_LA_P[32] }]; #IO_L14P_T2L_N2_GC_64 Sch=fmc_la_p[32]
+#set_property -dict { PACKAGE_PIN AC2   IOSTANDARD LVDS     } [get_ports { FMC_LA_N[32] }]; #IO_L14N_T2L_N3_GC_64 Sch=fmc_la_n[32]
+#set_property -dict { PACKAGE_PIN AB2   IOSTANDARD LVDS     } [get_ports { FMC_LA_P[32] }]; #IO_L14P_T2L_N2_GC_64 Sch=fmc_la_p[32]
 #set_property -dict { PACKAGE_PIN AC6   IOSTANDARD LVDS     } [get_ports { FMC_LA_N[33] }]; #IO_L6N_T0U_N11_AD6N_64 Sch=fmc_la_n[33]
 #set_property -dict { PACKAGE_PIN AB6   IOSTANDARD LVDS     } [get_ports { FMC_LA_P[33] }]; #IO_L6P_T0U_N10_AD6P_64 Sch=fmc_la_p[33]
 
