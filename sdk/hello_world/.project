@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>hello_world</name>
-	<comment>Created by SDK v2019.1. hello_world_bsp - psu_cortexa53_0</comment>
+	<comment>Created by SDK v2019.1. standalone_bsp_0 - psu_cortexa53_0</comment>
 	<projects>
-		<project>hello_world_bsp</project>
+		<project>standalone_bsp_0</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
