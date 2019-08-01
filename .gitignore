@@ -18,7 +18,7 @@
 *~
 
 # sdk exclusions
-sdk/.*
+sdk/.*/
 sdk/**/*RemoteSystemsTempFiles
 sdk/**/*Debug
 sdk/**/*Release
