@@ -11,7 +11,7 @@ cd $dest_dir
 
 # Set the reference directory for source file relative paths (by default the value is script directory path)
 set proj_name "ddr4"
-set part "xczu2cg-sfvc784-1-e"
+set part "xczu5ev-sfvc784-1-e"
 
 # Set the reference directory for source file relative paths (by default the value is script directory path)
 set origin_dir ".."
