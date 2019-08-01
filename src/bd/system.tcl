@@ -109,6 +109,9 @@ if { ${design_name} eq "" } {
 
 }
 
+  # Add USER_COMMENTS on $design_name
+  set_property USER_COMMENTS.comment_0 "PSU_DYNAMIC_DDR_CONFIG_EN is enabled. DDR will get configured dynamically by FSBL." [get_bd_designs $design_name]
+
 common::send_msg_id "BD_TCL-005" "INFO" "Currently the variable <design_name> is equal to \"$design_name\"."
 
 if { $nRet != 0 } {
@@ -220,7 +223,7 @@ proc create_root_design { parentCell } {
    CONFIG.PSU_DDR_RAM_HIGHADDR {0xFFFFFFFF} \
    CONFIG.PSU_DDR_RAM_HIGHADDR_OFFSET {0x800000000} \
    CONFIG.PSU_DDR_RAM_LOWADDR_OFFSET {0x80000000} \
-   CONFIG.PSU_DYNAMIC_DDR_CONFIG_EN {0} \
+   CONFIG.PSU_DYNAMIC_DDR_CONFIG_EN {1} \
    CONFIG.PSU_IMPORT_BOARD_PRESET {} \
    CONFIG.PSU_MIO_0_DIRECTION {out} \
    CONFIG.PSU_MIO_0_DRIVE_STRENGTH {12} \
@@ -1177,7 +1180,7 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__DPAUX__PERIPHERAL__ENABLE {1} \
    CONFIG.PSU__DPAUX__PERIPHERAL__IO {EMIO} \
    CONFIG.PSU__DP__LANE_SEL {Dual Higher} \
-   CONFIG.PSU__DP__REF_CLK_FREQ {135} \
+   CONFIG.PSU__DP__REF_CLK_FREQ {108} \
    CONFIG.PSU__DP__REF_CLK_SEL {Ref Clk2} \
    CONFIG.PSU__ENABLE__DDR__REFRESH__SIGNALS {0} \
    CONFIG.PSU__ENET0__FIFO__ENABLE {0} \
@@ -1444,8 +1447,8 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__PCIE__BAR5_VAL {0x0} \
    CONFIG.PSU__PCIE__CLASS_CODE_BASE {0x06} \
    CONFIG.PSU__PCIE__CLASS_CODE_INTERFACE {0x0} \
-   CONFIG.PSU__PCIE__CLASS_CODE_SUB {0x80} \
-   CONFIG.PSU__PCIE__CLASS_CODE_VALUE {0x68000} \
+   CONFIG.PSU__PCIE__CLASS_CODE_SUB {0x04} \
+   CONFIG.PSU__PCIE__CLASS_CODE_VALUE {0x60400} \
    CONFIG.PSU__PCIE__COMPLETER_ABORT {0} \
    CONFIG.PSU__PCIE__COMPLTION_TIMEOUT {0} \
    CONFIG.PSU__PCIE__CORRECTABLE_INT_ERR {0} \

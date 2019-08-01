@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>ddr_test</name>
-	<comment>Created by SDK v2019.1. ddr_test_bsp - psu_cortexa53_0</comment>
+	<name>dram_test</name>
+	<comment>Created by SDK v2019.1. dram_test_bsp - psu_cortexa53_0</comment>
 	<projects>
-		<project>ddr_test_bsp</project>
+		<project>dram_test_bsp</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

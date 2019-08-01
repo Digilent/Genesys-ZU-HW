@@ -1,5 +1,5 @@
 proc getPresetInfo {} {
-  return [dict create name {Genesys ZU -2CG, 30MHz, 1866Mbps} description {Genesys ZU -2CG, 30MHz, 1866Mbps}  vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 display_name {Genesys ZU -2CG, 30MHz, 1866Mbps} ]
+  return [dict create name {Genesys ZU -2CG} description {Genesys ZU -2CG}  vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 display_name {Genesys ZU -2CG} ]
 }
 
 proc validate_preset {IPINST} { return true }
@@ -81,7 +81,7 @@ proc apply_preset {IPINST} {
     CONFIG.PSU__USB0__REF_CLK_SEL {Ref Clk0}  \
     CONFIG.PSU__USB0__REF_CLK_FREQ {100}  \
     CONFIG.PSU__DP__REF_CLK_SEL {Ref Clk2}  \
-    CONFIG.PSU__DP__REF_CLK_FREQ {135}  \
+    CONFIG.PSU__DP__REF_CLK_FREQ {108}  \
     CONFIG.PSU__SATA__REF_CLK_SEL {<Select>}  \
     CONFIG.PSU__SATA__REF_CLK_FREQ {<Select>}  \
     CONFIG.PSU__PCIE__REF_CLK_SEL {Ref Clk0}  \
@@ -123,9 +123,9 @@ proc apply_preset {IPINST} {
     CONFIG.PSU__PCIE__SUBSYSTEM_VENDOR_ID {0x10EE}  \
     CONFIG.PSU__PCIE__SUBSYSTEM_ID {0x7}  \
     CONFIG.PSU__PCIE__CLASS_CODE_BASE {0x06}  \
-    CONFIG.PSU__PCIE__CLASS_CODE_SUB {0x80}  \
+    CONFIG.PSU__PCIE__CLASS_CODE_SUB {0x04}  \
     CONFIG.PSU__PCIE__CLASS_CODE_INTERFACE {0x0}  \
-    CONFIG.PSU__PCIE__CLASS_CODE_VALUE {0x68000}  \
+    CONFIG.PSU__PCIE__CLASS_CODE_VALUE {0x60400}  \
     CONFIG.PSU__PCIE__AER_CAPABILITY {0}  \
     CONFIG.PSU__PCIE__CORRECTABLE_INT_ERR {0}  \
     CONFIG.PSU__PCIE__HEADER_LOG_OVERFLOW {0}  \
@@ -282,7 +282,7 @@ proc apply_preset {IPINST} {
     CONFIG.PSU__DDRC__BUS_WIDTH {64 Bit}  \
     CONFIG.PSU__DDRC__CL {12}  \
     CONFIG.PSU__DDRC__CLOCK_STOP_EN {0}  \
-    CONFIG.PSU_DYNAMIC_DDR_CONFIG_EN {0}  \
+    CONFIG.PSU_DYNAMIC_DDR_CONFIG_EN {1}  \
     CONFIG.PSU__DDRC__COL_ADDR_COUNT {10}  \
     CONFIG.PSU__DDRC__RANK_ADDR_COUNT {0}  \
     CONFIG.PSU__DDRC__CWL {10}  \
