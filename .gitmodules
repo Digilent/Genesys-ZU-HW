@@ -2,3 +2,6 @@
 	path = repo/vivado-library
 	url = https://github.com/Digilent/vivado-library.git
 	branch = master
+[submodule "sdk/ZUCA-test"]
+	path = sdk/ZUCA-test
+	url = https://git.digilentinc.com/digilent/zuca/ZUCA-test.git
