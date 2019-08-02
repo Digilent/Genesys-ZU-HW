@@ -192,7 +192,6 @@ proc create_root_design { parentCell } {
   # Create interface ports
 
   # Create ports
-  set USB20_OCN [ create_bd_port -dir I USB20_OCN ]
   set dp_aux_data_in_0 [ create_bd_port -dir I dp_aux_data_in_0 ]
   set dp_aux_data_oe_n_0 [ create_bd_port -dir O dp_aux_data_oe_n_0 ]
   set dp_aux_data_out_0 [ create_bd_port -dir O dp_aux_data_out_0 ]
@@ -1641,14 +1640,14 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__USB0_COHERENCY {0} \
    CONFIG.PSU__USB0__PERIPHERAL__ENABLE {1} \
    CONFIG.PSU__USB0__PERIPHERAL__IO {MIO 52 .. 63} \
-   CONFIG.PSU__USB0__REF_CLK_FREQ {100} \
-   CONFIG.PSU__USB0__REF_CLK_SEL {Ref Clk0} \
+   CONFIG.PSU__USB0__REF_CLK_FREQ {26} \
+   CONFIG.PSU__USB0__REF_CLK_SEL {Ref Clk3} \
    CONFIG.PSU__USB0__RESET__ENABLE {0} \
    CONFIG.PSU__USB1_COHERENCY {0} \
    CONFIG.PSU__USB1__PERIPHERAL__ENABLE {1} \
    CONFIG.PSU__USB1__PERIPHERAL__IO {MIO 64 .. 75} \
    CONFIG.PSU__USB1__RESET__ENABLE {0} \
-   CONFIG.PSU__USB2_0__EMIO__ENABLE {1} \
+   CONFIG.PSU__USB2_0__EMIO__ENABLE {0} \
    CONFIG.PSU__USB2_1__EMIO__ENABLE {0} \
    CONFIG.PSU__USB3_0__EMIO__ENABLE {0} \
    CONFIG.PSU__USB3_0__PERIPHERAL__ENABLE {1} \
@@ -1731,7 +1730,6 @@ proc create_root_design { parentCell } {
   # Create port connections
   connect_bd_net -net dp_aux_data_in_0_1 [get_bd_ports dp_aux_data_in_0] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_in]
   connect_bd_net -net dp_hot_plug_detect_0_1 [get_bd_ports dp_hot_plug_detect_0] [get_bd_pins zynq_ultra_ps_e_0/dp_hot_plug_detect]
-  connect_bd_net -net emio_hub_port_overcrnt_usb2_0_0_1 [get_bd_ports USB20_OCN] [get_bd_pins zynq_ultra_ps_e_0/emio_hub_port_overcrnt_usb2_0]
   connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_oe_n [get_bd_ports dp_aux_data_oe_n_0] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_oe_n]
   connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_out [get_bd_ports dp_aux_data_out_0] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_out]
 
