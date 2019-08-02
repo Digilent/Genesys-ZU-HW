@@ -1,5 +1,5 @@
 proc getPresetInfo {} {
-  return [dict create name {Genesys ZU -5EV} description {Genesys ZU -5EV}  vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 display_name {Genesys ZU -5EV} ]
+  return [dict create name {genesys_zu_5ev_preset} description {genesys_zu_5ev_preset}  vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 display_name {genesys_zu_5ev_preset} ]
 }
 
 proc validate_preset {IPINST} { return true }
@@ -78,8 +78,8 @@ proc apply_preset {IPINST} {
     CONFIG.PSU__GT__LINK_SPEED {HBR}  \
     CONFIG.PSU__GT__VLT_SWNG_LVL_4 {0}  \
     CONFIG.PSU__GT__PRE_EMPH_LVL_4 {0}  \
-    CONFIG.PSU__USB0__REF_CLK_SEL {Ref Clk0}  \
-    CONFIG.PSU__USB0__REF_CLK_FREQ {100}  \
+    CONFIG.PSU__USB0__REF_CLK_SEL {Ref Clk3}  \
+    CONFIG.PSU__USB0__REF_CLK_FREQ {26}  \
     CONFIG.PSU__DP__REF_CLK_SEL {Ref Clk2}  \
     CONFIG.PSU__DP__REF_CLK_FREQ {108}  \
     CONFIG.PSU__SATA__REF_CLK_SEL {<Select>}  \
@@ -418,7 +418,7 @@ proc apply_preset {IPINST} {
     CONFIG.PSU__USB3_0__PERIPHERAL__IO {GT Lane1}  \
     CONFIG.PSU__USB3_1__PERIPHERAL__ENABLE {0}  \
     CONFIG.PSU__USB3_0__EMIO__ENABLE {0}  \
-    CONFIG.PSU__USB2_0__EMIO__ENABLE {1}  \
+    CONFIG.PSU__USB2_0__EMIO__ENABLE {0}  \
     CONFIG.PSU__USB3_1__EMIO__ENABLE {0}  \
     CONFIG.PSU__USB2_1__EMIO__ENABLE {0}  \
     CONFIG.PSU__USE__USB3_0_HUB {0}  \

@@ -159,9 +159,9 @@ set_property IOSTANDARD LVCMOS18 [get_ports dp_hot_plug_detect_0]
 #set_property -dict { PACKAGE_PIN B3 DRIVE 6 IOSTANDARD LVCMOS12 } [get_ports { PCIE_W_DISABLE1_tri_io[0] }];  #IO_L9P_T1L_N4_AD12P_66 Sch=pcie_w_disable[1]
 
 ## USB 2.0 Overcurrent EMIO
-set_property IOSTANDARD LVCMOS12 [get_ports USB20_OCN]
-set_property PACKAGE_PIN D9 [get_ports USB20_OCN];    #IO_L18N_T2U_N11_AD2N_66 Sch=usb20_ocn
-set_property PULLUP true [get_ports USB20_OCN]
+#set_property IOSTANDARD LVCMOS12 [get_ports USB20_OCN]
+#set_property PACKAGE_PIN D9 [get_ports USB20_OCN];    #IO_L18N_T2U_N11_AD2N_66 Sch=usb20_ocn
+#set_property PULLUP true [get_ports USB20_OCN]
 
 ## Ethernet JTAG
 #set_property PACKAGE_PIN F7 [get_ports {eth_jtag_tri_io[0]}]
