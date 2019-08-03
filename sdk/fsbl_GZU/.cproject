@@ -29,7 +29,7 @@
 									<listOptionValue builtIn="false" value="../../fsbl_bsp/psu_cortexa53_0/include"/>
 								</option>
 								<option id="xilinx.gnu.compiler.inferred.swplatform.flags.1410497259" name="Software Platform Inferred Flags" superClass="xilinx.gnu.compiler.inferred.swplatform.flags" value="   " valueType="string"/>
-								<option id="xilinx.gnu.compiler.misc.other.1538347219" name="Other flags" superClass="xilinx.gnu.compiler.misc.other" value="-c -fmessage-length=0 -MT&quot;$@&quot; -Os -flto -ffat-lto-objects" valueType="string"/>
+								<option id="xilinx.gnu.compiler.misc.other.1538347219" name="Other flags" superClass="xilinx.gnu.compiler.misc.other" value="-c -fmessage-length=0 -MT&quot;$@&quot; -Os -ffat-lto-objects" valueType="string"/>
 								<option id="xilinx.gnu.compiler.symbols.defined.580024782" name="Defined symbols (-D)" superClass="xilinx.gnu.compiler.symbols.defined" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="ARMA53_64"/>
 								</option>
@@ -187,5 +187,12 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.xilinx.managedbuilder.ui.ARMA53GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/fsbl_GZU"/>
+		</configuration>
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/fsbl_GZU"/>
+		</configuration>
+	</storageModule>
 </cproject>
