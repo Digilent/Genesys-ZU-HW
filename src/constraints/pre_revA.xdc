@@ -145,14 +145,14 @@ set_property DCI_CASCADE {64} [get_iobanks 65]
 #set_property IOSTANDARD LVCMOS18 [get_ports {mcu_tri_io[3]}]
 
 ##DisplayPort AUX channel over EMIO
-set_property PACKAGE_PIN K12 [get_ports dp_aux_data_in_0];         #IO_L2N_AD14N_45/25 Sch=dp_aux_din
-set_property IOSTANDARD LVCMOS18 [get_ports dp_aux_data_in_0]
-set_property PACKAGE_PIN K13 [get_ports dp_aux_data_oe_n_0];       #IO_L2P_AD14P_45/25 Sch=dp_aux_doe
-set_property IOSTANDARD LVCMOS18 [get_ports dp_aux_data_oe_n_0]
-set_property PACKAGE_PIN J11 [get_ports dp_aux_data_out_0];        #IO_L1P_AD15P_45/25 Sch=dp_aux_dout
-set_property IOSTANDARD LVCMOS18 [get_ports dp_aux_data_out_0]
-set_property PACKAGE_PIN J10 [get_ports dp_hot_plug_detect_0];     #IO_L1N_AD15N_45/25 Sch=dp_aux_hotplug_detect
-set_property IOSTANDARD LVCMOS18 [get_ports dp_hot_plug_detect_0]
+set_property PACKAGE_PIN K12 [get_ports dp_aux_din];         #IO_L2N_AD14N_45/25 Sch=dp_aux_din
+set_property IOSTANDARD LVCMOS18 [get_ports dp_aux_din]
+set_property PACKAGE_PIN K13 [get_ports {dp_aux_doe[0]}];       #IO_L2P_AD14P_45/25 Sch=dp_aux_doe
+set_property IOSTANDARD LVCMOS18 [get_ports {dp_aux_doe[0]}]
+set_property PACKAGE_PIN J11 [get_ports dp_aux_dout];        #IO_L1P_AD15P_45/25 Sch=dp_aux_dout
+set_property IOSTANDARD LVCMOS18 [get_ports dp_aux_dout]
+set_property PACKAGE_PIN J10 [get_ports dp_aux_hotplug_detect];     #IO_L1N_AD15N_45/25 Sch=dp_aux_hotplug_detect
+set_property IOSTANDARD LVCMOS18 [get_ports dp_aux_hotplug_detect]
 
 ## Mini PCIe Auxiliary
 #set_property -dict { PACKAGE_PIN Y12   IOSTANDARD LVCMOS33 } [get_ports { PCIE_W_DISABLE2N_tri_io[0] }]; #IO_L12P_AD8P_44/24 Sch=pcie_w_disable2n
