@@ -126,6 +126,7 @@ set bCheckIPsPassed 1
 set bCheckIPs 1
 if { $bCheckIPs == 1 } {
    set list_check_ips "\ 
+xilinx.com:ip:util_vector_logic:2.0\
 xilinx.com:ip:zynq_ultra_ps_e:3.3\
 "
 
@@ -193,9 +194,17 @@ proc create_root_design { parentCell } {
 
   # Create ports
   set dp_aux_data_in_0 [ create_bd_port -dir I dp_aux_data_in_0 ]
-  set dp_aux_data_oe_n_0 [ create_bd_port -dir O dp_aux_data_oe_n_0 ]
+  set dp_aux_data_oe_n_0 [ create_bd_port -dir O -from 0 -to 0 dp_aux_data_oe_n_0 ]
   set dp_aux_data_out_0 [ create_bd_port -dir O dp_aux_data_out_0 ]
   set dp_hot_plug_detect_0 [ create_bd_port -dir I dp_hot_plug_detect_0 ]
+
+  # Create instance: util_vector_logic_0, and set properties
+  set util_vector_logic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_0 ]
+  set_property -dict [ list \
+   CONFIG.C_OPERATION {not} \
+   CONFIG.C_SIZE {1} \
+   CONFIG.LOGO_FILE {data/sym_notgate.png} \
+ ] $util_vector_logic_0
 
   # Create instance: zynq_ultra_ps_e_0, and set properties
   set zynq_ultra_ps_e_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 zynq_ultra_ps_e_0 ]
@@ -1730,7 +1739,8 @@ proc create_root_design { parentCell } {
   # Create port connections
   connect_bd_net -net dp_aux_data_in_0_1 [get_bd_ports dp_aux_data_in_0] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_in]
   connect_bd_net -net dp_hot_plug_detect_0_1 [get_bd_ports dp_hot_plug_detect_0] [get_bd_pins zynq_ultra_ps_e_0/dp_hot_plug_detect]
-  connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_oe_n [get_bd_ports dp_aux_data_oe_n_0] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_oe_n]
+  connect_bd_net -net util_vector_logic_0_Res [get_bd_ports dp_aux_data_oe_n_0] [get_bd_pins util_vector_logic_0/Res]
+  connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_oe_n [get_bd_pins util_vector_logic_0/Op1] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_oe_n]
   connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_out [get_bd_ports dp_aux_data_out_0] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_out]
 
   # Create address segments
