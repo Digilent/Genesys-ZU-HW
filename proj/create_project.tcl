@@ -96,11 +96,11 @@ puts "INFO: Project created:$proj_name"
 
 # Comment the following section, if there is no block design
 # Create block design
-source $origin_dir/src/bd/system.tcl
+set bd_tcl $origin_dir/src/bd/system.tcl
+source $bd_tcl
 
 # Generate the wrapper
-set design_name [get_bd_designs]
-add_files -norecurse [make_wrapper -files [get_files $design_name.bd] -top -force]
+add_files -norecurse [make_wrapper -files [get_files [get_property FILE_NAME [current_bd_design]]] -top -force]
 
 set obj [get_filesets sources_1]
 set_property "top" "${design_name}_wrapper" $obj
