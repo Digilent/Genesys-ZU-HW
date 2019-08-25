@@ -59,6 +59,7 @@
 #include "i2c_mux/i2c_mux.h"
 #include "i2c_driver/i2c_driver.h"
 #include "camera/camera.h"
+#include "mipi_csi_rx/mipi_csi_rx.h"
 
 int main()
 {
@@ -66,12 +67,16 @@ int main()
 
     print("MIPI CSI Standalone test\n\r");
 
-    XCsiSs_Config *csi_config = NULL;
-    XCsiSs csi_instance;
     u32 status = XST_SUCCESS;
     XIic i2c_camera;
+    XCsiSs csi_a, csi_b;
 
-    status = mipi_csi_rx_init();
+    status = mipi_csi_rx_init(&csi_a, XPAR_MIPI_CSI2_RX_SUBSYST_0_DEVICE_ID);
+    if (XST_SUCCESS != status) {
+    	print("CSI module initialization FAILED!\n\r");
+    	return -1;
+    }
+    status = mipi_csi_rx_init(&csi_b, XPAR_MIPI_CSI2_RX_SUBSYST_1_DEVICE_ID);
     if (XST_SUCCESS != status) {
     	print("CSI module initialization FAILED!\n\r");
     	return -1;
@@ -83,7 +88,7 @@ int main()
     	return -1;
     }
 
-    status = setup_interrupt_system(&i2c_camera);
+    status = setup_interrupt_system(&i2c_camera, &csi_a, &csi_b);
     if (XST_SUCCESS != status) {
     	print("Interrupt System initialization FAILED!\n\r");
     	return -1;
@@ -107,35 +112,70 @@ int main()
     }
     print("Camera init DONE!\n\r");
 
+    status = camera_get_id(&i2c_camera, MIPI_B, &camera_id);
+
+    printf("Camera ID: %x\n\r", camera_id);
+
+    /* Initialize the camera module */
+    status = camera_init(&i2c_camera, MIPI_B);
+    if (XST_SUCCESS != status) {
+    	print("Camera init FAILED\n\r");
+    	return -1;
+    }
+    print("Camera init DONE!\n\r");
+
+    status = XCsiSs_Activate(&csi_a, XCSI_ENABLE);
+    if (XST_SUCCESS != status) {
+		print("CSI SS activate FAILED!\n\r");
+		return -1;
+	}
+
+    status = XCsiSs_Activate(&csi_b, XCSI_ENABLE);
+    if (XST_SUCCESS != status) {
+		print("CSI SS activate FAILED!\n\r");
+		return -1;
+	}
+
+
     /* Set the camera mode */
-    status = camera_set_mode(&i2c_camera, MODE_HALFX_1080P_1920_1080_30fps_336M_MIPI);
+    status = camera_set_mode(&i2c_camera, MIPI_A, MODE_HALFX_1080P_1920_1080_30fps_336M_MIPI);
     if (XST_SUCCESS != status) {
     	print("Camera set mode FAILED!\n\r");
     	return -1;
     }
     print("Camera set mode DONE!\n\r");
 
+    /* Set the camera mode */
+    status = camera_set_mode(&i2c_camera, MIPI_B, MODE_HALFX_1080P_1920_1080_30fps_336M_MIPI);
+    if (XST_SUCCESS != status) {
+    	print("Camera set mode FAILED!\n\r");
+    	return -1;
+    }
+    print("Camera set mode DONE!\n\r");
     usleep(100000);
 
-    /* Get the data lane status */
-    u32 dl0_status = Xil_In32(XPAR_DPHY_0_BASEADDR + 0x1C);
-    u32 dl1_status = Xil_In32(XPAR_DPHY_0_BASEADDR + 0x20);
-    u32 dl2_status = Xil_In32(XPAR_DPHY_0_BASEADDR + 0x24);
-    u32 dl3_status = Xil_In32(XPAR_DPHY_0_BASEADDR + 0x28);
 
-    printf("Data Lane 0 status: %x\n\r", dl0_status);
-    printf("Data Lane 1 status: %x\n\r", dl1_status);
-    printf("Data Lane 2 status: %x\n\r", dl2_status);
-    printf("Data Lane 3 status: %x\n\r", dl3_status);
-
-    /* Get the clock lane status */
-    u32 cl_status = Xil_In32(XPAR_DPHY_0_BASEADDR + 0x18);
-
-    printf("Clock Lane status: %x\n\r", cl_status);
+//    /* Get the data lane status */
+//    u32 dl0_status = Xil_In32(XPAR_MIPI_CSI2_RX_SUBSYST_0_BASEADDR+XPAR_DPHY_0_BASEADDR + 0x1C);
+//    u32 dl1_status = Xil_In32(XPAR_MIPI_CSI2_RX_SUBSYST_0_BASEADDR+XPAR_DPHY_0_BASEADDR + 0x20);
+//    u32 dl2_status = Xil_In32(XPAR_MIPI_CSI2_RX_SUBSYST_0_BASEADDR+XPAR_DPHY_0_BASEADDR + 0x24);
+//    u32 dl3_status = Xil_In32(XPAR_MIPI_CSI2_RX_SUBSYST_0_BASEADDR+XPAR_DPHY_0_BASEADDR + 0x28);
+//
+//    printf("Data Lane 0 status: %x\n\r", dl0_status);
+//    printf("Data Lane 1 status: %x\n\r", dl1_status);
+//    printf("Data Lane 2 status: %x\n\r", dl2_status);
+//    printf("Data Lane 3 status: %x\n\r", dl3_status);
+//
+//    /* Get the clock lane status */
+//    u32 cl_status = Xil_In32(XPAR_MIPI_CSI2_RX_SUBSYST_0_BASEADDR+XPAR_DPHY_0_BASEADDR + 0x18);
+//
+//    printf("Clock Lane status: %x\n\r", cl_status);
 
     /* Get some info about the MIPI CSI subsystem */
-    XCsiSs_ReportCoreInfo(&csi_instance);
-    XCsiSs_GetLaneInfo(&csi_instance);
+    XCsiSs_ReportCoreInfo(&csi_a);
+    XCsiSs_GetLaneInfo(&csi_a);
+
+    while(1) ;
 
     cleanup_platform();
     return 0;

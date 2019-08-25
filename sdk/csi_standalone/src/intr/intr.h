@@ -12,7 +12,8 @@
 
 #include "xstatus.h"
 #include "xiic.h"
+#include "xcsiss.h"
 
-XStatus setup_interrupt_system(XIic *i2c_instance);
+XStatus setup_interrupt_system(XIic *i2c_instance, XCsiSs* csi_a, XCsiSs* csi_b);
 
 #endif /* SRC_INTR_INTR_H_ */

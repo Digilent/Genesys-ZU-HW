@@ -39,6 +39,6 @@ extern const camera_config_t g_camera_config[];
 XStatus camera_get_id(XIic *i2c_instance, u8 camera_module, u16 *camera_id);
 XStatus camera_init(XIic *i2c_instance, u8 camera_module);
 XStatus camera_write_reg(XIic *i2c_instance, u16 reg_addr, u8 reg_data);
-XStatus camera_set_mode(XIic *i2c_instance, camera_mode_t camera_mode);
+XStatus camera_set_mode(XIic *i2c_instance, u8 camera_module, camera_mode_t camera_mode);
 
 #endif /* SRC_CAMERA_CAMERA_H_ */

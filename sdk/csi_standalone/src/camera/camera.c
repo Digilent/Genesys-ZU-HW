@@ -260,31 +260,55 @@ XStatus camera_write_reg(XIic *i2c_instance, u16 reg_addr, u8 reg_data) {
 	return status;
 }
 
-XStatus camera_set_mode(XIic *i2c_instance, camera_mode_t camera_mode) {
+XStatus camera_set_mode(XIic *i2c_instance, u8 camera_module, camera_mode_t camera_mode) {
 	XStatus status = XST_SUCCESS;
 
 	if (camera_mode >= MODE_END) {
 		return XST_FAILURE;
 	}
 
-	switch (camera_mode) {
-	case MODE_HALFX_1080P_1920_1080_30fps_336M_MIPI: {
-		u16 index = 0;
-		for (index = 0; index < sizeof(g_halfx_1080p_30fps_336M_mipi_)/sizeof(g_halfx_1080p_30fps_336M_mipi_[0]); ++index) {
-			status = camera_write_reg(i2c_instance, g_halfx_1080p_30fps_336M_mipi_[index].addr, g_halfx_1080p_30fps_336M_mipi_[index].data);
-			if (XST_SUCCESS != status) {
-				return XST_FAILURE;
-			}
+	/* Initialize the i2c mux taking into account which camera module
+	 * do we want to address
+	 */
+	switch (camera_module) {
+	case 0: {
+		status = i2c_mux_init(i2c_instance, I2C_MUX_ADDR, CAMERA_MIPI_A);
+		if (XST_SUCCESS != status) {
+			return XST_FAILURE;
 		}
 		break;
 	}
-	case MODE_END: {
-		return XST_FAILURE;
+	case 1: {
+		status = i2c_mux_init(i2c_instance, I2C_MUX_ADDR, CAMERA_MIPI_B);
+		if (XST_SUCCESS != status) {
+			return XST_FAILURE;
+		}
+		break;
 	}
 	default: {
-		;
+		return XST_FAILURE;
 	}
 	}
+
+
+	switch (camera_mode) {
+		case MODE_HALFX_1080P_1920_1080_30fps_336M_MIPI:
+		{
+			u16 index = 0;
+			for (index = 0; index < sizeof(g_halfx_1080p_30fps_336M_mipi_)/sizeof(g_halfx_1080p_30fps_336M_mipi_[0]); ++index)
+			{
+				status = camera_write_reg(i2c_instance, g_halfx_1080p_30fps_336M_mipi_[index].addr, g_halfx_1080p_30fps_336M_mipi_[index].data);
+				if (XST_SUCCESS != status) {
+					return XST_FAILURE;
+				}
+			}
+			break;
+		}
+		default:
+			return XST_FAILURE;
+	}
+	// We power up the camera
+	camera_write_reg(i2c_instance, 0x3008, 0x02);
 
 	return XST_SUCCESS;
 }

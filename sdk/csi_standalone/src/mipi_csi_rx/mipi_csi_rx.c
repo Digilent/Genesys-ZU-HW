@@ -10,8 +10,9 @@
 #include "xcsiss.h"
 #include "xcsiss_hw.h"
 
-static XCsiSs g_csiss_instance;
 volatile interrupt_counts;
+
+static XStatus _mipi_csi_rx_set_intr(XCsiSs* p_drv_csiss);
 
 /*****************************************************************************/
 /**
@@ -30,6 +31,7 @@ volatile interrupt_counts;
 ******************************************************************************/
 void CsiSs_DphyEventHandler(void *InstancePtr, u32 Mask)
 {
+
 	xil_printf("+===> DPHY Level Error detected.\n\r");
 	interrupt_counts++;
 
@@ -150,7 +152,13 @@ void CsiSs_ProtLvlEventHandler(void *InstancePtr, u32 Mask)
 ******************************************************************************/
 void CsiSs_ErrEventHandler(void *InstancePtr, u32 Mask)
 {
+	//Xil_AssertVoid(InstancePtr == NULL);
+
 	XCsiSs *CsiSsInstance = (XCsiSs *)InstancePtr;
+
+	/* CSI SS driver does not check for interrupt enablement */
+	u32 ier = XCsi_GetIntrEnable(CsiSsInstance->CsiPtr);
+	Mask &= ier;
 
 	xil_printf("+===> Other Errors detected.\n\r");
 	interrupt_counts++;
@@ -230,31 +238,32 @@ void CsiSs_SPktEventHandler(void *InstancePtr, u32 Mask)
 ******************************************************************************/
 void CsiSs_FrameRcvdEventHandler(void *InstancePtr, u32 Mask)
 {
-	xil_printf("+=> Frame Receieved Event detected.\n\r");
+	XCsiSs* csiss = (XCsiSs*)InstancePtr;
+	xil_printf("%08x+=> Frame Received Event detected.\n\r", csiss->Config.BaseAddr);
 	interrupt_counts++;
 }
 
-XStatus mipi_csi_rx_init(void) {
+XStatus mipi_csi_rx_init(XCsiSs* p_drv_csiss, u32 dev_id) {
 	XStatus status = XST_SUCCESS;
 	XCsiSs_Config *csiss_config = NULL;
 
-	csiss_config = XCsiSs_LookupConfig(XPAR_CSI_0_DEVICE_ID);
+	csiss_config = XCsiSs_LookupConfig(dev_id);
 	if (NULL == csiss_config) {
 		print("CSI Lookup config FAILED!\n\r");
 		return XST_FAILURE;
 	}
 
-	status = XCsiSs_CfgInitialize(&g_csiss_instance, csiss_config, csiss_config->BaseAddr);
+	status = XCsiSs_CfgInitialize(p_drv_csiss, csiss_config, csiss_config->BaseAddr);
 	if (XST_SUCCESS != status) {
 		print("CSI Initialization FAILED!\n\r");
 		return XST_FAILURE;
 	}
 
 	/* Dump the configuration */
-	XCsiSs_ReportCoreInfo(&g_csiss_instance);
+	XCsiSs_ReportCoreInfo(p_drv_csiss);
 
 	/* Reset the subsystem */
-	status = XCsiSs_Reset(&g_csiss_instance);
+	status = XCsiSs_Reset(p_drv_csiss);
 	if (XST_SUCCESS != status) {
 		print("CSI Reset FAILED!\n\r");
 		return XST_FAILURE;
@@ -263,46 +272,47 @@ XStatus mipi_csi_rx_init(void) {
 	/* Disable the subsystem till the camera
 	 * and interrupts are configured
 	 */
-	XCsiSs_Activate(&g_csiss_instance, 0);
+	XCsiSs_Activate(p_drv_csiss, 0);
 	if (XST_SUCCESS != status) {
 		print("CSI Disabling FAILED!\n\r");
 		return XST_FAILURE;
 	}
 
 	/* Configure the subsystem for ActiveLanes and Interrupts
-	 * The minimum value of ActiveLanes is 0 and max value is
 	 * maximum lanes set in the design (max 3).
 	 * The interrupt mask can be selected from the bitmasks in
 	 * xcsiss_hw.h
 	 */
 	u8 ActiveLanes = XPAR_CSI_0_CSI_LANES;
-	u32 IntrRequest = XCSISS_ISR_ALLINTR_MASK;
+	u32 IntrRequest = XCSISS_ISR_ALLINTR_MASK & (~XCSISS_ISR_STOP_MASK) & (~XCSISS_ISR_FR_MASK);
 
-	status = XCsiSs_Configure(&g_csiss_instance, ActiveLanes, IntrRequest);
+	status = XCsiSs_Configure(p_drv_csiss, ActiveLanes, IntrRequest);
 	if (XST_SUCCESS != status) {
 		print("CSI Configuration FAILED!\n\r");
 		return XST_FAILURE;
 	}
 
+	_mipi_csi_rx_set_intr(p_drv_csiss);
+
 	return XST_SUCCESS;
 }
 
-XStatus mipi_csi_rx_set_intr(void) {
+static XStatus _mipi_csi_rx_set_intr(XCsiSs* p_drv_csiss) {
 	XStatus status = XST_SUCCESS;
 
 	/* Set the HPD interrupt handlers. */
-	XCsiSs_SetCallBack(&g_csiss_instance, XCSISS_HANDLER_DPHY,
-				CsiSs_DphyEventHandler, &g_csiss_instance);
-	XCsiSs_SetCallBack(&g_csiss_instance, XCSISS_HANDLER_PKTLVL,
-				CsiSs_PktLvlEventHandler, &g_csiss_instance);
-	XCsiSs_SetCallBack(&g_csiss_instance, XCSISS_HANDLER_PROTLVL,
-				CsiSs_ProtLvlEventHandler, &g_csiss_instance);
-	XCsiSs_SetCallBack(&g_csiss_instance, XCSISS_HANDLER_SHORTPACKET,
-				CsiSs_SPktEventHandler, &g_csiss_instance);
-	XCsiSs_SetCallBack(&g_csiss_instance, XCSISS_HANDLER_FRAMERECVD,
-				CsiSs_FrameRcvdEventHandler, &g_csiss_instance);
-	XCsiSs_SetCallBack(&g_csiss_instance, XCSISS_HANDLER_OTHERERROR,
-				CsiSs_ErrEventHandler, &g_csiss_instance);
+	XCsiSs_SetCallBack(p_drv_csiss, XCSISS_HANDLER_DPHY,
+				CsiSs_DphyEventHandler, p_drv_csiss);
+	XCsiSs_SetCallBack(p_drv_csiss, XCSISS_HANDLER_PKTLVL,
+				CsiSs_PktLvlEventHandler, p_drv_csiss);
+	XCsiSs_SetCallBack(p_drv_csiss, XCSISS_HANDLER_PROTLVL,
+				CsiSs_ProtLvlEventHandler, p_drv_csiss);
+	XCsiSs_SetCallBack(p_drv_csiss, XCSISS_HANDLER_SHORTPACKET,
+				CsiSs_SPktEventHandler, p_drv_csiss);
+	XCsiSs_SetCallBack(p_drv_csiss, XCSISS_HANDLER_FRAMERECVD,
+				CsiSs_FrameRcvdEventHandler, p_drv_csiss);
+	XCsiSs_SetCallBack(p_drv_csiss, XCSISS_HANDLER_OTHERERROR,
+				CsiSs_ErrEventHandler, p_drv_csiss);
 
 	return XST_SUCCESS;
 }

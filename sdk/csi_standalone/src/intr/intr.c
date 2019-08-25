@@ -7,10 +7,11 @@
 
 #include "intr.h"
 
-static volatile XScuGic_Config *gp_scugic_config = NULL;
-static volatile XScuGic g_scugic_instance;
+static XScuGic g_scugic_instance;
 
-XStatus setup_interrupt_system(XIic *i2c_instance) {
+XStatus setup_interrupt_system(XIic *i2c_instance, XCsiSs* csi_a, XCsiSs* csi_b) {
+	static XScuGic_Config *gp_scugic_config = NULL;
+
     /* Configure the Interrupt System */
 	gp_scugic_config = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
     if (NULL == gp_scugic_config) {
@@ -41,6 +42,30 @@ XStatus setup_interrupt_system(XIic *i2c_instance) {
 
 	/* Enable the interrupt for the i2c device */
 	XScuGic_Enable(&g_scugic_instance, XPAR_FABRIC_IIC_0_VEC_ID);
+
+	/*
+	 * Connect the interrupt handler that will be called when an
+	 * interrupt occurs for the device.
+	 */
+	status = XScuGic_Connect(&g_scugic_instance, XPAR_FABRIC_MIPI_CSI2_RX_SUBSYST_0_CSIRXSS_CSI_IRQ_INTR, (Xil_InterruptHandler)XCsiSs_IntrHandler, csi_a);
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Enable the interrupt for the i2c device */
+	XScuGic_Enable(&g_scugic_instance, XPAR_FABRIC_MIPI_CSI2_RX_SUBSYST_0_CSIRXSS_CSI_IRQ_INTR);
+
+	/*
+	 * Connect the interrupt handler that will be called when an
+	 * interrupt occurs for the device.
+	 */
+	status = XScuGic_Connect(&g_scugic_instance, XPAR_FABRIC_MIPI_CSI2_RX_SUBSYST_1_CSIRXSS_CSI_IRQ_INTR, (Xil_InterruptHandler)XCsiSs_IntrHandler, csi_b);
+	if (XST_SUCCESS != status) {
+		return status;
+	}
+
+	/* Enable the interrupt for the i2c device */
+	XScuGic_Enable(&g_scugic_instance, XPAR_FABRIC_MIPI_CSI2_RX_SUBSYST_1_CSIRXSS_CSI_IRQ_INTR);
 
     /* Connect the interrupt controller interrupt handler to the hardware
     	interrupt handling logic in the ARM processor. */
