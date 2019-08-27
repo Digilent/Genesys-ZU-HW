@@ -1,5 +1,5 @@
 proc getPresetInfo {} {
-  return [dict create name {Genesys ZU -5EV} description {Genesys ZU -5EV}  vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 display_name {Genesys ZU -5EV} ]
+  return [dict create name {zu_preset_revA} description {zu_preset_revA}  vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 display_name {zu_preset_revA} ]
 }
 
 proc validate_preset {IPINST} { return true }
@@ -75,7 +75,7 @@ proc apply_preset {IPINST} {
     CONFIG.PSU__GT__LINK_SPEED {HBR}  \
     CONFIG.PSU__GT__VLT_SWNG_LVL_4 {0}  \
     CONFIG.PSU__GT__PRE_EMPH_LVL_4 {0}  \
-    CONFIG.PSU__USB0__REF_CLK_SEL {Ref Clk0}  \
+    CONFIG.PSU__USB0__REF_CLK_SEL {Ref Clk3}  \
     CONFIG.PSU__USB0__REF_CLK_FREQ {100}  \
     CONFIG.PSU__DP__REF_CLK_SEL {Ref Clk2}  \
     CONFIG.PSU__DP__REF_CLK_FREQ {108}  \
@@ -494,7 +494,7 @@ proc apply_preset {IPINST} {
     CONFIG.PSU_MIO_0_DRIVE_STRENGTH {12}  \
     CONFIG.PSU_MIO_0_POLARITY {Default}  \
     CONFIG.PSU_MIO_0_INPUT_TYPE {cmos}  \
-    CONFIG.PSU_MIO_0_SLEW {fast}  \
+    CONFIG.PSU_MIO_0_SLEW {slow}  \
     CONFIG.PSU_MIO_0_DIRECTION {out}  \
     CONFIG.PSU_MIO_1_PULLUPDOWN {pullup}  \
     CONFIG.PSU_MIO_1_DRIVE_STRENGTH {12}  \
