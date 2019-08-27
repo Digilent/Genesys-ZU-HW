@@ -80,9 +80,9 @@ set_property DCI_CASCADE {64} [get_iobanks 65]
 #set_property IOSTANDARD LVCMOS18 [get_ports sysclk]
 
 ## MIPI A Port
-#set_property PACKAGE_PIN B8 [get_ports { MIPI_A_GPIO_tri_io[0] }]; #IO_L22N_T3U_N7_DBC_AD0N_66 Sch=mipi_a_pwup_ls
-#set_property IOSTANDARD LVCMOS12 [get_ports { MIPI_A_GPIO_tri_io[0] }]
-#set_property DRIVE 6 [get_ports { MIPI_A_GPIO_tri_io[0] }]
+set_property PACKAGE_PIN B8 [get_ports { gpio_emio_tri_io[1] }]; #IO_L22N_T3U_N7_DBC_AD0N_66 Sch=mipi_a_pwup_ls
+set_property IOSTANDARD LVCMOS12 [get_ports { gpio_emio_tri_io[1] }]
+set_property DRIVE 6 [get_ports { gpio_emio_tri_io[1] }]
 
 ## Commented, since it will be defined in IP XDC.
 ##set_property PACKAGE_PIN G1 [get_ports mipi_a_clk_p]
@@ -97,9 +97,9 @@ set_property DCI_CASCADE {64} [get_iobanks 65]
 ##set_property IOSTANDARD MIPI_DPHY_DCI [get_ports mipi_a_data_n[1]]
 
 ## MIPI B Port
-#set_property PACKAGE_PIN A9 [get_ports { MIPI_B_GPIO_tri_io[0] }]; #IO_L23P_T3U_N8_66 Sch=mipi_b_pwup_ls
-#set_property IOSTANDARD LVCMOS12 [get_ports { MIPI_B_GPIO_tri_io[0] }]
-#set_property DRIVE 6 [get_ports { MIPI_B_GPIO_tri_io[0] }]
+set_property PACKAGE_PIN A9 [get_ports { gpio_emio_tri_io[2] }]; #IO_L23P_T3U_N8_66 Sch=mipi_b_pwup_ls
+set_property IOSTANDARD LVCMOS12 [get_ports { gpio_emio_tri_io[2] }]
+set_property DRIVE 6 [get_ports { gpio_emio_tri_io[2] }]
 ## Commented, since it will be defined in IP XDC.
 ##set_property PACKAGE_PIN B5 [get_ports mipi_b_clk_p]
 ##set_property IOSTANDARD MIPI_DPHY_DCI [get_ports mipi_b_clk_p]
@@ -233,13 +233,13 @@ set_property IOSTANDARD LVCMOS18 [get_ports dp_aux_hotplug_detect]
 #set_property -dict { IOSTANDARD LVCMOS12 DRIVE 6 } [get_ports { clkgth_tri_io[*] }]
 
 ## MUX I2C
-#set_property -dict { PACKAGE_PIN F6    IOSTANDARD LVCMOS12 } [get_ports { mux_rst[0] }]; #IO_L15N_T2L_N5_AD11N_66 Sch=fpga_mux_rst
-#set_property PACKAGE_PIN G15 [get_ports { mux_scl_io }]; #IO_L9P_AD3P_46/26 Sch=mux_scl_ls
-#set_property PACKAGE_PIN G14 [get_ports { mux_sda_io }]; #IO_L9N_AD3N_46/26 Sch=mux_sda_ls
-#set_property IOSTANDARD LVCMOS33 [get_ports mux_scl_io]
-#set_property IOSTANDARD LVCMOS33 [get_ports mux_sda_io]
-#set_property PULLUP true [get_ports mux_scl_io]
-#set_property PULLUP true [get_ports mux_sda_io]
+set_property -dict { PACKAGE_PIN F6 IOSTANDARD LVCMOS12 DRIVE 6 } [get_ports { gpio_emio_tri_io[0] }]; #IO_L15N_T2L_N5_AD11N_66 Sch=fpga_mux_rst
+set_property PACKAGE_PIN G15 [get_ports { mux_scl_io }]; #IO_L9P_AD3P_46/26 Sch=mux_scl_ls
+set_property PACKAGE_PIN G14 [get_ports { mux_sda_io }]; #IO_L9N_AD3N_46/26 Sch=mux_sda_ls
+set_property IOSTANDARD LVCMOS33 [get_ports mux_scl_io]
+set_property IOSTANDARD LVCMOS33 [get_ports mux_sda_io]
+set_property PULLUP true [get_ports mux_scl_io]
+set_property PULLUP true [get_ports mux_sda_io]
 
 ## SYZYGY
 #set_property PACKAGE_PIN AB1 [get_ports {SYZYGY_D_P[0]}]

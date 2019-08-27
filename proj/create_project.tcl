@@ -10,7 +10,7 @@ puts "INFO: Creating new project in $dest_dir"
 cd $dest_dir
 
 # Set the reference directory for source file relative paths (by default the value is script directory path)
-set proj_name "ddr4"
+set proj_name "GZU5EV_demo"
 set part "xczu5ev-sfvc784-1-e"
 
 # Set the reference directory for source file relative paths (by default the value is script directory path)
@@ -96,11 +96,11 @@ puts "INFO: Project created:$proj_name"
 
 # Comment the following section, if there is no block design
 # Create block design
-source $origin_dir/src/bd/system.tcl
+set bd_tcl $origin_dir/src/bd/system.tcl
+source $bd_tcl
 
 # Generate the wrapper
-set design_name [get_bd_designs]
-add_files -norecurse [make_wrapper -files [get_files $design_name.bd] -top -force]
+add_files -norecurse [make_wrapper -files [get_files [get_property FILE_NAME [current_bd_design]]] -top -force]
 
 set obj [get_filesets sources_1]
 set_property "top" "${design_name}_wrapper" $obj
