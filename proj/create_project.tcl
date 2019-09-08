@@ -10,8 +10,8 @@ puts "INFO: Creating new project in $dest_dir"
 cd $dest_dir
 
 # Set the reference directory for source file relative paths (by default the value is script directory path)
-set proj_name "GZU5EV_demo"
-set part "xczu5ev-sfvc784-1-e"
+set proj_name "GZU3EG_demo"
+set part "xczu3eg-sfvc784-1-e"
 
 # Set the reference directory for source file relative paths (by default the value is script directory path)
 set origin_dir ".."
