@@ -4,4 +4,4 @@
 	branch = master
 [submodule "sdk/ZUCA-test"]
 	path = sdk/ZUCA-test
-	url = https://git.digilentinc.com/digilent/zuca/ZUCA-test.git
+	url = ../ZUCA-test.git
