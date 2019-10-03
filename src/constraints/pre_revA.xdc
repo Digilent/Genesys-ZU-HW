@@ -198,7 +198,6 @@ set_property -dict { PACKAGE_PIN A14    IOSTANDARD LVCMOS33 } [get_ports {UART_C
 #set_property PACKAGE_PIN B14 [get_ports {PMOD_tri_io[21]}];   #IO_L4N_AD12N_44/24 Sch=jd[8]
 #set_property PACKAGE_PIN D15 [get_ports {PMOD_tri_io[22]}];   #IO_L1P_AD15P_44/24 Sch=jd[9]
 #set_property PACKAGE_PIN A15 [get_ports {PMOD_tri_io[23]}];   #IO_L3N_AD13N_44/24 Sch=jd[10]
-
 #set_property IOSTANDARD LVCMOS33 [get_ports {PMOD_*}];
 
 
@@ -234,12 +233,12 @@ set_property -dict { PACKAGE_PIN C9    IOSTANDARD LVCMOS12 } [get_ports { pl_rgb
 
 ## MUX I2C
 set_property -dict { PACKAGE_PIN F6 IOSTANDARD LVCMOS12 DRIVE 6 } [get_ports { gpio_emio_tri_io[0] }]; #IO_L15N_T2L_N5_AD11N_66 Sch=fpga_mux_rst
-set_property PACKAGE_PIN G15 [get_ports { mux_scl_io }]; #IO_L9P_AD3P_46/26 Sch=mux_scl_ls
-set_property PACKAGE_PIN G14 [get_ports { mux_sda_io }]; #IO_L9N_AD3N_46/26 Sch=mux_sda_ls
-set_property IOSTANDARD LVCMOS33 [get_ports mux_scl_io]
-set_property IOSTANDARD LVCMOS33 [get_ports mux_sda_io]
-set_property PULLUP true [get_ports mux_scl_io]
-set_property PULLUP true [get_ports mux_sda_io]
+#set_property PACKAGE_PIN G15 [get_ports { mux_scl_io }]; #IO_L9P_AD3P_46/26 Sch=mux_scl_ls
+#set_property PACKAGE_PIN G14 [get_ports { mux_sda_io }]; #IO_L9N_AD3N_46/26 Sch=mux_sda_ls
+#set_property IOSTANDARD LVCMOS33 [get_ports mux_scl_io]
+#set_property IOSTANDARD LVCMOS33 [get_ports mux_sda_io]
+#set_property PULLUP true [get_ports mux_scl_io]
+#set_property PULLUP true [get_ports mux_sda_io]
 
 ## SYZYGY
 #set_property PACKAGE_PIN AB1 [get_ports {SYZYGY_D_P[0]}]
