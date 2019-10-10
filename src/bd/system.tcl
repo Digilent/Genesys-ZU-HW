@@ -135,6 +135,7 @@ xilinx.com:ip:proc_sys_reset:5.0\
 xilinx.com:ip:util_vector_logic:2.0\
 xilinx.com:ip:xlconcat:2.1\
 xilinx.com:ip:zynq_ultra_ps_e:3.3\
+xilinx.com:ip:xlconstant:1.1\
 "
 
    set list_ips_missing ""
@@ -163,6 +164,229 @@ if { $bCheckIPsPassed != 1 } {
 # DESIGN PROCs
 ##################################################################
 
+
+# Hierarchical cell: short_loopback_tests
+proc create_hier_cell_short_loopback_tests { parentCell nameHier } {
+
+  variable script_folder
+
+  if { $parentCell eq "" || $nameHier eq "" } {
+     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_short_loopback_tests() - Empty argument(s)!"}
+     return
+  }
+
+  # Get object for parentCell
+  set parentObj [get_bd_cells $parentCell]
+  if { $parentObj == "" } {
+     catch {common::send_msg_id "BD_TCL-100" "ERROR" "Unable to find parent cell <$parentCell>!"}
+     return
+  }
+
+  # Make sure parentObj is hier blk
+  set parentType [get_property TYPE $parentObj]
+  if { $parentType ne "hier" } {
+     catch {common::send_msg_id "BD_TCL-101" "ERROR" "Parent <$parentObj> has TYPE = <$parentType>. Expected to be <hier>."}
+     return
+  }
+
+  # Save current instance; Restore later
+  set oldCurInst [current_bd_instance .]
+
+  # Set parent object as current
+  current_bd_instance $parentObj
+
+  # Create cell and set as current instance
+  set hier_obj [create_bd_cell -type hier $nameHier]
+  current_bd_instance $hier_obj
+
+  # Create interface pins
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI1
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI2
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI3
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI4
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI5
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI6
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 ffc_a
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 ffc_a1
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 ffc_b
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 ffc_b1
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 fmc_la_00_n
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 fmc_la_00_p
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 fmc_la_01_n
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 fmc_la_01_p
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 fmc_prsnt
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pmod
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pmod2
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 syszygy_1
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 syzygy_2
+
+
+  # Create pins
+  create_bd_pin -dir I -type clk s_axi_aclk
+  create_bd_pin -dir I -type rst s_axi_aresetn
+
+  # Create instance: fmc_prsnt, and set properties
+  set fmc_prsnt [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 fmc_prsnt ]
+  set_property -dict [ list \
+   CONFIG.C_GPIO_WIDTH {1} \
+ ] $fmc_prsnt
+
+  # Create instance: la_00, and set properties
+  set la_00 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 la_00 ]
+  set_property -dict [ list \
+   CONFIG.C_GPIO2_WIDTH {17} \
+   CONFIG.C_GPIO_WIDTH {17} \
+   CONFIG.C_IS_DUAL {1} \
+ ] $la_00
+
+  # Create instance: la_01, and set properties
+  set la_01 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 la_01 ]
+  set_property -dict [ list \
+   CONFIG.C_GPIO2_WIDTH {17} \
+   CONFIG.C_GPIO_WIDTH {17} \
+   CONFIG.C_IS_DUAL {1} \
+ ] $la_01
+
+  # Create instance: mipi_ffc_a, and set properties
+  set mipi_ffc_a [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 mipi_ffc_a ]
+  set_property -dict [ list \
+   CONFIG.C_GPIO2_WIDTH {2} \
+   CONFIG.C_GPIO_WIDTH {2} \
+   CONFIG.C_IS_DUAL {1} \
+ ] $mipi_ffc_a
+
+  # Create instance: mipi_ffc_b, and set properties
+  set mipi_ffc_b [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 mipi_ffc_b ]
+  set_property -dict [ list \
+   CONFIG.C_GPIO2_WIDTH {2} \
+   CONFIG.C_GPIO_WIDTH {2} \
+   CONFIG.C_IS_DUAL {1} \
+ ] $mipi_ffc_b
+
+  # Create instance: pmods, and set properties
+  set pmods [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 pmods ]
+  set_property -dict [ list \
+   CONFIG.C_GPIO2_WIDTH {8} \
+   CONFIG.C_GPIO_WIDTH {8} \
+   CONFIG.C_IS_DUAL {1} \
+ ] $pmods
+
+  # Create instance: syszygy, and set properties
+  set syszygy [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 syszygy ]
+  set_property -dict [ list \
+   CONFIG.C_GPIO2_WIDTH {12} \
+   CONFIG.C_GPIO_WIDTH {12} \
+   CONFIG.C_IS_DUAL {1} \
+ ] $syszygy
+
+  # Create interface connections
+  connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins S_AXI] [get_bd_intf_pins pmods/S_AXI]
+  connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins pmod] [get_bd_intf_pins pmods/GPIO]
+  connect_bd_intf_net -intf_net Conn3 [get_bd_intf_pins pmod2] [get_bd_intf_pins pmods/GPIO2]
+  connect_bd_intf_net -intf_net Conn4 [get_bd_intf_pins fmc_prsnt] [get_bd_intf_pins fmc_prsnt/GPIO]
+  connect_bd_intf_net -intf_net Conn5 [get_bd_intf_pins S_AXI1] [get_bd_intf_pins fmc_prsnt/S_AXI]
+  connect_bd_intf_net -intf_net Conn6 [get_bd_intf_pins fmc_la_00_n] [get_bd_intf_pins la_00/GPIO2]
+  connect_bd_intf_net -intf_net Conn7 [get_bd_intf_pins fmc_la_01_p] [get_bd_intf_pins la_01/GPIO]
+  connect_bd_intf_net -intf_net Conn8 [get_bd_intf_pins fmc_la_00_p] [get_bd_intf_pins la_00/GPIO]
+  connect_bd_intf_net -intf_net Conn9 [get_bd_intf_pins fmc_la_01_n] [get_bd_intf_pins la_01/GPIO2]
+  connect_bd_intf_net -intf_net Conn10 [get_bd_intf_pins S_AXI2] [get_bd_intf_pins la_00/S_AXI]
+  connect_bd_intf_net -intf_net Conn11 [get_bd_intf_pins S_AXI3] [get_bd_intf_pins la_01/S_AXI]
+  connect_bd_intf_net -intf_net Conn12 [get_bd_intf_pins syszygy_1] [get_bd_intf_pins syszygy/GPIO]
+  connect_bd_intf_net -intf_net Conn13 [get_bd_intf_pins syzygy_2] [get_bd_intf_pins syszygy/GPIO2]
+  connect_bd_intf_net -intf_net Conn14 [get_bd_intf_pins S_AXI4] [get_bd_intf_pins syszygy/S_AXI]
+  connect_bd_intf_net -intf_net Conn15 [get_bd_intf_pins ffc_a] [get_bd_intf_pins mipi_ffc_a/GPIO]
+  connect_bd_intf_net -intf_net Conn16 [get_bd_intf_pins ffc_a1] [get_bd_intf_pins mipi_ffc_a/GPIO2]
+  connect_bd_intf_net -intf_net Conn17 [get_bd_intf_pins S_AXI5] [get_bd_intf_pins mipi_ffc_a/S_AXI]
+  connect_bd_intf_net -intf_net Conn18 [get_bd_intf_pins ffc_b] [get_bd_intf_pins mipi_ffc_b/GPIO]
+  connect_bd_intf_net -intf_net Conn19 [get_bd_intf_pins ffc_b1] [get_bd_intf_pins mipi_ffc_b/GPIO2]
+  connect_bd_intf_net -intf_net Conn20 [get_bd_intf_pins S_AXI6] [get_bd_intf_pins mipi_ffc_b/S_AXI]
+
+  # Create port connections
+  connect_bd_net -net s_axi_aclk_1 [get_bd_pins s_axi_aclk] [get_bd_pins fmc_prsnt/s_axi_aclk] [get_bd_pins la_00/s_axi_aclk] [get_bd_pins la_01/s_axi_aclk] [get_bd_pins mipi_ffc_a/s_axi_aclk] [get_bd_pins mipi_ffc_b/s_axi_aclk] [get_bd_pins pmods/s_axi_aclk] [get_bd_pins syszygy/s_axi_aclk]
+  connect_bd_net -net s_axi_aresetn_1 [get_bd_pins s_axi_aresetn] [get_bd_pins fmc_prsnt/s_axi_aresetn] [get_bd_pins la_00/s_axi_aresetn] [get_bd_pins la_01/s_axi_aresetn] [get_bd_pins mipi_ffc_a/s_axi_aresetn] [get_bd_pins mipi_ffc_b/s_axi_aresetn] [get_bd_pins pmods/s_axi_aresetn] [get_bd_pins syszygy/s_axi_aresetn]
+
+  # Restore current instance
+  current_bd_instance $oldCurInst
+}
+
+# Hierarchical cell: set_vadj_level
+proc create_hier_cell_set_vadj_level { parentCell nameHier } {
+
+  variable script_folder
+
+  if { $parentCell eq "" || $nameHier eq "" } {
+     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_set_vadj_level() - Empty argument(s)!"}
+     return
+  }
+
+  # Get object for parentCell
+  set parentObj [get_bd_cells $parentCell]
+  if { $parentObj == "" } {
+     catch {common::send_msg_id "BD_TCL-100" "ERROR" "Unable to find parent cell <$parentCell>!"}
+     return
+  }
+
+  # Make sure parentObj is hier blk
+  set parentType [get_property TYPE $parentObj]
+  if { $parentType ne "hier" } {
+     catch {common::send_msg_id "BD_TCL-101" "ERROR" "Parent <$parentObj> has TYPE = <$parentType>. Expected to be <hier>."}
+     return
+  }
+
+  # Save current instance; Restore later
+  set oldCurInst [current_bd_instance .]
+
+  # Set parent object as current
+  current_bd_instance $parentObj
+
+  # Create cell and set as current instance
+  set hier_obj [create_bd_cell -type hier $nameHier]
+  current_bd_instance $hier_obj
+
+  # Create interface pins
+
+  # Create pins
+  create_bd_pin -dir O -from 0 -to 0 vadj_auton
+  create_bd_pin -dir O -from 0 -to 0 vadj_level_0
+  create_bd_pin -dir O -from 0 -to 0 vadj_level_1
+
+  # Create instance: vadj_auton, and set properties
+  set vadj_auton [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 vadj_auton ]
+
+  # Create instance: vadj_level_0, and set properties
+  set vadj_level_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 vadj_level_0 ]
+
+  # Create instance: vadj_level_1, and set properties
+  set vadj_level_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 vadj_level_1 ]
+
+  # Create port connections
+  connect_bd_net -net vadj_auton_dout [get_bd_pins vadj_auton] [get_bd_pins vadj_auton/dout]
+  connect_bd_net -net vadj_level_0_dout [get_bd_pins vadj_level_0] [get_bd_pins vadj_level_0/dout]
+  connect_bd_net -net vadj_level_1_dout [get_bd_pins vadj_level_1] [get_bd_pins vadj_level_1/dout]
+
+  # Restore current instance
+  current_bd_instance $oldCurInst
+}
 
 
 # Procedure to create entire design; Provide argument to make
@@ -200,7 +424,33 @@ proc create_root_design { parentCell } {
   # Create interface ports
   set UART_CTL [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:uart_rtl:1.0 UART_CTL ]
 
+  set ffc_a [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 ffc_a ]
+
+  set ffc_a1 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 ffc_a1 ]
+
+  set ffc_b [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 ffc_b ]
+
+  set ffc_b1 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 ffc_b1 ]
+
+  set fmc_la_00_n [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 fmc_la_00_n ]
+
+  set fmc_la_00_p [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 fmc_la_00_p ]
+
+  set fmc_la_01_n [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 fmc_la_01_n ]
+
+  set fmc_la_01_p [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 fmc_la_01_p ]
+
+  set fmc_prsnt [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 fmc_prsnt ]
+
   set gpio_emio [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 gpio_emio ]
+
+  set pmod [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pmod ]
+
+  set pmod2 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pmod2 ]
+
+  set syzygy_1 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 syzygy_1 ]
+
+  set syzygy_2 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 syzygy_2 ]
 
 
   # Create ports
@@ -212,6 +462,9 @@ proc create_root_design { parentCell } {
   set pl_leds [ create_bd_port -dir O -from 3 -to 0 pl_leds ]
   set pl_rgb_led [ create_bd_port -dir O -from 2 -to 0 pl_rgb_led ]
   set pl_switches [ create_bd_port -dir I -from 3 -to 0 pl_switches ]
+  set vadj_auton [ create_bd_port -dir O -from 0 -to 0 vadj_auton ]
+  set vadj_level_0 [ create_bd_port -dir O -from 0 -to 0 vadj_level_0 ]
+  set vadj_level_1 [ create_bd_port -dir O -from 0 -to 0 vadj_level_1 ]
 
   # Create instance: axi_gpio_btn, and set properties
   set axi_gpio_btn [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_btn ]
@@ -244,7 +497,7 @@ proc create_root_design { parentCell } {
   # Create instance: ps8_0_axi_periph, and set properties
   set ps8_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 ps8_0_axi_periph ]
   set_property -dict [ list \
-   CONFIG.NUM_MI {5} \
+   CONFIG.NUM_MI {11} \
  ] $ps8_0_axi_periph
 
   # Create instance: pwm_rgb_led, and set properties
@@ -252,6 +505,12 @@ proc create_root_design { parentCell } {
 
   # Create instance: rst_ps8_0_50M, and set properties
   set rst_ps8_0_50M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_ps8_0_50M ]
+
+  # Create instance: set_vadj_level
+  create_hier_cell_set_vadj_level [current_bd_instance .] set_vadj_level
+
+  # Create instance: short_loopback_tests
+  create_hier_cell_short_loopback_tests [current_bd_instance .] short_loopback_tests
 
   # Create instance: util_vector_logic_0, and set properties
   set util_vector_logic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_0 ]
@@ -1031,7 +1290,7 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ {50} \
    CONFIG.PSU__CRL_APB__PL0_REF_CTRL__SRCSEL {IOPLL} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__ACT_FREQMHZ {250.000000} \
-   CONFIG.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR0 {6} \
+   CONFIG.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR0 {4} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR1 {1} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__FREQMHZ {100} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__SRCSEL {RPLL} \
@@ -1797,6 +2056,26 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M01_AXI [get_bd_intf_pins axi_gpio_led/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M01_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M02_AXI [get_bd_intf_pins axi_gpio_sw/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M02_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M03_AXI [get_bd_intf_pins ps8_0_axi_periph/M03_AXI] [get_bd_intf_pins pwm_rgb_led/S_AXI]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M04_AXI [get_bd_intf_pins ps8_0_axi_periph/M04_AXI] [get_bd_intf_pins short_loopback_tests/S_AXI]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M05_AXI [get_bd_intf_pins ps8_0_axi_periph/M05_AXI] [get_bd_intf_pins short_loopback_tests/S_AXI1]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M06_AXI [get_bd_intf_pins ps8_0_axi_periph/M06_AXI] [get_bd_intf_pins short_loopback_tests/S_AXI2]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M07_AXI [get_bd_intf_pins ps8_0_axi_periph/M07_AXI] [get_bd_intf_pins short_loopback_tests/S_AXI3]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M08_AXI [get_bd_intf_pins ps8_0_axi_periph/M08_AXI] [get_bd_intf_pins short_loopback_tests/S_AXI4]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M09_AXI [get_bd_intf_pins ps8_0_axi_periph/M09_AXI] [get_bd_intf_pins short_loopback_tests/S_AXI5]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M10_AXI [get_bd_intf_pins ps8_0_axi_periph/M10_AXI] [get_bd_intf_pins short_loopback_tests/S_AXI6]
+  connect_bd_intf_net -intf_net short_loopback_tests_GPIO2_0 [get_bd_intf_ports fmc_la_00_n] [get_bd_intf_pins short_loopback_tests/fmc_la_00_n]
+  connect_bd_intf_net -intf_net short_loopback_tests_GPIO2_1 [get_bd_intf_ports fmc_la_01_n] [get_bd_intf_pins short_loopback_tests/fmc_la_01_n]
+  connect_bd_intf_net -intf_net short_loopback_tests_GPIO2_2 [get_bd_intf_ports syzygy_2] [get_bd_intf_pins short_loopback_tests/syzygy_2]
+  connect_bd_intf_net -intf_net short_loopback_tests_GPIO2_3 [get_bd_intf_ports ffc_a1] [get_bd_intf_pins short_loopback_tests/ffc_a1]
+  connect_bd_intf_net -intf_net short_loopback_tests_GPIO2_4 [get_bd_intf_ports ffc_b1] [get_bd_intf_pins short_loopback_tests/ffc_b1]
+  connect_bd_intf_net -intf_net short_loopback_tests_GPIO_0 [get_bd_intf_ports fmc_prsnt] [get_bd_intf_pins short_loopback_tests/fmc_prsnt]
+  connect_bd_intf_net -intf_net short_loopback_tests_GPIO_1 [get_bd_intf_ports fmc_la_01_p] [get_bd_intf_pins short_loopback_tests/fmc_la_01_p]
+  connect_bd_intf_net -intf_net short_loopback_tests_GPIO_2 [get_bd_intf_ports fmc_la_00_p] [get_bd_intf_pins short_loopback_tests/fmc_la_00_p]
+  connect_bd_intf_net -intf_net short_loopback_tests_GPIO_3 [get_bd_intf_ports syzygy_1] [get_bd_intf_pins short_loopback_tests/syszygy_1]
+  connect_bd_intf_net -intf_net short_loopback_tests_GPIO_4 [get_bd_intf_ports ffc_a] [get_bd_intf_pins short_loopback_tests/ffc_a]
+  connect_bd_intf_net -intf_net short_loopback_tests_GPIO_5 [get_bd_intf_ports ffc_b] [get_bd_intf_pins short_loopback_tests/ffc_b]
+  connect_bd_intf_net -intf_net short_loopback_tests_gpio_rtl_0 [get_bd_intf_ports pmod] [get_bd_intf_pins short_loopback_tests/pmod]
+  connect_bd_intf_net -intf_net short_loopback_tests_gpio_rtl_1 [get_bd_intf_ports pmod2] [get_bd_intf_pins short_loopback_tests/pmod2]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_GPIO_0 [get_bd_intf_ports gpio_emio] [get_bd_intf_pins zynq_ultra_ps_e_0/GPIO_0]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_LPD [get_bd_intf_pins ps8_0_axi_periph/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_LPD]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_UART_1 [get_bd_intf_ports UART_CTL] [get_bd_intf_pins zynq_ultra_ps_e_0/UART_1]
@@ -1810,20 +2089,30 @@ proc create_root_design { parentCell } {
   connect_bd_net -net pl_buttons_1 [get_bd_ports pl_buttons] [get_bd_pins axi_gpio_btn/gpio_io_i]
   connect_bd_net -net pl_switches_1 [get_bd_ports pl_switches] [get_bd_pins axi_gpio_sw/gpio_io_i]
   connect_bd_net -net pwm_rgb_0_RGB [get_bd_ports pl_rgb_led] [get_bd_pins pwm_rgb_led/RGB]
-  connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn [get_bd_pins axi_gpio_btn/s_axi_aresetn] [get_bd_pins axi_gpio_led/s_axi_aresetn] [get_bd_pins axi_gpio_sw/s_axi_aresetn] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/M03_ARESETN] [get_bd_pins ps8_0_axi_periph/M04_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins pwm_rgb_led/s_axi_aresetn] [get_bd_pins rst_ps8_0_50M/peripheral_aresetn]
+  connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn [get_bd_pins axi_gpio_btn/s_axi_aresetn] [get_bd_pins axi_gpio_led/s_axi_aresetn] [get_bd_pins axi_gpio_sw/s_axi_aresetn] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/M03_ARESETN] [get_bd_pins ps8_0_axi_periph/M04_ARESETN] [get_bd_pins ps8_0_axi_periph/M05_ARESETN] [get_bd_pins ps8_0_axi_periph/M06_ARESETN] [get_bd_pins ps8_0_axi_periph/M07_ARESETN] [get_bd_pins ps8_0_axi_periph/M08_ARESETN] [get_bd_pins ps8_0_axi_periph/M09_ARESETN] [get_bd_pins ps8_0_axi_periph/M10_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins pwm_rgb_led/s_axi_aresetn] [get_bd_pins rst_ps8_0_50M/peripheral_aresetn] [get_bd_pins short_loopback_tests/s_axi_aresetn]
   connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn1 [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins rst_ps8_0_50M/interconnect_aresetn]
+  connect_bd_net -net set_vadj_level_dout_0 [get_bd_ports vadj_level_0] [get_bd_pins set_vadj_level/vadj_level_0]
+  connect_bd_net -net set_vadj_level_dout_1 [get_bd_ports vadj_auton] [get_bd_pins set_vadj_level/vadj_auton]
+  connect_bd_net -net set_vadj_level_dout_2 [get_bd_ports vadj_level_1] [get_bd_pins set_vadj_level/vadj_level_1]
   connect_bd_net -net util_vector_logic_0_Res [get_bd_ports dp_aux_doe] [get_bd_pins util_vector_logic_0/Res]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins xlconcat_0/dout] [get_bd_pins zynq_ultra_ps_e_0/pl_ps_irq0]
   connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_oe_n [get_bd_pins util_vector_logic_0/Op1] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_oe_n]
   connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_out [get_bd_ports dp_aux_dout] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_out]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins axi_gpio_btn/s_axi_aclk] [get_bd_pins axi_gpio_led/s_axi_aclk] [get_bd_pins axi_gpio_sw/s_axi_aclk] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins ps8_0_axi_periph/M02_ACLK] [get_bd_pins ps8_0_axi_periph/M03_ACLK] [get_bd_pins ps8_0_axi_periph/M04_ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins pwm_rgb_led/s_axi_aclk] [get_bd_pins rst_ps8_0_50M/slowest_sync_clk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins axi_gpio_btn/s_axi_aclk] [get_bd_pins axi_gpio_led/s_axi_aclk] [get_bd_pins axi_gpio_sw/s_axi_aclk] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins ps8_0_axi_periph/M02_ACLK] [get_bd_pins ps8_0_axi_periph/M03_ACLK] [get_bd_pins ps8_0_axi_periph/M04_ACLK] [get_bd_pins ps8_0_axi_periph/M05_ACLK] [get_bd_pins ps8_0_axi_periph/M06_ACLK] [get_bd_pins ps8_0_axi_periph/M07_ACLK] [get_bd_pins ps8_0_axi_periph/M08_ACLK] [get_bd_pins ps8_0_axi_periph/M09_ACLK] [get_bd_pins ps8_0_axi_periph/M10_ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins pwm_rgb_led/s_axi_aclk] [get_bd_pins rst_ps8_0_50M/slowest_sync_clk] [get_bd_pins short_loopback_tests/s_axi_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins rst_ps8_0_50M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0]
 
   # Create address segments
   create_bd_addr_seg -range 0x00001000 -offset 0x80043000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_gpio_sw/S_AXI/Reg] SEG_axi_gpio_0_Reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x80001000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/pmods/S_AXI/Reg] SEG_axi_gpio_0_Reg1
   create_bd_addr_seg -range 0x00001000 -offset 0x80044000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_gpio_btn/S_AXI/Reg] SEG_axi_gpio_1_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x80045000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_gpio_led/S_AXI/Reg] SEG_axi_gpio_2_Reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x80002000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/fmc_prsnt/S_AXI/Reg] SEG_fmc_prsnt_Reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x80003000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/la_00/S_AXI/Reg] SEG_la_00_Reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x80004000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/la_01/S_AXI/Reg] SEG_la_01_Reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x80006000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/mipi_ffc_a/S_AXI/Reg] SEG_mipi_ffc_a_Reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x80007000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/mipi_ffc_b/S_AXI/Reg] SEG_mipi_ffc_b_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs pwm_rgb_led/S_AXI/S_AXI_reg] SEG_pwm_rgb_led_S_AXI_reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x80005000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/syszygy/S_AXI/Reg] SEG_syszygy_Reg
 
 
   # Restore current instance
