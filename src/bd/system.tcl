@@ -607,6 +607,12 @@ proc create_root_design { parentCell } {
 
   set gpio_emio [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 gpio_emio ]
 
+  set pl_buttons [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pl_buttons ]
+
+  set pl_leds [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pl_leds ]
+
+  set pl_switches [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pl_switches ]
+
   set pmod [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pmod ]
 
   set pmod2 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pmod2 ]
@@ -626,10 +632,7 @@ proc create_root_design { parentCell } {
   set dp_aux_doe [ create_bd_port -dir O -from 0 -to 0 dp_aux_doe ]
   set dp_aux_dout [ create_bd_port -dir O dp_aux_dout ]
   set dp_aux_hotplug_detect [ create_bd_port -dir I dp_aux_hotplug_detect ]
-  set pl_buttons [ create_bd_port -dir I -from 4 -to 0 pl_buttons ]
-  set pl_leds [ create_bd_port -dir O -from 3 -to 0 pl_leds ]
   set pl_rgb_led [ create_bd_port -dir O -from 2 -to 0 pl_rgb_led ]
-  set pl_switches [ create_bd_port -dir I -from 3 -to 0 pl_switches ]
   set vadj_auton [ create_bd_port -dir O -from 0 -to 0 vadj_auton ]
   set vadj_level_0 [ create_bd_port -dir O -from 0 -to 0 vadj_level_0 ]
   set vadj_level_1 [ create_bd_port -dir O -from 0 -to 0 vadj_level_1 ]
@@ -2235,6 +2238,9 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net audio_test_M_AXI_S2MM [get_bd_intf_pins audio_test/M_AXI_S2MM] [get_bd_intf_pins axi_smc/S01_AXI]
   connect_bd_intf_net -intf_net audio_test_M_AXI_S2MM1 [get_bd_intf_pins audio_test/M_AXI_S2MM1] [get_bd_intf_pins axi_smc/S03_AXI]
   connect_bd_intf_net -intf_net audio_test_iic_rtl_0 [get_bd_intf_ports aud] [get_bd_intf_pins audio_test/iic_rtl_0]
+  connect_bd_intf_net -intf_net axi_gpio_btn_GPIO [get_bd_intf_ports pl_buttons] [get_bd_intf_pins axi_gpio_btn/GPIO]
+  connect_bd_intf_net -intf_net axi_gpio_led_GPIO [get_bd_intf_ports pl_leds] [get_bd_intf_pins axi_gpio_led/GPIO]
+  connect_bd_intf_net -intf_net axi_gpio_sw_GPIO [get_bd_intf_ports pl_switches] [get_bd_intf_pins axi_gpio_sw/GPIO]
   connect_bd_intf_net -intf_net axi_smc_M00_AXI [get_bd_intf_pins axi_smc/M00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/S_AXI_HPC0_FPD]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M00_AXI [get_bd_intf_pins axi_gpio_btn/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M00_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M01_AXI [get_bd_intf_pins axi_gpio_led/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M01_AXI]
@@ -2282,11 +2288,8 @@ proc create_root_design { parentCell } {
   connect_bd_net -net audio_test_s2mm_introut_1 [get_bd_pins audio_test/s2mm_introut_1] [get_bd_pins xlconcat_0/In5]
   connect_bd_net -net axi_gpio_0_ip2intc_irpt [get_bd_pins axi_gpio_sw/ip2intc_irpt] [get_bd_pins xlconcat_0/In0]
   connect_bd_net -net axi_gpio_1_ip2intc_irpt [get_bd_pins axi_gpio_btn/ip2intc_irpt] [get_bd_pins xlconcat_0/In1]
-  connect_bd_net -net axi_gpio_2_gpio_io_o [get_bd_ports pl_leds] [get_bd_pins axi_gpio_led/gpio_io_o]
   connect_bd_net -net dp_aux_data_in_0_1 [get_bd_ports dp_aux_din] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_in]
   connect_bd_net -net dp_hot_plug_detect_0_1 [get_bd_ports dp_aux_hotplug_detect] [get_bd_pins zynq_ultra_ps_e_0/dp_hot_plug_detect]
-  connect_bd_net -net pl_buttons_1 [get_bd_ports pl_buttons] [get_bd_pins axi_gpio_btn/gpio_io_i]
-  connect_bd_net -net pl_switches_1 [get_bd_ports pl_switches] [get_bd_pins axi_gpio_sw/gpio_io_i]
   connect_bd_net -net pwm_rgb_0_RGB [get_bd_ports pl_rgb_led] [get_bd_pins pwm_rgb_led/RGB]
   connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn [get_bd_pins audio_test/axi_resetn] [get_bd_pins axi_gpio_btn/s_axi_aresetn] [get_bd_pins axi_gpio_led/s_axi_aresetn] [get_bd_pins axi_gpio_sw/s_axi_aresetn] [get_bd_pins axi_smc/aresetn] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/M03_ARESETN] [get_bd_pins ps8_0_axi_periph/M04_ARESETN] [get_bd_pins ps8_0_axi_periph/M05_ARESETN] [get_bd_pins ps8_0_axi_periph/M06_ARESETN] [get_bd_pins ps8_0_axi_periph/M07_ARESETN] [get_bd_pins ps8_0_axi_periph/M08_ARESETN] [get_bd_pins ps8_0_axi_periph/M09_ARESETN] [get_bd_pins ps8_0_axi_periph/M10_ARESETN] [get_bd_pins ps8_0_axi_periph/M11_ARESETN] [get_bd_pins ps8_0_axi_periph/M12_ARESETN] [get_bd_pins ps8_0_axi_periph/M13_ARESETN] [get_bd_pins ps8_0_axi_periph/M14_ARESETN] [get_bd_pins ps8_0_axi_periph/M15_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ps8_0_axi_periph/S01_ARESETN] [get_bd_pins ps8_0_axi_periph/S02_ARESETN] [get_bd_pins pwm_rgb_led/s_axi_aresetn] [get_bd_pins rst_ps8_0_50M/peripheral_aresetn] [get_bd_pins short_loopback_tests/s_axi_aresetn]
   connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn1 [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins rst_ps8_0_50M/interconnect_aresetn]
@@ -2348,6 +2351,7 @@ proc create_root_design { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
+  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -2359,6 +2363,4 @@ proc create_root_design { parentCell } {
 
 create_root_design ""
 
-
-common::send_msg_id "BD_TCL-1000" "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
