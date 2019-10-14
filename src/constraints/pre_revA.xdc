@@ -203,23 +203,23 @@ set_property -dict { PACKAGE_PIN A14    IOSTANDARD LVCMOS33 } [get_ports {UART_C
 
 
 ## Buttons
-set_property -dict { PACKAGE_PIN A12    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons[0] }]; #IO_L11P_AD9P_45/25 Sch=btn[6]
-set_property -dict { PACKAGE_PIN F12    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons[1] }]; #IO_L6P_HDGC_45/25 Sch=btn[5]
-set_property -dict { PACKAGE_PIN J12    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons[2] }]; #IO_L4P_AD12P_45/25 Sch=btn[4]
-set_property -dict { PACKAGE_PIN H12    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons[3] }]; #IO_L4N_AD12N_45/25 Sch=btn[3]
-set_property -dict { PACKAGE_PIN B10    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons[4] }]; #IO_L9N_AD11N_45/25 Sch=btn[2]
+set_property -dict { PACKAGE_PIN A12    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons_tri_i[0] }]; #IO_L11P_AD9P_45/25 Sch=btn[6]
+set_property -dict { PACKAGE_PIN F12    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons_tri_i[1] }]; #IO_L6P_HDGC_45/25 Sch=btn[5]
+set_property -dict { PACKAGE_PIN J12    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons_tri_i[2] }]; #IO_L4P_AD12P_45/25 Sch=btn[4]
+set_property -dict { PACKAGE_PIN H12    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons_tri_i[3] }]; #IO_L4N_AD12N_45/25 Sch=btn[3]
+set_property -dict { PACKAGE_PIN B10    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons_tri_i[4] }]; #IO_L9N_AD11N_45/25 Sch=btn[2]
 
 ## Switches
-set_property -dict { PACKAGE_PIN AB15  IOSTANDARD LVCMOS33 } [get_ports { pl_switches[0] }]; #IO_L8P_HDGC_44/24 Sch=sw[3]
-set_property -dict { PACKAGE_PIN W12   IOSTANDARD LVCMOS33 } [get_ports { pl_switches[1] }]; #IO_L11P_AD9P_44/24 Sch=sw[2]
-set_property -dict { PACKAGE_PIN Y13   IOSTANDARD LVCMOS33 } [get_ports { pl_switches[2] }]; #IO_L10N_AD10N_44/24 Sch=sw[1]
-set_property -dict { PACKAGE_PIN AB14  IOSTANDARD LVCMOS33 } [get_ports { pl_switches[3] }]; #IO_L8N_HDGC_44/24 Sch=sw[0]
+set_property -dict { PACKAGE_PIN AB15  IOSTANDARD LVCMOS33 } [get_ports { pl_switches_tri_i[0] }]; #IO_L8P_HDGC_44/24 Sch=sw[3]
+set_property -dict { PACKAGE_PIN W12   IOSTANDARD LVCMOS33 } [get_ports { pl_switches_tri_i[1] }]; #IO_L11P_AD9P_44/24 Sch=sw[2]
+set_property -dict { PACKAGE_PIN Y13   IOSTANDARD LVCMOS33 } [get_ports { pl_switches_tri_i[2] }]; #IO_L10N_AD10N_44/24 Sch=sw[1]
+set_property -dict { PACKAGE_PIN AB14  IOSTANDARD LVCMOS33 } [get_ports { pl_switches_tri_i[3] }]; #IO_L8N_HDGC_44/24 Sch=sw[0]
 
 ## LED
-set_property -dict { PACKAGE_PIN J14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds[0] }]; #IO_L11N_AD1N_46/26 Sch=ld[4]
-set_property -dict { PACKAGE_PIN K14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds[1] }]; #IO_L11P_AD1P_46/26 Sch=ld[3]
-set_property -dict { PACKAGE_PIN L13   IOSTANDARD LVCMOS33 } [get_ports { pl_leds[2] }]; #IO_L12N_AD0N_46/26 Sch=ld[2]
-set_property -dict { PACKAGE_PIN L14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds[3] }]; #IO_L12P_AD0P_46/26 Sch=ld[1]
+set_property -dict { PACKAGE_PIN J14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[0] }]; #IO_L11N_AD1N_46/26 Sch=ld[4]
+set_property -dict { PACKAGE_PIN K14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[1] }]; #IO_L11P_AD1P_46/26 Sch=ld[3]
+set_property -dict { PACKAGE_PIN L13   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[2] }]; #IO_L12N_AD0N_46/26 Sch=ld[2]
+set_property -dict { PACKAGE_PIN L14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[3] }]; #IO_L12P_AD0P_46/26 Sch=ld[1]
 
 ## RGB LED
 set_property -dict { PACKAGE_PIN A8    IOSTANDARD LVCMOS12 } [get_ports { pl_rgb_led[0] }]; #IO_L23N_T3U_N9_66 Sch=ld5_b
