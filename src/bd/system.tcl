@@ -130,11 +130,17 @@ set bCheckIPs 1
 if { $bCheckIPs == 1 } {
    set list_check_ips "\ 
 xilinx.com:ip:axi_gpio:2.0\
+xilinx.com:ip:smartconnect:1.0\
 user.org:user:pwm_rgb:1.0\
 xilinx.com:ip:proc_sys_reset:5.0\
 xilinx.com:ip:util_vector_logic:2.0\
 xilinx.com:ip:xlconcat:2.1\
 xilinx.com:ip:zynq_ultra_ps_e:3.3\
+xilinx.com:ip:axi_dma:7.1\
+xilinx.com:ip:axi_iic:2.0\
+digilentinc.com:user:digilent_axi_i2s:2.0\
+xilinx.com:user:edge_detect:1.0\
+xilinx.com:ip:xfft:9.1\
 xilinx.com:ip:xlconstant:1.1\
 "
 
@@ -270,24 +276,24 @@ proc create_hier_cell_short_loopback_tests { parentCell nameHier } {
   # Create instance: mipi_ffc_a, and set properties
   set mipi_ffc_a [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 mipi_ffc_a ]
   set_property -dict [ list \
-   CONFIG.C_GPIO2_WIDTH {2} \
-   CONFIG.C_GPIO_WIDTH {2} \
+   CONFIG.C_GPIO2_WIDTH {3} \
+   CONFIG.C_GPIO_WIDTH {3} \
    CONFIG.C_IS_DUAL {1} \
  ] $mipi_ffc_a
 
   # Create instance: mipi_ffc_b, and set properties
   set mipi_ffc_b [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 mipi_ffc_b ]
   set_property -dict [ list \
-   CONFIG.C_GPIO2_WIDTH {2} \
-   CONFIG.C_GPIO_WIDTH {2} \
+   CONFIG.C_GPIO2_WIDTH {3} \
+   CONFIG.C_GPIO_WIDTH {3} \
    CONFIG.C_IS_DUAL {1} \
  ] $mipi_ffc_b
 
   # Create instance: pmods, and set properties
   set pmods [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 pmods ]
   set_property -dict [ list \
-   CONFIG.C_GPIO2_WIDTH {8} \
-   CONFIG.C_GPIO_WIDTH {8} \
+   CONFIG.C_GPIO2_WIDTH {11} \
+   CONFIG.C_GPIO_WIDTH {11} \
    CONFIG.C_IS_DUAL {1} \
  ] $pmods
 
@@ -388,6 +394,161 @@ proc create_hier_cell_set_vadj_level { parentCell nameHier } {
   current_bd_instance $oldCurInst
 }
 
+# Hierarchical cell: audio_test
+proc create_hier_cell_audio_test { parentCell nameHier } {
+
+  variable script_folder
+
+  if { $parentCell eq "" || $nameHier eq "" } {
+     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_audio_test() - Empty argument(s)!"}
+     return
+  }
+
+  # Get object for parentCell
+  set parentObj [get_bd_cells $parentCell]
+  if { $parentObj == "" } {
+     catch {common::send_msg_id "BD_TCL-100" "ERROR" "Unable to find parent cell <$parentCell>!"}
+     return
+  }
+
+  # Make sure parentObj is hier blk
+  set parentType [get_property TYPE $parentObj]
+  if { $parentType ne "hier" } {
+     catch {common::send_msg_id "BD_TCL-101" "ERROR" "Parent <$parentObj> has TYPE = <$parentType>. Expected to be <hier>."}
+     return
+  }
+
+  # Save current instance; Restore later
+  set oldCurInst [current_bd_instance .]
+
+  # Set parent object as current
+  current_bd_instance $parentObj
+
+  # Create cell and set as current instance
+  set hier_obj [create_bd_cell -type hier $nameHier]
+  current_bd_instance $hier_obj
+
+  # Create interface pins
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 AXI_L
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 M_AXI_MM2S
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 M_AXI_MM2S1
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 M_AXI_S2MM
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 M_AXI_S2MM1
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI1
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_LITE
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_LITE1
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_rtl_0
+
+
+  # Create pins
+  create_bd_pin -dir O BCLK_O_0
+  create_bd_pin -dir O LRCLK1_O_0
+  create_bd_pin -dir O MCLK_O_0
+  create_bd_pin -dir I SDATA_I_0
+  create_bd_pin -dir O SDATA_O_0
+  create_bd_pin -dir I -type rst axi_resetn
+  create_bd_pin -dir O -type intr iic2intc_irpt_0
+  create_bd_pin -dir I -type clk m_axi_mm2s_aclk
+  create_bd_pin -dir O -type intr mm2s_introut_0
+  create_bd_pin -dir O -type intr mm2s_introut_1
+  create_bd_pin -dir O -type intr s2mm_introut_0
+  create_bd_pin -dir O -type intr s2mm_introut_1
+
+  # Create instance: axi_dma_0, and set properties
+  set axi_dma_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.1 axi_dma_0 ]
+  set_property -dict [ list \
+   CONFIG.c_include_sg {0} \
+   CONFIG.c_sg_include_stscntrl_strm {0} \
+   CONFIG.c_sg_length_width {23} \
+ ] $axi_dma_0
+
+  # Create instance: axi_dma_1, and set properties
+  set axi_dma_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.1 axi_dma_1 ]
+  set_property -dict [ list \
+   CONFIG.c_include_sg {0} \
+   CONFIG.c_sg_include_stscntrl_strm {0} \
+   CONFIG.c_sg_length_width {23} \
+ ] $axi_dma_1
+
+  # Create instance: axi_gpio_0, and set properties
+  set axi_gpio_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_0 ]
+  set_property -dict [ list \
+   CONFIG.C_GPIO_WIDTH {24} \
+ ] $axi_gpio_0
+
+  # Create instance: axi_iic_0, and set properties
+  set axi_iic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.0 axi_iic_0 ]
+
+  # Create instance: digilent_axi_i2s_0, and set properties
+  set digilent_axi_i2s_0 [ create_bd_cell -type ip -vlnv digilentinc.com:user:digilent_axi_i2s:2.0 digilent_axi_i2s_0 ]
+  set_property -dict [ list \
+   CONFIG.ENABLE_STREAM {true} \
+   CONFIG.INPUT_ONLY_CLK {false} \
+   CONFIG.OUTPUT_ONLY_CLK {true} \
+ ] $digilent_axi_i2s_0
+
+  # Create instance: edge_detect_0, and set properties
+  set edge_detect_0 [ create_bd_cell -type ip -vlnv xilinx.com:user:edge_detect:1.0 edge_detect_0 ]
+  set_property -dict [ list \
+   CONFIG.N {24} \
+ ] $edge_detect_0
+
+  # Create instance: xfft_0, and set properties
+  set xfft_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xfft:9.1 xfft_0 ]
+  set_property -dict [ list \
+   CONFIG.implementation_options {pipelined_streaming_io} \
+   CONFIG.number_of_stages_using_block_ram_for_data_and_phase_factors {7} \
+   CONFIG.run_time_configurable_transform_length {true} \
+   CONFIG.target_clock_frequency {100} \
+   CONFIG.transform_length {16384} \
+ ] $xfft_0
+
+  # Create interface connections
+  connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins M_AXI_S2MM] [get_bd_intf_pins axi_dma_0/M_AXI_S2MM]
+  connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins M_AXI_MM2S] [get_bd_intf_pins axi_dma_0/M_AXI_MM2S]
+  connect_bd_intf_net -intf_net Conn3 [get_bd_intf_pins S_AXI_LITE] [get_bd_intf_pins axi_dma_0/S_AXI_LITE]
+  connect_bd_intf_net -intf_net Conn4 [get_bd_intf_pins S_AXI] [get_bd_intf_pins axi_gpio_0/S_AXI]
+  connect_bd_intf_net -intf_net Conn5 [get_bd_intf_pins S_AXI_LITE1] [get_bd_intf_pins axi_dma_1/S_AXI_LITE]
+  connect_bd_intf_net -intf_net Conn6 [get_bd_intf_pins M_AXI_MM2S1] [get_bd_intf_pins axi_dma_1/M_AXI_MM2S]
+  connect_bd_intf_net -intf_net Conn7 [get_bd_intf_pins M_AXI_S2MM1] [get_bd_intf_pins axi_dma_1/M_AXI_S2MM]
+  connect_bd_intf_net -intf_net Conn8 [get_bd_intf_pins AXI_L] [get_bd_intf_pins digilent_axi_i2s_0/AXI_L]
+  connect_bd_intf_net -intf_net Conn9 [get_bd_intf_pins S_AXI1] [get_bd_intf_pins axi_iic_0/S_AXI]
+  connect_bd_intf_net -intf_net Conn10 [get_bd_intf_pins iic_rtl_0] [get_bd_intf_pins axi_iic_0/IIC]
+  connect_bd_intf_net -intf_net axi_dma_0_M_AXIS_MM2S [get_bd_intf_pins axi_dma_0/M_AXIS_MM2S] [get_bd_intf_pins xfft_0/S_AXIS_DATA]
+  connect_bd_intf_net -intf_net axi_dma_1_M_AXIS_MM2S [get_bd_intf_pins axi_dma_1/M_AXIS_MM2S] [get_bd_intf_pins digilent_axi_i2s_0/AXI_MM2S]
+  connect_bd_intf_net -intf_net digilent_axi_i2s_0_AXI_S2MM [get_bd_intf_pins axi_dma_1/S_AXIS_S2MM] [get_bd_intf_pins digilent_axi_i2s_0/AXI_S2MM]
+  connect_bd_intf_net -intf_net xfft_0_M_AXIS_DATA [get_bd_intf_pins axi_dma_0/S_AXIS_S2MM] [get_bd_intf_pins xfft_0/M_AXIS_DATA]
+
+  # Create port connections
+  connect_bd_net -net Net [get_bd_pins axi_gpio_0/gpio_io_i] [get_bd_pins axi_gpio_0/gpio_io_o] [get_bd_pins edge_detect_0/din] [get_bd_pins xfft_0/s_axis_config_tdata]
+  connect_bd_net -net SDATA_I_0_1 [get_bd_pins SDATA_I_0] [get_bd_pins digilent_axi_i2s_0/SDATA_I]
+  connect_bd_net -net axi_dma_0_mm2s_introut [get_bd_pins mm2s_introut_0] [get_bd_pins axi_dma_0/mm2s_introut]
+  connect_bd_net -net axi_dma_0_s2mm_introut [get_bd_pins s2mm_introut_0] [get_bd_pins axi_dma_0/s2mm_introut]
+  connect_bd_net -net axi_dma_1_mm2s_introut [get_bd_pins mm2s_introut_1] [get_bd_pins axi_dma_1/mm2s_introut]
+  connect_bd_net -net axi_dma_1_s2mm_introut [get_bd_pins s2mm_introut_1] [get_bd_pins axi_dma_1/s2mm_introut]
+  connect_bd_net -net axi_iic_0_iic2intc_irpt [get_bd_pins iic2intc_irpt_0] [get_bd_pins axi_iic_0/iic2intc_irpt]
+  connect_bd_net -net axi_resetn_1 [get_bd_pins axi_resetn] [get_bd_pins axi_dma_0/axi_resetn] [get_bd_pins axi_dma_1/axi_resetn] [get_bd_pins axi_gpio_0/s_axi_aresetn] [get_bd_pins axi_iic_0/s_axi_aresetn] [get_bd_pins digilent_axi_i2s_0/AXI_L_aresetn] [get_bd_pins digilent_axi_i2s_0/M_AXIS_S2MM_ARESETN] [get_bd_pins digilent_axi_i2s_0/S_AXIS_MM2S_ARESETN]
+  connect_bd_net -net digilent_axi_i2s_0_BCLK_O [get_bd_pins BCLK_O_0] [get_bd_pins digilent_axi_i2s_0/BCLK_O]
+  connect_bd_net -net digilent_axi_i2s_0_LRCLK1_O [get_bd_pins LRCLK1_O_0] [get_bd_pins digilent_axi_i2s_0/LRCLK1_O]
+  connect_bd_net -net digilent_axi_i2s_0_MCLK_O [get_bd_pins MCLK_O_0] [get_bd_pins digilent_axi_i2s_0/MCLK_O]
+  connect_bd_net -net digilent_axi_i2s_0_SDATA_O [get_bd_pins SDATA_O_0] [get_bd_pins digilent_axi_i2s_0/SDATA_O]
+  connect_bd_net -net edge_detect_0_edge_detected [get_bd_pins edge_detect_0/edge_detected] [get_bd_pins xfft_0/s_axis_config_tvalid]
+  connect_bd_net -net m_axi_mm2s_aclk_1 [get_bd_pins m_axi_mm2s_aclk] [get_bd_pins axi_dma_0/m_axi_mm2s_aclk] [get_bd_pins axi_dma_0/m_axi_s2mm_aclk] [get_bd_pins axi_dma_0/s_axi_lite_aclk] [get_bd_pins axi_dma_1/m_axi_mm2s_aclk] [get_bd_pins axi_dma_1/m_axi_s2mm_aclk] [get_bd_pins axi_dma_1/s_axi_lite_aclk] [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins axi_iic_0/s_axi_aclk] [get_bd_pins digilent_axi_i2s_0/AXI_L_aclk] [get_bd_pins digilent_axi_i2s_0/CLK_100MHZ_I] [get_bd_pins digilent_axi_i2s_0/M_AXIS_S2MM_ACLK] [get_bd_pins digilent_axi_i2s_0/S_AXIS_MM2S_ACLK] [get_bd_pins edge_detect_0/clk] [get_bd_pins xfft_0/aclk]
+
+  # Restore current instance
+  current_bd_instance $oldCurInst
+}
+
 
 # Procedure to create entire design; Provide argument to make
 # procedure reusable. If parentCell is "", will use root.
@@ -424,6 +585,8 @@ proc create_root_design { parentCell } {
   # Create interface ports
   set UART_CTL [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:uart_rtl:1.0 UART_CTL ]
 
+  set aud [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 aud ]
+
   set ffc_a [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 ffc_a ]
 
   set ffc_a1 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 ffc_a1 ]
@@ -454,6 +617,11 @@ proc create_root_design { parentCell } {
 
 
   # Create ports
+  set aud_adc_sdata [ create_bd_port -dir I aud_adc_sdata ]
+  set aud_bclk [ create_bd_port -dir O aud_bclk ]
+  set aud_dac_sdata [ create_bd_port -dir O aud_dac_sdata ]
+  set aud_lrclk [ create_bd_port -dir O aud_lrclk ]
+  set aud_mclk [ create_bd_port -dir O aud_mclk ]
   set dp_aux_din [ create_bd_port -dir I dp_aux_din ]
   set dp_aux_doe [ create_bd_port -dir O -from 0 -to 0 dp_aux_doe ]
   set dp_aux_dout [ create_bd_port -dir O dp_aux_dout ]
@@ -465,6 +633,9 @@ proc create_root_design { parentCell } {
   set vadj_auton [ create_bd_port -dir O -from 0 -to 0 vadj_auton ]
   set vadj_level_0 [ create_bd_port -dir O -from 0 -to 0 vadj_level_0 ]
   set vadj_level_1 [ create_bd_port -dir O -from 0 -to 0 vadj_level_1 ]
+
+  # Create instance: audio_test
+  create_hier_cell_audio_test [current_bd_instance .] audio_test
 
   # Create instance: axi_gpio_btn, and set properties
   set axi_gpio_btn [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_btn ]
@@ -494,10 +665,17 @@ proc create_root_design { parentCell } {
    CONFIG.C_IS_DUAL {0} \
  ] $axi_gpio_sw
 
+  # Create instance: axi_smc, and set properties
+  set axi_smc [ create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 axi_smc ]
+  set_property -dict [ list \
+   CONFIG.NUM_SI {4} \
+ ] $axi_smc
+
   # Create instance: ps8_0_axi_periph, and set properties
   set ps8_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 ps8_0_axi_periph ]
   set_property -dict [ list \
-   CONFIG.NUM_MI {11} \
+   CONFIG.NUM_MI {16} \
+   CONFIG.NUM_SI {3} \
  ] $ps8_0_axi_periph
 
   # Create instance: pwm_rgb_led, and set properties
@@ -523,7 +701,7 @@ proc create_root_design { parentCell } {
   # Create instance: xlconcat_0, and set properties
   set xlconcat_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0 ]
   set_property -dict [ list \
-   CONFIG.NUM_PORTS {2} \
+   CONFIG.NUM_PORTS {7} \
  ] $xlconcat_0
 
   # Create instance: zynq_ultra_ps_e_0, and set properties
@@ -1284,10 +1462,10 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__CRL_APB__PCAP_CTRL__DIVISOR0 {8} \
    CONFIG.PSU__CRL_APB__PCAP_CTRL__FREQMHZ {200} \
    CONFIG.PSU__CRL_APB__PCAP_CTRL__SRCSEL {IOPLL} \
-   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__ACT_FREQMHZ {50.000000} \
-   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR0 {30} \
+   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__ACT_FREQMHZ {100.000000} \
+   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR0 {15} \
    CONFIG.PSU__CRL_APB__PL0_REF_CTRL__DIVISOR1 {1} \
-   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ {50} \
+   CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ {100} \
    CONFIG.PSU__CRL_APB__PL0_REF_CTRL__SRCSEL {IOPLL} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__ACT_FREQMHZ {250.000000} \
    CONFIG.PSU__CRL_APB__PL1_REF_CTRL__DIVISOR0 {4} \
@@ -1615,8 +1793,8 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__IOU_SLCR__IOU_TTC_APB_CLK__TTC3_SEL {APB} \
    CONFIG.PSU__IOU_SLCR__TTC0__ACT_FREQMHZ {100.000000} \
    CONFIG.PSU__IOU_SLCR__TTC0__FREQMHZ {100.000000} \
-   CONFIG.PSU__IOU_SLCR__TTC1__ACT_FREQMHZ {100.000000} \
-   CONFIG.PSU__IOU_SLCR__TTC1__FREQMHZ {100.000000} \
+   CONFIG.PSU__IOU_SLCR__TTC1__ACT_FREQMHZ {100} \
+   CONFIG.PSU__IOU_SLCR__TTC1__FREQMHZ {100} \
    CONFIG.PSU__IOU_SLCR__TTC2__ACT_FREQMHZ {100} \
    CONFIG.PSU__IOU_SLCR__TTC2__FREQMHZ {100} \
    CONFIG.PSU__IOU_SLCR__TTC3__ACT_FREQMHZ {100} \
@@ -1856,7 +2034,7 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__PROTECTION__FPD_SEGMENTS {SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware|SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem} \
    CONFIG.PSU__PROTECTION__LOCK_UNUSED_SEGMENTS {0} \
    CONFIG.PSU__PROTECTION__LPD_SEGMENTS {SA:0xFF980000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF5E0000; SIZE:2560; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFCC0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF180000; SIZE:768; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF410000; SIZE:640; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFA70000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF9A0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware|SA:0xFF5E0000 ; SIZE:2560; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFFCC0000 ; SIZE:64; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFF180000 ; SIZE:768; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFF9A0000 ; SIZE:64; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem} \
-   CONFIG.PSU__PROTECTION__MASTERS {USB1:NonSecure;1|USB0:NonSecure;1|S_AXI_LPD:NA;0|S_AXI_HPC1_FPD:NA;0|S_AXI_HPC0_FPD:NA;0|S_AXI_HP3_FPD:NA;0|S_AXI_HP2_FPD:NA;0|S_AXI_HP1_FPD:NA;0|S_AXI_HP0_FPD:NA;0|S_AXI_ACP:NA;0|S_AXI_ACE:NA;0|SD1:NonSecure;1|SD0:NonSecure;0|SATA1:NonSecure;0|SATA0:NonSecure;0|RPU1:Secure;1|RPU0:Secure;1|QSPI:NonSecure;1|PMU:NA;1|PCIe:NonSecure;1|NAND:NonSecure;0|LDMA:NonSecure;1|GPU:NonSecure;1|GEM3:NonSecure;0|GEM2:NonSecure;0|GEM1:NonSecure;0|GEM0:NonSecure;1|FDMA:NonSecure;1|DP:NonSecure;1|DAP:NA;1|Coresight:NA;1|CSU:NA;1|APU:NA;1} \
+   CONFIG.PSU__PROTECTION__MASTERS {USB1:NonSecure;1|USB0:NonSecure;1|S_AXI_LPD:NA;0|S_AXI_HPC1_FPD:NA;0|S_AXI_HPC0_FPD:NA;1|S_AXI_HP3_FPD:NA;0|S_AXI_HP2_FPD:NA;0|S_AXI_HP1_FPD:NA;0|S_AXI_HP0_FPD:NA;0|S_AXI_ACP:NA;0|S_AXI_ACE:NA;0|SD1:NonSecure;1|SD0:NonSecure;0|SATA1:NonSecure;0|SATA0:NonSecure;0|RPU1:Secure;1|RPU0:Secure;1|QSPI:NonSecure;1|PMU:NA;1|PCIe:NonSecure;1|NAND:NonSecure;0|LDMA:NonSecure;1|GPU:NonSecure;1|GEM3:NonSecure;0|GEM2:NonSecure;0|GEM1:NonSecure;0|GEM0:NonSecure;1|FDMA:NonSecure;1|DP:NonSecure;1|DAP:NA;1|Coresight:NA;1|CSU:NA;1|APU:NA;1} \
    CONFIG.PSU__PROTECTION__MASTERS_TZ {GEM0:NonSecure|SD1:NonSecure|GEM2:NonSecure|GEM1:NonSecure|GEM3:NonSecure|PCIe:NonSecure|DP:NonSecure|NAND:NonSecure|GPU:NonSecure|USB1:NonSecure|USB0:NonSecure|LDMA:NonSecure|FDMA:NonSecure|QSPI:NonSecure|SD0:NonSecure} \
    CONFIG.PSU__PROTECTION__OCM_SEGMENTS {NONE} \
    CONFIG.PSU__PROTECTION__PRESUBSYSTEMS {NONE} \
@@ -2018,7 +2196,7 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__USE__STM {0} \
    CONFIG.PSU__USE__S_AXI_ACE {0} \
    CONFIG.PSU__USE__S_AXI_ACP {0} \
-   CONFIG.PSU__USE__S_AXI_GP0 {0} \
+   CONFIG.PSU__USE__S_AXI_GP0 {1} \
    CONFIG.PSU__USE__S_AXI_GP1 {0} \
    CONFIG.PSU__USE__S_AXI_GP2 {0} \
    CONFIG.PSU__USE__S_AXI_GP3 {0} \
@@ -2052,6 +2230,12 @@ proc create_root_design { parentCell } {
  ] $zynq_ultra_ps_e_0
 
   # Create interface connections
+  connect_bd_intf_net -intf_net audio_test_M_AXI_MM2S [get_bd_intf_pins audio_test/M_AXI_MM2S] [get_bd_intf_pins axi_smc/S00_AXI]
+  connect_bd_intf_net -intf_net audio_test_M_AXI_MM2S1 [get_bd_intf_pins audio_test/M_AXI_MM2S1] [get_bd_intf_pins axi_smc/S02_AXI]
+  connect_bd_intf_net -intf_net audio_test_M_AXI_S2MM [get_bd_intf_pins audio_test/M_AXI_S2MM] [get_bd_intf_pins axi_smc/S01_AXI]
+  connect_bd_intf_net -intf_net audio_test_M_AXI_S2MM1 [get_bd_intf_pins audio_test/M_AXI_S2MM1] [get_bd_intf_pins axi_smc/S03_AXI]
+  connect_bd_intf_net -intf_net audio_test_iic_rtl_0 [get_bd_intf_ports aud] [get_bd_intf_pins audio_test/iic_rtl_0]
+  connect_bd_intf_net -intf_net axi_smc_M00_AXI [get_bd_intf_pins axi_smc/M00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/S_AXI_HPC0_FPD]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M00_AXI [get_bd_intf_pins axi_gpio_btn/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M00_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M01_AXI [get_bd_intf_pins axi_gpio_led/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M01_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M02_AXI [get_bd_intf_pins axi_gpio_sw/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M02_AXI]
@@ -2063,6 +2247,11 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M08_AXI [get_bd_intf_pins ps8_0_axi_periph/M08_AXI] [get_bd_intf_pins short_loopback_tests/S_AXI4]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M09_AXI [get_bd_intf_pins ps8_0_axi_periph/M09_AXI] [get_bd_intf_pins short_loopback_tests/S_AXI5]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M10_AXI [get_bd_intf_pins ps8_0_axi_periph/M10_AXI] [get_bd_intf_pins short_loopback_tests/S_AXI6]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M11_AXI [get_bd_intf_pins audio_test/S_AXI_LITE] [get_bd_intf_pins ps8_0_axi_periph/M11_AXI]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M12_AXI [get_bd_intf_pins audio_test/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M12_AXI]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M13_AXI [get_bd_intf_pins audio_test/S_AXI_LITE1] [get_bd_intf_pins ps8_0_axi_periph/M13_AXI]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M14_AXI [get_bd_intf_pins audio_test/AXI_L] [get_bd_intf_pins ps8_0_axi_periph/M14_AXI]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M15_AXI [get_bd_intf_pins audio_test/S_AXI1] [get_bd_intf_pins ps8_0_axi_periph/M15_AXI]
   connect_bd_intf_net -intf_net short_loopback_tests_GPIO2_0 [get_bd_intf_ports fmc_la_00_n] [get_bd_intf_pins short_loopback_tests/fmc_la_00_n]
   connect_bd_intf_net -intf_net short_loopback_tests_GPIO2_1 [get_bd_intf_ports fmc_la_01_n] [get_bd_intf_pins short_loopback_tests/fmc_la_01_n]
   connect_bd_intf_net -intf_net short_loopback_tests_GPIO2_2 [get_bd_intf_ports syzygy_2] [get_bd_intf_pins short_loopback_tests/syzygy_2]
@@ -2081,6 +2270,16 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_UART_1 [get_bd_intf_ports UART_CTL] [get_bd_intf_pins zynq_ultra_ps_e_0/UART_1]
 
   # Create port connections
+  connect_bd_net -net SDATA_I_0_1 [get_bd_ports aud_adc_sdata] [get_bd_pins audio_test/SDATA_I_0]
+  connect_bd_net -net audio_test_BCLK_O_0 [get_bd_ports aud_bclk] [get_bd_pins audio_test/BCLK_O_0]
+  connect_bd_net -net audio_test_LRCLK1_O_0 [get_bd_ports aud_lrclk] [get_bd_pins audio_test/LRCLK1_O_0]
+  connect_bd_net -net audio_test_MCLK_O_0 [get_bd_ports aud_mclk] [get_bd_pins audio_test/MCLK_O_0]
+  connect_bd_net -net audio_test_SDATA_O_0 [get_bd_ports aud_dac_sdata] [get_bd_pins audio_test/SDATA_O_0]
+  connect_bd_net -net audio_test_iic2intc_irpt_0 [get_bd_pins audio_test/iic2intc_irpt_0] [get_bd_pins xlconcat_0/In6]
+  connect_bd_net -net audio_test_mm2s_introut_0 [get_bd_pins audio_test/mm2s_introut_0] [get_bd_pins xlconcat_0/In2]
+  connect_bd_net -net audio_test_mm2s_introut_1 [get_bd_pins audio_test/mm2s_introut_1] [get_bd_pins xlconcat_0/In4]
+  connect_bd_net -net audio_test_s2mm_introut_0 [get_bd_pins audio_test/s2mm_introut_0] [get_bd_pins xlconcat_0/In3]
+  connect_bd_net -net audio_test_s2mm_introut_1 [get_bd_pins audio_test/s2mm_introut_1] [get_bd_pins xlconcat_0/In5]
   connect_bd_net -net axi_gpio_0_ip2intc_irpt [get_bd_pins axi_gpio_sw/ip2intc_irpt] [get_bd_pins xlconcat_0/In0]
   connect_bd_net -net axi_gpio_1_ip2intc_irpt [get_bd_pins axi_gpio_btn/ip2intc_irpt] [get_bd_pins xlconcat_0/In1]
   connect_bd_net -net axi_gpio_2_gpio_io_o [get_bd_ports pl_leds] [get_bd_pins axi_gpio_led/gpio_io_o]
@@ -2089,7 +2288,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net pl_buttons_1 [get_bd_ports pl_buttons] [get_bd_pins axi_gpio_btn/gpio_io_i]
   connect_bd_net -net pl_switches_1 [get_bd_ports pl_switches] [get_bd_pins axi_gpio_sw/gpio_io_i]
   connect_bd_net -net pwm_rgb_0_RGB [get_bd_ports pl_rgb_led] [get_bd_pins pwm_rgb_led/RGB]
-  connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn [get_bd_pins axi_gpio_btn/s_axi_aresetn] [get_bd_pins axi_gpio_led/s_axi_aresetn] [get_bd_pins axi_gpio_sw/s_axi_aresetn] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/M03_ARESETN] [get_bd_pins ps8_0_axi_periph/M04_ARESETN] [get_bd_pins ps8_0_axi_periph/M05_ARESETN] [get_bd_pins ps8_0_axi_periph/M06_ARESETN] [get_bd_pins ps8_0_axi_periph/M07_ARESETN] [get_bd_pins ps8_0_axi_periph/M08_ARESETN] [get_bd_pins ps8_0_axi_periph/M09_ARESETN] [get_bd_pins ps8_0_axi_periph/M10_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins pwm_rgb_led/s_axi_aresetn] [get_bd_pins rst_ps8_0_50M/peripheral_aresetn] [get_bd_pins short_loopback_tests/s_axi_aresetn]
+  connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn [get_bd_pins audio_test/axi_resetn] [get_bd_pins axi_gpio_btn/s_axi_aresetn] [get_bd_pins axi_gpio_led/s_axi_aresetn] [get_bd_pins axi_gpio_sw/s_axi_aresetn] [get_bd_pins axi_smc/aresetn] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/M03_ARESETN] [get_bd_pins ps8_0_axi_periph/M04_ARESETN] [get_bd_pins ps8_0_axi_periph/M05_ARESETN] [get_bd_pins ps8_0_axi_periph/M06_ARESETN] [get_bd_pins ps8_0_axi_periph/M07_ARESETN] [get_bd_pins ps8_0_axi_periph/M08_ARESETN] [get_bd_pins ps8_0_axi_periph/M09_ARESETN] [get_bd_pins ps8_0_axi_periph/M10_ARESETN] [get_bd_pins ps8_0_axi_periph/M11_ARESETN] [get_bd_pins ps8_0_axi_periph/M12_ARESETN] [get_bd_pins ps8_0_axi_periph/M13_ARESETN] [get_bd_pins ps8_0_axi_periph/M14_ARESETN] [get_bd_pins ps8_0_axi_periph/M15_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ps8_0_axi_periph/S01_ARESETN] [get_bd_pins ps8_0_axi_periph/S02_ARESETN] [get_bd_pins pwm_rgb_led/s_axi_aresetn] [get_bd_pins rst_ps8_0_50M/peripheral_aresetn] [get_bd_pins short_loopback_tests/s_axi_aresetn]
   connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn1 [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins rst_ps8_0_50M/interconnect_aresetn]
   connect_bd_net -net set_vadj_level_dout_0 [get_bd_ports vadj_level_0] [get_bd_pins set_vadj_level/vadj_level_0]
   connect_bd_net -net set_vadj_level_dout_1 [get_bd_ports vadj_auton] [get_bd_pins set_vadj_level/vadj_auton]
@@ -2098,14 +2297,19 @@ proc create_root_design { parentCell } {
   connect_bd_net -net xlconcat_0_dout [get_bd_pins xlconcat_0/dout] [get_bd_pins zynq_ultra_ps_e_0/pl_ps_irq0]
   connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_oe_n [get_bd_pins util_vector_logic_0/Op1] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_oe_n]
   connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_out [get_bd_ports dp_aux_dout] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_out]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins axi_gpio_btn/s_axi_aclk] [get_bd_pins axi_gpio_led/s_axi_aclk] [get_bd_pins axi_gpio_sw/s_axi_aclk] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins ps8_0_axi_periph/M02_ACLK] [get_bd_pins ps8_0_axi_periph/M03_ACLK] [get_bd_pins ps8_0_axi_periph/M04_ACLK] [get_bd_pins ps8_0_axi_periph/M05_ACLK] [get_bd_pins ps8_0_axi_periph/M06_ACLK] [get_bd_pins ps8_0_axi_periph/M07_ACLK] [get_bd_pins ps8_0_axi_periph/M08_ACLK] [get_bd_pins ps8_0_axi_periph/M09_ACLK] [get_bd_pins ps8_0_axi_periph/M10_ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins pwm_rgb_led/s_axi_aclk] [get_bd_pins rst_ps8_0_50M/slowest_sync_clk] [get_bd_pins short_loopback_tests/s_axi_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins audio_test/m_axi_mm2s_aclk] [get_bd_pins axi_gpio_btn/s_axi_aclk] [get_bd_pins axi_gpio_led/s_axi_aclk] [get_bd_pins axi_gpio_sw/s_axi_aclk] [get_bd_pins axi_smc/aclk] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins ps8_0_axi_periph/M02_ACLK] [get_bd_pins ps8_0_axi_periph/M03_ACLK] [get_bd_pins ps8_0_axi_periph/M04_ACLK] [get_bd_pins ps8_0_axi_periph/M05_ACLK] [get_bd_pins ps8_0_axi_periph/M06_ACLK] [get_bd_pins ps8_0_axi_periph/M07_ACLK] [get_bd_pins ps8_0_axi_periph/M08_ACLK] [get_bd_pins ps8_0_axi_periph/M09_ACLK] [get_bd_pins ps8_0_axi_periph/M10_ACLK] [get_bd_pins ps8_0_axi_periph/M11_ACLK] [get_bd_pins ps8_0_axi_periph/M12_ACLK] [get_bd_pins ps8_0_axi_periph/M13_ACLK] [get_bd_pins ps8_0_axi_periph/M14_ACLK] [get_bd_pins ps8_0_axi_periph/M15_ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins ps8_0_axi_periph/S01_ACLK] [get_bd_pins ps8_0_axi_periph/S02_ACLK] [get_bd_pins pwm_rgb_led/s_axi_aclk] [get_bd_pins rst_ps8_0_50M/slowest_sync_clk] [get_bd_pins short_loopback_tests/s_axi_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] [get_bd_pins zynq_ultra_ps_e_0/saxihpc0_fpd_aclk]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins rst_ps8_0_50M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0]
 
   # Create address segments
+  create_bd_addr_seg -range 0x00001000 -offset 0x80008000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_test/axi_dma_0/S_AXI_LITE/Reg] SEG_axi_dma_0_Reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x8000A000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_test/axi_dma_1/S_AXI_LITE/Reg] SEG_axi_dma_1_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x80043000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_gpio_sw/S_AXI/Reg] SEG_axi_gpio_0_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x80001000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/pmods/S_AXI/Reg] SEG_axi_gpio_0_Reg1
+  create_bd_addr_seg -range 0x00001000 -offset 0x80009000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_test/axi_gpio_0/S_AXI/Reg] SEG_axi_gpio_0_Reg2
   create_bd_addr_seg -range 0x00001000 -offset 0x80044000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_gpio_btn/S_AXI/Reg] SEG_axi_gpio_1_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x80045000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_gpio_led/S_AXI/Reg] SEG_axi_gpio_2_Reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x8000C000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_test/axi_iic_0/S_AXI/Reg] SEG_axi_iic_0_Reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x8000B000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_test/digilent_axi_i2s_0/AXI_L/AXI_L_reg] SEG_digilent_axi_i2s_0_AXI_L_reg
   create_bd_addr_seg -range 0x00001000 -offset 0x80002000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/fmc_prsnt/S_AXI/Reg] SEG_fmc_prsnt_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x80003000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/la_00/S_AXI/Reg] SEG_la_00_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x80004000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/la_01/S_AXI/Reg] SEG_la_01_Reg
@@ -2113,12 +2317,37 @@ proc create_root_design { parentCell } {
   create_bd_addr_seg -range 0x00001000 -offset 0x80007000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/mipi_ffc_b/S_AXI/Reg] SEG_mipi_ffc_b_Reg
   create_bd_addr_seg -range 0x00001000 -offset 0x80000000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs pwm_rgb_led/S_AXI/S_AXI_reg] SEG_pwm_rgb_led_S_AXI_reg
   create_bd_addr_seg -range 0x00001000 -offset 0x80005000 [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/syszygy/S_AXI/Reg] SEG_syszygy_Reg
+  create_bd_addr_seg -range 0x80000000 -offset 0x00000000 [get_bd_addr_spaces audio_test/axi_dma_0/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] SEG_zynq_ultra_ps_e_0_HPC0_DDR_LOW
+  create_bd_addr_seg -range 0x80000000 -offset 0x00000000 [get_bd_addr_spaces audio_test/axi_dma_0/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] SEG_zynq_ultra_ps_e_0_HPC0_DDR_LOW
+  create_bd_addr_seg -range 0x10000000 -offset 0xE0000000 [get_bd_addr_spaces audio_test/axi_dma_0/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_PCIE_LOW] SEG_zynq_ultra_ps_e_0_HPC0_PCIE_LOW
+  create_bd_addr_seg -range 0x10000000 -offset 0xE0000000 [get_bd_addr_spaces audio_test/axi_dma_0/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_PCIE_LOW] SEG_zynq_ultra_ps_e_0_HPC0_PCIE_LOW
+  create_bd_addr_seg -range 0x20000000 -offset 0xC0000000 [get_bd_addr_spaces audio_test/axi_dma_0/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_QSPI] SEG_zynq_ultra_ps_e_0_HPC0_QSPI
+  create_bd_addr_seg -range 0x20000000 -offset 0xC0000000 [get_bd_addr_spaces audio_test/axi_dma_0/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_QSPI] SEG_zynq_ultra_ps_e_0_HPC0_QSPI
+  create_bd_addr_seg -range 0x80000000 -offset 0x00000000 [get_bd_addr_spaces audio_test/axi_dma_1/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] SEG_zynq_ultra_ps_e_0_HPC0_DDR_LOW
+  create_bd_addr_seg -range 0x80000000 -offset 0x00000000 [get_bd_addr_spaces audio_test/axi_dma_1/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] SEG_zynq_ultra_ps_e_0_HPC0_DDR_LOW
+  create_bd_addr_seg -range 0x10000000 -offset 0xE0000000 [get_bd_addr_spaces audio_test/axi_dma_1/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_PCIE_LOW] SEG_zynq_ultra_ps_e_0_HPC0_PCIE_LOW
+  create_bd_addr_seg -range 0x10000000 -offset 0xE0000000 [get_bd_addr_spaces audio_test/axi_dma_1/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_PCIE_LOW] SEG_zynq_ultra_ps_e_0_HPC0_PCIE_LOW
+  create_bd_addr_seg -range 0x20000000 -offset 0xC0000000 [get_bd_addr_spaces audio_test/axi_dma_1/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_QSPI] SEG_zynq_ultra_ps_e_0_HPC0_QSPI
+  create_bd_addr_seg -range 0x20000000 -offset 0xC0000000 [get_bd_addr_spaces audio_test/axi_dma_1/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_QSPI] SEG_zynq_ultra_ps_e_0_HPC0_QSPI
+
+  # Exclude Address Segments
+  create_bd_addr_seg -range 0x01000000 -offset 0xFF000000 [get_bd_addr_spaces audio_test/axi_dma_0/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM] SEG_zynq_ultra_ps_e_0_HPC0_LPS_OCM
+  exclude_bd_addr_seg [get_bd_addr_segs audio_test/axi_dma_0/Data_MM2S/SEG_zynq_ultra_ps_e_0_HPC0_LPS_OCM]
+
+  create_bd_addr_seg -range 0x01000000 -offset 0xFF000000 [get_bd_addr_spaces audio_test/axi_dma_0/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM] SEG_zynq_ultra_ps_e_0_HPC0_LPS_OCM
+  exclude_bd_addr_seg [get_bd_addr_segs audio_test/axi_dma_0/Data_S2MM/SEG_zynq_ultra_ps_e_0_HPC0_LPS_OCM]
+
+  create_bd_addr_seg -range 0x01000000 -offset 0xFF000000 [get_bd_addr_spaces audio_test/axi_dma_1/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM] SEG_zynq_ultra_ps_e_0_HPC0_LPS_OCM
+  exclude_bd_addr_seg [get_bd_addr_segs audio_test/axi_dma_1/Data_MM2S/SEG_zynq_ultra_ps_e_0_HPC0_LPS_OCM]
+
+  create_bd_addr_seg -range 0x01000000 -offset 0xFF000000 [get_bd_addr_spaces audio_test/axi_dma_1/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM] SEG_zynq_ultra_ps_e_0_HPC0_LPS_OCM
+  exclude_bd_addr_seg [get_bd_addr_segs audio_test/axi_dma_1/Data_S2MM/SEG_zynq_ultra_ps_e_0_HPC0_LPS_OCM]
+
 
 
   # Restore current instance
   current_bd_instance $oldCurInst
 
-  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -2130,4 +2359,6 @@ proc create_root_design { parentCell } {
 
 create_root_design ""
 
+
+common::send_msg_id "BD_TCL-1000" "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 

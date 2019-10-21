@@ -109,10 +109,21 @@ set_property PULLUP true [get_ports {ffc_a1_tri_io[1]}]
 #set_property DRIVE 4 [get_ports {ffc_?_tri_io[*]}];
 #set_property PULLUP true [get_ports {ffc_?_tri_io[*]}];
 
-## Commented, since it will be defined in IP XDC.
-##set_property PACKAGE_PIN G1 [get_ports mipi_a_clk_p]
-##set_property IOSTANDARD MIPI_DPHY_DCI [get_ports mipi_a_clk_p]
-##set_property IOSTANDARD MIPI_DPHY_DCI [get_ports mipi_a_clk_n]
+#Commented, since it will be defined in IP XDC.
+
+set_property PACKAGE_PIN G1 [get_ports ffc_a_tri_io[2]]
+set_property IOSTANDARD LVCMOS12 [get_ports { ffc_a_tri_io[2] }]
+set_property DRIVE 6 [get_ports { ffc_a_tri_io[2] }]
+set_property PULLUP true [get_ports {ffc_a_tri_io[2]}]
+
+set_property PACKAGE_PIN F1 [get_ports ffc_a1_tri_io[2]]
+set_property IOSTANDARD LVCMOS12 [get_ports { ffc_a1_tri_io[2] }]
+set_property DRIVE 6 [get_ports { ffc_a1_tri_io[2] }]
+set_property PULLUP true [get_ports {ffc_a1_tri_io[2]}]
+
+
+#set_property IOSTANDARD MIPI_DPHY_DCI [get_ports mipi_a_clk_p]
+#set_property IOSTANDARD MIPI_DPHY_DCI [get_ports mipi_a_clk_n]
 
 ##set_property PACKAGE_PIN E1 [get_ports mipi_a_data_p[0]]
 ##set_property IOSTANDARD MIPI_DPHY_DCI [get_ports mipi_a_data_p[0]]
@@ -144,6 +155,17 @@ set_property DRIVE 6 [get_ports { ffc_b1_tri_io[1] }]
 set_property PULLUP true [get_ports {ffc_b1_tri_io[1]}]
 
 
+set_property PACKAGE_PIN B5 [get_ports ffc_b_tri_io[2]]
+set_property IOSTANDARD LVCMOS12 [get_ports { ffc_b_tri_io[2] }]
+set_property DRIVE 6 [get_ports { ffc_b_tri_io[2] }]
+set_property PULLUP true [get_ports {ffc_b_tri_io[2]}]
+
+set_property PACKAGE_PIN A5 [get_ports ffc_b1_tri_io[2]]
+set_property IOSTANDARD LVCMOS12 [get_ports { ffc_b1_tri_io[2] }]
+set_property DRIVE 6 [get_ports { ffc_b1_tri_io[2] }]
+set_property PULLUP true [get_ports {ffc_b1_tri_io[2]}]
+
+
 #set_property IOSTANDARD MIPI_DPHY_DCI [get_ports {ffc_?_tri_io[*]}];
 #set_property SLEW SLOW [get_ports {ffc_?_tri_io[*]}];
 #set_property DRIVE 4 [get_ports {ffc_?_tri_io[*]}];
@@ -166,14 +188,14 @@ set_property DRIVE 6 [get_ports { gpio_emio_tri_io[2] }]
 #set_property IOSTANDARD MIPI_DPHY_DCI [get_ports mipi_b_data_n[1]]
 
 ## Audio CODEC I2S, I2C
-#set_property PACKAGE_PIN A11 [get_ports aud_scl_io]
-#set_property PACKAGE_PIN D12 [get_ports aud_sda_io]
-#set_property PACKAGE_PIN A10 [get_ports aud_lrclk]
-#set_property PACKAGE_PIN C12 [get_ports aud_bclk]
-#set_property PACKAGE_PIN C11 [get_ports aud_mclk]
-#set_property PACKAGE_PIN B11 [get_ports aud_adc_sdata]
-#set_property PACKAGE_PIN D11 [get_ports aud_dac_sdata]
-#set_property IOSTANDARD LVCMOS18 [get_ports aud_*]
+set_property PACKAGE_PIN A11 [get_ports aud_scl_io]
+set_property PACKAGE_PIN D12 [get_ports aud_sda_io]
+set_property PACKAGE_PIN A10 [get_ports aud_lrclk]
+set_property PACKAGE_PIN C12 [get_ports aud_bclk]
+set_property PACKAGE_PIN C11 [get_ports aud_mclk]
+set_property PACKAGE_PIN B11 [get_ports aud_adc_sdata]
+set_property PACKAGE_PIN D11 [get_ports aud_dac_sdata]
+set_property IOSTANDARD LVCMOS18 [get_ports aud_*]
 
 ## PMOD XADC
 ## Commented because pins are contrained by System Management Wizard. Only >2018.2 lets us select bank 43.
@@ -244,13 +266,13 @@ set_property PACKAGE_PIN C14 [get_ports {pmod2_tri_io[6]}]; #IO_L4P_AD8P_46/26 S
 set_property PACKAGE_PIN A13 [get_ports {pmod2_tri_io[7]}]; #IO_L3N_AD9N_46/26 Sch=jc[10]
 ##PMOD JD
 set_property -dict { PACKAGE_PIN E15    IOSTANDARD LVCMOS18 } [get_ports {UART_CTL_rxd}]; #IO_L4P_AD12P_44/24 Sch=jd[1]
-set_property -dict { PACKAGE_PIN A14    IOSTANDARD LVCMOS18 } [get_ports {UART_CTL_txd}]; #IO_L2P_AD14P_44/24 Sch=jd[2]
-#set_property PACKAGE_PIN B15 [get_ports {pmod_tri_io[8]}];   #IO_L2N_AD14N_44/24 Sch=jd[3]
-#set_property PACKAGE_PIN F15 [get_ports {pmod_tri_io[9]}];   #IO_L3P_AD13P_44/24 Sch=jd[4]
-#set_property PACKAGE_PIN E14 [get_ports {pmod2_tri_io[10]}];   #IO_L1N_AD15N_44/24 Sch=jd[7]
-#set_property PACKAGE_PIN B14 [get_ports {pmod2_tri_io[11]}];   #IO_L4N_AD12N_44/24 Sch=jd[8]
-#set_property PACKAGE_PIN D15 [get_ports {pmod2_tri_io[10]}];   #IO_L1P_AD15P_44/24 Sch=jd[9]
-#set_property PACKAGE_PIN A15 [get_ports {pmod2_tri_io[11]}];   #IO_L3N_AD13N_44/24 Sch=jd[10]
+set_property -dict { PACKAGE_PIN E14    IOSTANDARD LVCMOS18 } [get_ports {UART_CTL_txd}];   #IO_L1N_AD15N_44/24 Sch=jd[7]
+set_property PACKAGE_PIN A14 [get_ports {pmod_tri_io[8]}]; #IO_L2P_AD14P_44/24 Sch=jd[2]
+set_property PACKAGE_PIN B15 [get_ports {pmod_tri_io[9]}];   #IO_L2N_AD14N_44/24 Sch=jd[3]
+set_property PACKAGE_PIN F15 [get_ports {pmod_tri_io[10]}];   #IO_L3P_AD13P_44/24 Sch=jd[4]
+set_property PACKAGE_PIN B14 [get_ports {pmod2_tri_io[8]}];   #IO_L4N_AD12N_44/24 Sch=jd[8]
+set_property PACKAGE_PIN D15 [get_ports {pmod2_tri_io[9]}];   #IO_L1P_AD15P_44/24 Sch=jd[9]
+set_property PACKAGE_PIN A15 [get_ports {pmod2_tri_io[10]}];   #IO_L3N_AD13N_44/24 Sch=jd[10]
 #set_property IOSTANDARD LVCMOS33 [get_ports {PMOD_*}];
 
 set_property IOSTANDARD LVCMOS18 [get_ports {pmod_tri_io[*]}]
