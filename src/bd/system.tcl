@@ -218,13 +218,14 @@ proc create_hier_cell_uio { parentCell nameHier } {
 
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pl_leds
 
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pl_rgb_led
+
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pl_switches
 
 
   # Create pins
   create_bd_pin -dir O -type intr ip2intc_irpt
   create_bd_pin -dir O -type intr ip2intc_irpt1
-  create_bd_pin -dir O -from 2 -to 0 pl_rgb_led
   create_bd_pin -dir I -type clk s_axi_aclk
   create_bd_pin -dir I -type rst s_axi_aresetn
 
@@ -258,8 +259,14 @@ proc create_hier_cell_uio { parentCell nameHier } {
 
   # Create instance: pwm_rgb_led, and set properties
   set pwm_rgb_led [ create_bd_cell -type ip -vlnv user.org:user:pwm_rgb:1.0 pwm_rgb_led ]
+  set_property -dict [ list \
+   CONFIG.CLK_SPEED {1} \
+   CONFIG.C_S_AXI_ADDR_WIDTH {5} \
+   CONFIG.LED_NO {1} \
+ ] $pwm_rgb_led
 
   # Create interface connections
+  connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins pl_rgb_led] [get_bd_intf_pins pwm_rgb_led/GPIO]
   connect_bd_intf_net -intf_net axi_gpio_btn_GPIO [get_bd_intf_pins pl_buttons] [get_bd_intf_pins axi_gpio_btn/GPIO]
   connect_bd_intf_net -intf_net axi_gpio_led_GPIO [get_bd_intf_pins pl_leds] [get_bd_intf_pins axi_gpio_led/GPIO]
   connect_bd_intf_net -intf_net axi_gpio_sw_GPIO [get_bd_intf_pins pl_switches] [get_bd_intf_pins axi_gpio_sw/GPIO]
@@ -271,7 +278,6 @@ proc create_hier_cell_uio { parentCell nameHier } {
   # Create port connections
   connect_bd_net -net axi_gpio_0_ip2intc_irpt [get_bd_pins ip2intc_irpt1] [get_bd_pins axi_gpio_sw/ip2intc_irpt]
   connect_bd_net -net axi_gpio_1_ip2intc_irpt [get_bd_pins ip2intc_irpt] [get_bd_pins axi_gpio_btn/ip2intc_irpt]
-  connect_bd_net -net pwm_rgb_0_RGB [get_bd_pins pl_rgb_led] [get_bd_pins pwm_rgb_led/RGB]
   connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn [get_bd_pins s_axi_aresetn] [get_bd_pins axi_gpio_btn/s_axi_aresetn] [get_bd_pins axi_gpio_led/s_axi_aresetn] [get_bd_pins axi_gpio_sw/s_axi_aresetn] [get_bd_pins pwm_rgb_led/s_axi_aresetn]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins s_axi_aclk] [get_bd_pins axi_gpio_btn/s_axi_aclk] [get_bd_pins axi_gpio_led/s_axi_aclk] [get_bd_pins axi_gpio_sw/s_axi_aclk] [get_bd_pins pwm_rgb_led/s_axi_aclk]
 
@@ -719,6 +725,8 @@ proc create_root_design { parentCell } {
 
   set pl_leds [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pl_leds ]
 
+  set pl_rgb_led [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pl_rgb_led ]
+
   set pl_switches [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pl_switches ]
 
   set pmod [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 pmod ]
@@ -740,7 +748,6 @@ proc create_root_design { parentCell } {
   set dp_aux_doe [ create_bd_port -dir O -from 0 -to 0 dp_aux_doe ]
   set dp_aux_dout [ create_bd_port -dir O dp_aux_dout ]
   set dp_aux_hotplug_detect [ create_bd_port -dir I dp_aux_hotplug_detect ]
-  set pl_rgb_led [ create_bd_port -dir O -from 2 -to 0 pl_rgb_led ]
   set vadj_auton [ create_bd_port -dir O -from 0 -to 0 vadj_auton ]
   set vadj_level_0 [ create_bd_port -dir O -from 0 -to 0 vadj_level_0 ]
   set vadj_level_1 [ create_bd_port -dir O -from 0 -to 0 vadj_level_1 ]
@@ -2351,6 +2358,7 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net short_loopback_tests_GPIO_5 [get_bd_intf_ports ffc_b] [get_bd_intf_pins short_loopback_tests/ffc_b]
   connect_bd_intf_net -intf_net short_loopback_tests_gpio_rtl_0 [get_bd_intf_ports pmod] [get_bd_intf_pins short_loopback_tests/pmod]
   connect_bd_intf_net -intf_net short_loopback_tests_gpio_rtl_1 [get_bd_intf_ports pmod2] [get_bd_intf_pins short_loopback_tests/pmod2]
+  connect_bd_intf_net -intf_net uio_pl_rgb_led [get_bd_intf_ports pl_rgb_led] [get_bd_intf_pins uio/pl_rgb_led]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_GPIO_0 [get_bd_intf_ports gpio_emio] [get_bd_intf_pins zynq_ultra_ps_e_0/GPIO_0]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_LPD [get_bd_intf_pins ps8_0_axi_periph/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_LPD]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_UART_1 [get_bd_intf_ports UART_CTL] [get_bd_intf_pins zynq_ultra_ps_e_0/UART_1]
@@ -2370,7 +2378,6 @@ proc create_root_design { parentCell } {
   connect_bd_net -net axi_gpio_1_ip2intc_irpt [get_bd_pins uio/ip2intc_irpt] [get_bd_pins xlconcat_0/In1]
   connect_bd_net -net dp_aux_data_in_0_1 [get_bd_ports dp_aux_din] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_in]
   connect_bd_net -net dp_hot_plug_detect_0_1 [get_bd_ports dp_aux_hotplug_detect] [get_bd_pins zynq_ultra_ps_e_0/dp_hot_plug_detect]
-  connect_bd_net -net pwm_rgb_0_RGB [get_bd_ports pl_rgb_led] [get_bd_pins uio/pl_rgb_led]
   connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn [get_bd_pins audio_test/axi_resetn] [get_bd_pins axi_smc/aresetn] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/M03_ARESETN] [get_bd_pins ps8_0_axi_periph/M04_ARESETN] [get_bd_pins ps8_0_axi_periph/M05_ARESETN] [get_bd_pins ps8_0_axi_periph/M06_ARESETN] [get_bd_pins ps8_0_axi_periph/M07_ARESETN] [get_bd_pins ps8_0_axi_periph/M08_ARESETN] [get_bd_pins ps8_0_axi_periph/M09_ARESETN] [get_bd_pins ps8_0_axi_periph/M10_ARESETN] [get_bd_pins ps8_0_axi_periph/M11_ARESETN] [get_bd_pins ps8_0_axi_periph/M12_ARESETN] [get_bd_pins ps8_0_axi_periph/M13_ARESETN] [get_bd_pins ps8_0_axi_periph/M14_ARESETN] [get_bd_pins ps8_0_axi_periph/M15_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ps8_0_axi_periph/S01_ARESETN] [get_bd_pins ps8_0_axi_periph/S02_ARESETN] [get_bd_pins rst_ps8_0_50M/peripheral_aresetn] [get_bd_pins short_loopback_tests/s_axi_aresetn] [get_bd_pins uio/s_axi_aresetn]
   connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn1 [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins rst_ps8_0_50M/interconnect_aresetn]
   connect_bd_net -net set_vadj_level_dout_0 [get_bd_ports vadj_level_0] [get_bd_pins set_vadj_level/vadj_level_0]

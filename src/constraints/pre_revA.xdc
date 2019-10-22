@@ -305,9 +305,9 @@ set_property -dict { PACKAGE_PIN L13   IOSTANDARD LVCMOS18 } [get_ports { pl_led
 set_property -dict { PACKAGE_PIN L14   IOSTANDARD LVCMOS18 } [get_ports { pl_leds_tri_o[3] }]; #IO_L12P_AD0P_46/26 Sch=ld[1]
 
 ## RGB LED
-set_property -dict { PACKAGE_PIN A8    IOSTANDARD LVCMOS12 } [get_ports { pl_rgb_led[0] }]; #IO_L23N_T3U_N9_66 Sch=ld5_b
-set_property -dict { PACKAGE_PIN B9    IOSTANDARD LVCMOS12 } [get_ports { pl_rgb_led[1] }]; #IO_L24N_T3U_N11_66 Sch=ld5_g
-set_property -dict { PACKAGE_PIN C9    IOSTANDARD LVCMOS12 } [get_ports { pl_rgb_led[2]  }]; #IO_L24P_T3U_N10_66 Sch=ld5_r
+set_property -dict { PACKAGE_PIN A8    IOSTANDARD LVCMOS12 } [get_ports { pl_rgb_led_tri_o[0] }]; #IO_L23N_T3U_N9_66 Sch=ld5_b
+set_property -dict { PACKAGE_PIN B9    IOSTANDARD LVCMOS12 } [get_ports { pl_rgb_led_tri_o[1] }]; #IO_L24N_T3U_N11_66 Sch=ld5_g
+set_property -dict { PACKAGE_PIN C9    IOSTANDARD LVCMOS12 } [get_ports { pl_rgb_led_tri_o[2]  }]; #IO_L24P_T3U_N10_66 Sch=ld5_r
 
 ## GTH reference clock jitter filter auxiliary
 #set_property PACKAGE_PIN C4 [get_ports { clkgth_tri_io[0] }]; #IO_L11N_T1U_N9_GC_66 Sch=clkgth_intrn_ls
