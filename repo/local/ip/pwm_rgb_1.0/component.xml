@@ -229,6 +229,22 @@
         </spirit:parameter>
       </spirit:parameters>
     </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>GPIO</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="gpio" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="gpio_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TRI_O</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>RGB</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
   </spirit:busInterfaces>
   <spirit:memoryMaps>
     <spirit:memoryMap>
@@ -266,7 +282,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>066a5bf3</spirit:value>
+            <spirit:value>efeeb026</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -282,7 +298,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>066a5bf3</spirit:value>
+            <spirit:value>efeeb026</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -310,7 +326,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>36eab1b1</spirit:value>
+            <spirit:value>4818cb0f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -335,7 +351,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long">2</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.LED_NO&apos;)) * 3) - 1)">2</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -352,7 +368,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH&apos;)) - 1)">3</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH&apos;)) - 1)">4</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -515,7 +531,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH&apos;)) - 1)">3</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH&apos;)) - 1)">4</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -668,11 +684,32 @@
         <spirit:name>C_S_AXI_ADDR_WIDTH</spirit:name>
         <spirit:displayName>C S AXI ADDR WIDTH</spirit:displayName>
         <spirit:description>Width of S_AXI address bus</spirit:description>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH" spirit:order="4" spirit:rangeType="long">4</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH" spirit:order="4" spirit:rangeType="long">5</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>LED_NO</spirit:name>
+        <spirit:displayName>Led No</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.LED_NO">1</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>CLK_SPEED</spirit:name>
+        <spirit:displayName>Clk Speed</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.CLK_SPEED">0</spirit:value>
       </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
   <spirit:choices>
+    <spirit:choice>
+      <spirit:name>choice_list_2fc66e08</spirit:name>
+      <spirit:enumeration>1</spirit:enumeration>
+      <spirit:enumeration>2</spirit:enumeration>
+      <spirit:enumeration>3</spirit:enumeration>
+      <spirit:enumeration>4</spirit:enumeration>
+      <spirit:enumeration>5</spirit:enumeration>
+      <spirit:enumeration>6</spirit:enumeration>
+      <spirit:enumeration>7</spirit:enumeration>
+      <spirit:enumeration>8</spirit:enumeration>
+    </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_list_6fc15197</spirit:name>
       <spirit:enumeration>32</spirit:enumeration>
@@ -681,6 +718,14 @@
       <spirit:name>choice_list_9d8b0d81</spirit:name>
       <spirit:enumeration>ACTIVE_HIGH</spirit:enumeration>
       <spirit:enumeration>ACTIVE_LOW</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>choice_pairs_0755a5d3</spirit:name>
+      <spirit:enumeration spirit:text="50MHz">0</spirit:enumeration>
+      <spirit:enumeration spirit:text="100MHz">1</spirit:enumeration>
+      <spirit:enumeration spirit:text="150MHz">2</spirit:enumeration>
+      <spirit:enumeration spirit:text="200MHz">3</spirit:enumeration>
+      <spirit:enumeration spirit:text="250MHz">4</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_pairs_ce1226b1</spirit:name>
@@ -698,7 +743,7 @@
       <spirit:file>
         <spirit:name>hdl/pwm_rgb_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_0859e36f</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_7696da21</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -749,7 +794,7 @@
       <spirit:file>
         <spirit:name>xgui/pwm_rgb_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_36eab1b1</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_4818cb0f</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -780,7 +825,7 @@
       <spirit:name>C_S_AXI_ADDR_WIDTH</spirit:name>
       <spirit:displayName>C S AXI ADDR WIDTH</spirit:displayName>
       <spirit:description>Width of S_AXI address bus</spirit:description>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_S_AXI_ADDR_WIDTH" spirit:order="4" spirit:rangeType="long">4</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_S_AXI_ADDR_WIDTH" spirit:order="4" spirit:minimum="0" spirit:maximum="5" spirit:rangeType="long">5</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -817,6 +862,16 @@
       <spirit:name>Component_Name</spirit:name>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">pwm_rgb_v1_0</spirit:value>
     </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>LED_NO</spirit:name>
+      <spirit:displayName>Led No</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.LED_NO" spirit:choiceRef="choice_list_2fc66e08">1</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLK_SPEED</spirit:name>
+      <spirit:displayName>Clk Speed</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.CLK_SPEED" spirit:choiceRef="choice_pairs_0755a5d3">0</spirit:value>
+    </spirit:parameter>
   </spirit:parameters>
   <spirit:vendorExtensions>
     <xilinx:coreExtensions>
@@ -827,8 +882,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>pwm_rgb_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>11</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2019-09-19T10:20:19Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>16</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2019-10-22T15:07:28Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@38ea673b_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-gpio/ip_repo/pwm_rgb_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@71322215_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-gpio/ip_repo/pwm_rgb_1.0</xilinx:tag>
@@ -1072,16 +1127,179 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@8710d99_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-gpio/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@28fdcf2e_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-gpio/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@7bfad412_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-gpio/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6648ca5f_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@47975509_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6c437791_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7cc847bc_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1c6035f6_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@495604f9_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9766354_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@13f639ab_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60054433_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f9dae69_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@17b757f6_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@332d1dcf_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7509a44f_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7be5ec9c_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7bc96389_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7cebeeb4_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3db9575a_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@39b8c7b5_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@176ff707_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48db9dda_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40a611df_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@624f8343_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@53e0220c_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@38eb694e_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7420d1e6_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1130f218_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@dfc9686_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67ce6019_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40174e9e_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e292d78_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@47d50490_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@36a11c60_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2619c276_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1aaee695_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5427beed_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@eab79f8_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@670f505_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@23cfc3a3_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@267b257c_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2b645eaf_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2fa2a3cf_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@680e4206_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27116680_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a895eda_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7429d472_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@46a7e0f0_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7fd3bbd8_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@33496d5f_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@129aa8a4_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@337cb6e5_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@529825fb_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4314b644_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d47af20_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@35c4db89_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@313da6af_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@50164928_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5430866d_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@79724b53_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@29395dc3_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@55a8f346_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@722832d7_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59a11fce_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2fba9c5c_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6dabf7f9_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c2adc1f_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@28cf7b8d_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4b859920_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ce25368_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@16112f6_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f083c24_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f509fa2_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59e8ad2f_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@617a018_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4baec381_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f5fb1fa_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b85a219_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5bec8de5_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@675f8a4_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@35cd7a3c_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@24a3eebf_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@473835ca_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@dc4099f_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@698d89d0_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e2f8501_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3851f5ac_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d757a6a_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@be3b94c_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e118088_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@446885a7_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d6094db_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@31be9b37_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@550a7f0d_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d7701ff_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@55a1282a_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4ffbfa1d_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6eafb4bd_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@37bfb70_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@228d722_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@138b264a_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d02b786_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ce72cdc_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40f59890_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26a65380_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5cf9f947_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3c595106_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f02427_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2e728f6b_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7aaf7d7f_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@62c0c4a9_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@a8c4c_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ba1b108_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d9e1a24_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@155a2aeb_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d7dfd96_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@63bb6dcd_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d811d1f_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7090aabf_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60a42611_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@322c3ed6_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27f40cd7_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1bd7c99f_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f3fbb8b_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@273dfc75_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@469eb39a_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@24272b3a_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20f7787_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32c75dbd_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3e52ba11_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d3552e5_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3de8b282_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f824d88_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@bbd1234_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b6b8065_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4ca3cac9_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40534e97_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60e3a31b_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10a80065_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@72841518_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@37bf3ce9_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@367c7f6f_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@290f0cd9_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74bb917_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4bcd36e0_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7db84b50_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6c9a3749_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@36b51912_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ff5288c_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c7e10b2_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60b319eb_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f7356d3_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4cf10696_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@61667fd9_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7bfc6de6_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9cd7d78_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@547c3f91_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f02bd00_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@321cc6fc_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@611d9734_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@502e3728_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10f65167_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3db4506e_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71986e0a_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@16192144_ARCHIVE_LOCATION">/home/ionel/projects/vivado/zuca/5ev-next/repo/local/ip/pwm_rgb_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2019.1</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="7c46a31e"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="d2696afc"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="c30980da"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="04d16ab8"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="d33c5c07"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="f9a38560"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="1447f47d"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="133ec71f"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="ee5b8b45"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="abd4663b"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="a518a1da"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

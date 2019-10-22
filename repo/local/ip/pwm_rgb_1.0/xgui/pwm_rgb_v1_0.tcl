@@ -10,7 +10,27 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "C_S_AXI_BASEADDR" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_S_AXI_HIGHADDR" -parent ${Page_0}
 
+  ipgui::add_param $IPINST -name "LED_NO" -widget comboBox
+  ipgui::add_param $IPINST -name "CLK_SPEED" -widget comboBox
 
+}
+
+proc update_PARAM_VALUE.CLK_SPEED { PARAM_VALUE.CLK_SPEED } {
+	# Procedure called to update CLK_SPEED when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.CLK_SPEED { PARAM_VALUE.CLK_SPEED } {
+	# Procedure called to validate CLK_SPEED
+	return true
+}
+
+proc update_PARAM_VALUE.LED_NO { PARAM_VALUE.LED_NO } {
+	# Procedure called to update LED_NO when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.LED_NO { PARAM_VALUE.LED_NO } {
+	# Procedure called to validate LED_NO
+	return true
 }
 
 proc update_PARAM_VALUE.C_S_AXI_DATA_WIDTH { PARAM_VALUE.C_S_AXI_DATA_WIDTH } {
@@ -58,5 +78,15 @@ proc update_MODELPARAM_VALUE.C_S_AXI_DATA_WIDTH { MODELPARAM_VALUE.C_S_AXI_DATA_
 proc update_MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH { MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH PARAM_VALUE.C_S_AXI_ADDR_WIDTH } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.C_S_AXI_ADDR_WIDTH}] ${MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH}
+}
+
+proc update_MODELPARAM_VALUE.LED_NO { MODELPARAM_VALUE.LED_NO PARAM_VALUE.LED_NO } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.LED_NO}] ${MODELPARAM_VALUE.LED_NO}
+}
+
+proc update_MODELPARAM_VALUE.CLK_SPEED { MODELPARAM_VALUE.CLK_SPEED PARAM_VALUE.CLK_SPEED } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.CLK_SPEED}] ${MODELPARAM_VALUE.CLK_SPEED}
 }
 

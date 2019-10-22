@@ -5,7 +5,8 @@ use ieee.numeric_std.all;
 entity pwm_rgb_v1_0_S_AXI is
 	generic (
 		-- Users to add parameters here
-
+		LED_NO	: integer := 1;
+		CLK_SPEED : integer := 0; --50MHz
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -17,7 +18,7 @@ entity pwm_rgb_v1_0_S_AXI is
 	port (
 		-- Users to add ports here
 
-		RGB : out std_logic_vector (2 downto 0);
+		RGB : out std_logic_vector ((LED_NO * 3) - 1  downto 0);
 		-- Do not modify the ports beyond this line
 
 		-- Global Clock Signal
@@ -103,27 +104,40 @@ architecture arch_imp of pwm_rgb_v1_0_S_AXI is
 	-- ADDR_LSB = 2 for 32 bits (n downto 2)
 	-- ADDR_LSB = 3 for 64 bits (n downto 3)
 	constant ADDR_LSB: integer := (C_S_AXI_DATA_WIDTH/32)+ 1;
-	constant OPT_MEM_ADDR_BITS : integer := 1;
+	constant OPT_MEM_ADDR_BITS : integer := 2;
 	------------------------------------------------
 	---- Signals for user logic register space example
 	--------------------------------------------------
-	---- Number of Slave Registers 4
-	signal slv_reg0	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-	signal slv_reg1	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-	signal slv_reg2	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-	signal slv_reg3	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+	---- Number of Slave Registers 8
+	type slv_reg_type is array (LED_NO - 1 downto 0	) of std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+	type led_type is record
+		red: std_logic_vector(7 downto 0);
+		green: std_logic_vector(7 downto 0);
+		blue: std_logic_vector(7 downto 0);
+	end record;
+	type led_array is array (LED_NO -1 downto 0) of led_type;
+	
+	signal slv_reg : slv_reg_type;
+	signal led: led_array;
+--	signal slv_reg0	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+--	signal slv_reg1	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+--	signal slv_reg2	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+--	signal slv_reg3	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+--	signal slv_reg4	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+--	signal slv_reg5	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+--	signal slv_reg6	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
+--	signal slv_reg7	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	signal slv_reg_rden	: std_logic;
 	signal slv_reg_wren	: std_logic;
 	signal reg_data_out	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	signal byte_index	: integer;
 	signal aw_en	: std_logic;
 
-	signal pwm_scaler: unsigned(10 downto 0);
+	signal pwm_scaler: unsigned(10 + CLK_SPEED downto 0);
+	signal pwm_scaler_ref: unsigned(10 + CLK_SPEED downto 0);
 	signal pwm_pulse : std_logic;
 	signal fill_count: unsigned(7 downto 0);
-	signal red_fill : std_logic_vector(7 downto 0);
-	signal green_fill : std_logic_vector(7 downto 0);
-	signal blue_fill : std_logic_vector(7 downto 0);
+	
 
 --	attribute keep:string;
 --	attribute keep of pwm_scaler :signal is "true";
@@ -228,52 +242,89 @@ begin
 	begin
 	if rising_edge(S_AXI_ACLK) then
 		if S_AXI_ARESETN = '0' then
-		slv_reg0 <= (others => '0');
-		slv_reg1 <= (others => '0');
-		slv_reg2 <= (others => '0');
-		slv_reg3 <= (others => '0');
+		slv_reg <= (others => (others => '0'));
 		else
 		loc_addr := axi_awaddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
 		if (slv_reg_wren = '1') then
-			case loc_addr is
-			when b"00" =>
+			if unsigned(loc_addr) >= 0 and unsigned(loc_addr) <= 7 then
 				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
 				if ( S_AXI_WSTRB(byte_index) = '1' ) then
 					-- Respective byte enables are asserted as per write strobes
 					-- slave registor 0
-					slv_reg0(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+					slv_reg(to_integer(unsigned(loc_addr)))(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 				end if;
 				end loop;
-			when b"01" =>
-				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
-				if ( S_AXI_WSTRB(byte_index) = '1' ) then
-					-- Respective byte enables are asserted as per write strobes
-					-- slave registor 1
-					slv_reg1(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
-				end if;
-				end loop;
-			when b"10" =>
-				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
-				if ( S_AXI_WSTRB(byte_index) = '1' ) then
-					-- Respective byte enables are asserted as per write strobes
-					-- slave registor 2
-					slv_reg2(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
-				end if;
-				end loop;
-			when b"11" =>
-				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
-				if ( S_AXI_WSTRB(byte_index) = '1' ) then
-					-- Respective byte enables are asserted as per write strobes
-					-- slave registor 3
-					slv_reg3(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
-				end if;
-				end loop;
-			when others =>
-				slv_reg0 <= slv_reg0;
-				slv_reg1 <= slv_reg1;
-				slv_reg2 <= slv_reg2;
-				slv_reg3 <= slv_reg3;
-			end case;
+			else
+				slv_reg <= slv_reg;
+			end if;
+--			case loc_addr is
+--			when b"000" =>
+--				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
+--				if ( S_AXI_WSTRB(byte_index) = '1' ) then
+--					-- Respective byte enables are asserted as per write strobes
+--					-- slave registor 0
+--					slv_reg(0)(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+--				end if;
+--				end loop;
+--			when b"001" =>
+--				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
+--				if ( S_AXI_WSTRB(byte_index) = '1' ) then
+--					-- Respective byte enables are asserted as per write strobes
+--					-- slave registor 1
+--					slv_reg(1)(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+--				end if;
+--				end loop;
+--			when b"010" =>
+--				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
+--				if ( S_AXI_WSTRB(byte_index) = '1' ) then
+--					-- Respective byte enables are asserted as per write strobes
+--					-- slave registor 2
+--					slv_reg(2)(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+--				end if;
+--				end loop;
+--			when b"011" =>
+--				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
+--				if ( S_AXI_WSTRB(byte_index) = '1' ) then
+--					-- Respective byte enables are asserted as per write strobes
+--					-- slave registor 3
+--					slv_reg(3)(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+--				end if;
+--				end loop;
+--			when b"100" =>
+--				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
+--				if ( S_AXI_WSTRB(byte_index) = '1' ) then
+--					-- Respective byte enables are asserted as per write strobes
+--					-- slave registor 3
+--					slv_reg(4)(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+--				end if;
+--				end loop;
+--			when b"101" =>
+--				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
+--				if ( S_AXI_WSTRB(byte_index) = '1' ) then
+--					-- Respective byte enables are asserted as per write strobes
+--					-- slave registor 3
+--					slv_reg(5)(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+--				end if;
+--				end loop;
+--			when b"110" =>
+--				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
+--				if ( S_AXI_WSTRB(byte_index) = '1' ) then
+--					-- Respective byte enables are asserted as per write strobes
+--					-- slave registor 3
+--					slv_reg(6)(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+--				end if;
+--				end loop;
+--			when b"111" =>
+--				for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
+--				if ( S_AXI_WSTRB(byte_index) = '1' ) then
+--					-- Respective byte enables are asserted as per write strobes
+--					-- slave registor 3
+--					slv_reg(7)(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+--				end if;
+--				end loop;
+--			when others =>
+--				slv_reg <= slv_reg;
+--			end case;
 		end if;
 		end if;
 	end if;
@@ -360,23 +411,16 @@ begin
 	-- and the slave is ready to accept the read address.
 	slv_reg_rden <= axi_arready and S_AXI_ARVALID and (not axi_rvalid) ;
 
-	process (slv_reg0, slv_reg1, slv_reg2, slv_reg3, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
+	process (slv_reg, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
 	variable loc_addr :std_logic_vector(OPT_MEM_ADDR_BITS downto 0);
 	begin
 		-- Address decoding for reading registers
 		loc_addr := axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
-		case loc_addr is
-		when b"00" =>
-			reg_data_out <= slv_reg0;
-		when b"01" =>
-			reg_data_out <= slv_reg1;
-		when b"10" =>
-			reg_data_out <= slv_reg2;
-		when b"11" =>
-			reg_data_out <= slv_reg3;
-		when others =>
-			reg_data_out<= (others => '0');
-		end case;
+		if unsigned(loc_addr) >= 0 and unsigned(loc_addr) <= 7 then
+				reg_data_out <= slv_reg(to_integer(unsigned(loc_addr)));
+			else
+				reg_data_out<= (others => '0');
+		end if;
 	end process;
 
 	-- Output register or memory read data
@@ -396,8 +440,9 @@ begin
 		end if;
 	end if;
 	end process;
-
-	pwm_pulse <= '1' when pwm_scaler = "1000000000" else '0'; --generating pulse to trigger counting
+	pwm_scaler_ref <= ( (10 + CLK_SPEED) => '1', others => '0');
+--	pwm_pulse <= '1' when pwm_scaler = "1000000000" else '0'; --generating pulse to trigger counting
+	pwm_pulse <= '1' when pwm_scaler = pwm_scaler_ref else '0'; --generating pulse to trigger counting
 
 	pwm_freq:process (S_AXI_ACLK) is
 	begin
@@ -423,12 +468,15 @@ begin
 		end if;
 	end process;
 
-	red_fill <= slv_reg0(23 downto 16);
-	green_fill <= slv_reg0(15 downto 8);
-	blue_fill <= slv_reg0(7 downto 0);
+	led_gen: for L in 0 to LED_NO - 1 generate
+		led(L).red <= slv_reg(L)(23 downto 16);
+		led(L).green <= slv_reg(L)(15 downto 8);
+		led(L).blue <= slv_reg(L)(7 downto 0);
+		RGB((L*3) + 2) <= '1' when fill_count <= unsigned(led(L).red) and led(L).red /= x"00" and S_AXI_ARESETN = '1' else '0';
+		RGB((L*3) + 1) <= '1' when fill_count <= unsigned(led(L).green) and led(L).green /= x"00" and S_AXI_ARESETN = '1' else '0';
+		RGB((L*3) + 0) <= '1' when fill_count <= unsigned(led(L).blue) and led(L).blue /= x"00" and S_AXI_ARESETN = '1' else '0';
+	end generate;
+	
 
-	RGB(2) <= '1' when fill_count <= unsigned(red_fill) and red_fill /= x"00" and S_AXI_ARESETN = '1' else '0';
-	RGB(1) <= '1' when fill_count <= unsigned(green_fill) and green_fill /= x"00" and S_AXI_ARESETN = '1' else '0';
-	RGB(0) <= '1' when fill_count <= unsigned(blue_fill) and blue_fill /= x"00" and S_AXI_ARESETN = '1' else '0';
 
 end arch_imp;
