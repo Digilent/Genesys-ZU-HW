@@ -5,19 +5,20 @@ use ieee.numeric_std.all;
 entity pwm_rgb_v1_0 is
 	generic (
 		-- Users to add parameters here
-
+		LED_NO	: integer	:= 1;
+		CLK_SPEED	: integer := 0; -- 50MHz
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
 
 		-- Parameters of Axi Slave Bus Interface S_AXI
 		C_S_AXI_DATA_WIDTH	: integer	:= 32;
-		C_S_AXI_ADDR_WIDTH	: integer	:= 4
+		C_S_AXI_ADDR_WIDTH	: integer	:= 5
 	);
 	port (
 		-- Users to add ports here
 
-		RGB : out std_logic_vector (2 downto 0);
+		RGB : out std_logic_vector ((LED_NO * 3) - 1 downto 0);
 		-- Do not modify the ports beyond this line
 
 
@@ -51,11 +52,13 @@ architecture arch_imp of pwm_rgb_v1_0 is
 	-- component declaration
 	component pwm_rgb_v1_0_S_AXI is
 		generic (
-		C_S_AXI_DATA_WIDTH	: integer	:= 32;
-		C_S_AXI_ADDR_WIDTH	: integer	:= 4
+		LED_NO	: integer := LED_NO;
+		CLK_SPEED	: integer := CLK_SPEED;
+		C_S_AXI_DATA_WIDTH	: integer	:= C_S_AXI_DATA_WIDTH;
+		C_S_AXI_ADDR_WIDTH	: integer	:= C_S_AXI_ADDR_WIDTH
 		);
 		port (
-		RGB : out std_logic_vector (2 downto 0);
+		RGB : out std_logic_vector ((LED_NO * 3) - 1 downto 0);
 		S_AXI_ACLK	: in std_logic;
 		S_AXI_ARESETN	: in std_logic;
 		S_AXI_AWADDR	: in std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
