@@ -1,5 +1,5 @@
 proc getPresetInfo {} {
-  return [dict create name {Genesys ZU -3EG rev A, 1866Mbps} description {Genesys ZU -3EG rev A, 1866Mbps}  vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 display_name {Genesys ZU -3EG rev A, 1866Mbps} ]
+  return [dict create name {Genesys ZU -3EG rev B, 1866Mbps} description {Genesys ZU -3EG rev B, 1866Mbps}  vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 display_name {Genesys ZU -3EG rev B, 1866Mbps} ]
 }
 
 proc validate_preset {IPINST} { return true }
@@ -171,8 +171,8 @@ proc apply_preset {IPINST} {
     CONFIG.PSU__ACTUAL__IP {1}  \
     CONFIG.SUBPRESET1 {Custom}  \
     CONFIG.SUBPRESET2 {Custom}  \
-    CONFIG.PSU_MIO_TREE_PERIPHERALS {Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Feedback Clk#PCIE#I2C 1#I2C 1#GPIO0 MIO#GPIO0 MIO#SPI 0#GPIO0 MIO#SPI 0#SPI 0#SPI 0#SPI 0#UART 0#UART 0#GPIO0 MIO#GPIO0 MIO#I2C 0#I2C 0#GPIO0 MIO#GPIO0 MIO#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#GPIO1 MIO#SD 1#SD 1#SD 1#SD 1#GPIO1 MIO#GPIO1 MIO#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#MDIO 0#MDIO 0}  \
-    CONFIG.PSU_MIO_TREE_SIGNALS {sclk_out#miso_mo1#mo2#mo3#mosi_mi0#n_ss_out#clk_for_lpbk#reset_n#scl_out#sda_out#gpio0[10]#gpio0[11]#sclk_out#gpio0[13]#n_ss_out[1]#n_ss_out[0]#miso#mosi#rxd#txd#gpio0[20]#gpio0[21]#scl_out#sda_out#gpio0[24]#gpio0[25]#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#gpio1[38]#sdio1_data_out[4]#sdio1_data_out[5]#sdio1_data_out[6]#sdio1_data_out[7]#gpio1[43]#gpio1[44]#sdio1_cd_n#sdio1_data_out[0]#sdio1_data_out[1]#sdio1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#gem0_mdc#gem0_mdio_out}  \
+    CONFIG.PSU_MIO_TREE_PERIPHERALS {Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Feedback Clk#PCIE#I2C 1#I2C 1#GPIO0 MIO#GPIO0 MIO#SPI 0#GPIO0 MIO#SPI 0#SPI 0#SPI 0#SPI 0#UART 0#UART 0#GPIO0 MIO#GPIO0 MIO#I2C 0#I2C 0#GPIO0 MIO#GPIO0 MIO#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#GPIO1 MIO#SD 1#SD 1#SD 1#SD 1#SD 1#GPIO1 MIO#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#MDIO 0#MDIO 0}  \
+    CONFIG.PSU_MIO_TREE_SIGNALS {sclk_out#miso_mo1#mo2#mo3#mosi_mi0#n_ss_out#clk_for_lpbk#reset_n#scl_out#sda_out#gpio0[10]#gpio0[11]#sclk_out#gpio0[13]#n_ss_out[1]#n_ss_out[0]#miso#mosi#rxd#txd#gpio0[20]#gpio0[21]#scl_out#sda_out#gpio0[24]#gpio0[25]#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#gpio1[38]#sdio1_data_out[4]#sdio1_data_out[5]#sdio1_data_out[6]#sdio1_data_out[7]#sdio1_bus_pow#gpio1[44]#sdio1_cd_n#sdio1_data_out[0]#sdio1_data_out[1]#sdio1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#gem0_mdc#gem0_mdio_out}  \
     CONFIG.PSU_PERIPHERAL_BOARD_PRESET {}  \
     CONFIG.PSU__NAND__PERIPHERAL__ENABLE {0}  \
     CONFIG.PSU__NAND__READY_BUSY__ENABLE {0}  \
@@ -214,7 +214,8 @@ proc apply_preset {IPINST} {
     CONFIG.PSU__SD1__PERIPHERAL__IO {MIO 39 .. 51}  \
     CONFIG.PSU__SD1__GRP_CD__ENABLE {1}  \
     CONFIG.PSU__SD1__GRP_CD__IO {MIO 45}  \
-    CONFIG.PSU__SD1__GRP_POW__ENABLE {0}  \
+    CONFIG.PSU__SD1__GRP_POW__ENABLE {1}  \
+    CONFIG.PSU__SD1__GRP_POW__IO {MIO 43}  \
     CONFIG.PSU__SD1__GRP_WP__ENABLE {0}  \
     CONFIG.PSU__SD1__SLOT_TYPE {SD 3.0}  \
     CONFIG.PSU__SD1__RESET__ENABLE {0}  \
@@ -556,17 +557,17 @@ proc apply_preset {IPINST} {
     CONFIG.PSU_MIO_9_INPUT_TYPE {cmos}  \
     CONFIG.PSU_MIO_9_SLEW {slow}  \
     CONFIG.PSU_MIO_9_DIRECTION {inout}  \
-    CONFIG.PSU_MIO_10_PULLUPDOWN {pullup}  \
+    CONFIG.PSU_MIO_10_PULLUPDOWN {disable}  \
     CONFIG.PSU_MIO_10_DRIVE_STRENGTH {12}  \
     CONFIG.PSU_MIO_10_POLARITY {Default}  \
     CONFIG.PSU_MIO_10_INPUT_TYPE {cmos}  \
-    CONFIG.PSU_MIO_10_SLEW {fast}  \
+    CONFIG.PSU_MIO_10_SLEW {slow}  \
     CONFIG.PSU_MIO_10_DIRECTION {inout}  \
-    CONFIG.PSU_MIO_11_PULLUPDOWN {pullup}  \
+    CONFIG.PSU_MIO_11_PULLUPDOWN {disable}  \
     CONFIG.PSU_MIO_11_DRIVE_STRENGTH {12}  \
     CONFIG.PSU_MIO_11_POLARITY {Default}  \
     CONFIG.PSU_MIO_11_INPUT_TYPE {cmos}  \
-    CONFIG.PSU_MIO_11_SLEW {fast}  \
+    CONFIG.PSU_MIO_11_SLEW {slow}  \
     CONFIG.PSU_MIO_11_DIRECTION {inout}  \
     CONFIG.PSU_MIO_12_PULLUPDOWN {pullup}  \
     CONFIG.PSU_MIO_12_DRIVE_STRENGTH {12}  \
@@ -574,11 +575,11 @@ proc apply_preset {IPINST} {
     CONFIG.PSU_MIO_12_INPUT_TYPE {cmos}  \
     CONFIG.PSU_MIO_12_SLEW {slow}  \
     CONFIG.PSU_MIO_12_DIRECTION {inout}  \
-    CONFIG.PSU_MIO_13_PULLUPDOWN {pullup}  \
+    CONFIG.PSU_MIO_13_PULLUPDOWN {disable}  \
     CONFIG.PSU_MIO_13_DRIVE_STRENGTH {12}  \
     CONFIG.PSU_MIO_13_POLARITY {Default}  \
     CONFIG.PSU_MIO_13_INPUT_TYPE {cmos}  \
-    CONFIG.PSU_MIO_13_SLEW {fast}  \
+    CONFIG.PSU_MIO_13_SLEW {slow}  \
     CONFIG.PSU_MIO_13_DIRECTION {inout}  \
     CONFIG.PSU_MIO_14_PULLUPDOWN {pullup}  \
     CONFIG.PSU_MIO_14_DRIVE_STRENGTH {12}  \
@@ -620,13 +621,13 @@ proc apply_preset {IPINST} {
     CONFIG.PSU_MIO_20_DRIVE_STRENGTH {12}  \
     CONFIG.PSU_MIO_20_POLARITY {Default}  \
     CONFIG.PSU_MIO_20_INPUT_TYPE {cmos}  \
-    CONFIG.PSU_MIO_20_SLEW {fast}  \
+    CONFIG.PSU_MIO_20_SLEW {slow}  \
     CONFIG.PSU_MIO_20_DIRECTION {inout}  \
-    CONFIG.PSU_MIO_21_PULLUPDOWN {pullup}  \
+    CONFIG.PSU_MIO_21_PULLUPDOWN {pulldown}  \
     CONFIG.PSU_MIO_21_DRIVE_STRENGTH {12}  \
     CONFIG.PSU_MIO_21_POLARITY {Default}  \
     CONFIG.PSU_MIO_21_INPUT_TYPE {cmos}  \
-    CONFIG.PSU_MIO_21_SLEW {fast}  \
+    CONFIG.PSU_MIO_21_SLEW {slow}  \
     CONFIG.PSU_MIO_21_DIRECTION {inout}  \
     CONFIG.PSU_MIO_22_PULLUPDOWN {pullup}  \
     CONFIG.PSU_MIO_22_DRIVE_STRENGTH {12}  \
@@ -640,17 +641,17 @@ proc apply_preset {IPINST} {
     CONFIG.PSU_MIO_23_INPUT_TYPE {cmos}  \
     CONFIG.PSU_MIO_23_SLEW {slow}  \
     CONFIG.PSU_MIO_23_DIRECTION {inout}  \
-    CONFIG.PSU_MIO_24_PULLUPDOWN {pullup}  \
+    CONFIG.PSU_MIO_24_PULLUPDOWN {disable}  \
     CONFIG.PSU_MIO_24_DRIVE_STRENGTH {12}  \
     CONFIG.PSU_MIO_24_POLARITY {Default}  \
     CONFIG.PSU_MIO_24_INPUT_TYPE {cmos}  \
-    CONFIG.PSU_MIO_24_SLEW {fast}  \
+    CONFIG.PSU_MIO_24_SLEW {slow}  \
     CONFIG.PSU_MIO_24_DIRECTION {inout}  \
     CONFIG.PSU_MIO_25_PULLUPDOWN {pullup}  \
     CONFIG.PSU_MIO_25_DRIVE_STRENGTH {12}  \
     CONFIG.PSU_MIO_25_POLARITY {Default}  \
     CONFIG.PSU_MIO_25_INPUT_TYPE {cmos}  \
-    CONFIG.PSU_MIO_25_SLEW {fast}  \
+    CONFIG.PSU_MIO_25_SLEW {slow}  \
     CONFIG.PSU_MIO_25_DIRECTION {inout}  \
     CONFIG.PSU_MIO_26_PULLUPDOWN {disable}  \
     CONFIG.PSU_MIO_26_DRIVE_STRENGTH {8}  \
@@ -724,11 +725,11 @@ proc apply_preset {IPINST} {
     CONFIG.PSU_MIO_37_INPUT_TYPE {cmos}  \
     CONFIG.PSU_MIO_37_SLEW {fast}  \
     CONFIG.PSU_MIO_37_DIRECTION {in}  \
-    CONFIG.PSU_MIO_38_PULLUPDOWN {pullup}  \
+    CONFIG.PSU_MIO_38_PULLUPDOWN {disable}  \
     CONFIG.PSU_MIO_38_DRIVE_STRENGTH {12}  \
     CONFIG.PSU_MIO_38_POLARITY {Default}  \
     CONFIG.PSU_MIO_38_INPUT_TYPE {cmos}  \
-    CONFIG.PSU_MIO_38_SLEW {fast}  \
+    CONFIG.PSU_MIO_38_SLEW {slow}  \
     CONFIG.PSU_MIO_38_DIRECTION {inout}  \
     CONFIG.PSU_MIO_39_PULLUPDOWN {pullup}  \
     CONFIG.PSU_MIO_39_DRIVE_STRENGTH {12}  \
@@ -759,12 +760,12 @@ proc apply_preset {IPINST} {
     CONFIG.PSU_MIO_43_POLARITY {Default}  \
     CONFIG.PSU_MIO_43_INPUT_TYPE {cmos}  \
     CONFIG.PSU_MIO_43_SLEW {fast}  \
-    CONFIG.PSU_MIO_43_DIRECTION {inout}  \
-    CONFIG.PSU_MIO_44_PULLUPDOWN {pullup}  \
+    CONFIG.PSU_MIO_43_DIRECTION {out}  \
+    CONFIG.PSU_MIO_44_PULLUPDOWN {disable}  \
     CONFIG.PSU_MIO_44_DRIVE_STRENGTH {12}  \
     CONFIG.PSU_MIO_44_POLARITY {Default}  \
     CONFIG.PSU_MIO_44_INPUT_TYPE {cmos}  \
-    CONFIG.PSU_MIO_44_SLEW {fast}  \
+    CONFIG.PSU_MIO_44_SLEW {slow}  \
     CONFIG.PSU_MIO_44_DIRECTION {inout}  \
     CONFIG.PSU_MIO_45_PULLUPDOWN {pullup}  \
     CONFIG.PSU_MIO_45_DRIVE_STRENGTH {12}  \
