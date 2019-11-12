@@ -214,8 +214,8 @@ set_property PACKAGE_PIN AC13 [get_ports {vadj_level_1}];     #IO_L6N_HDGC_44/24
 set_property PACKAGE_PIN G10 [get_ports {vadj_auton}];      #IO_L3N_AD13N_45/25 Sch=vadj_auton
 #set_property PACKAGE_PIN H11 [get_ports {mcu_tri_io[3]}];      #IO_L3P_AD13P_45/25 Sch=syzygy_detectedn
 
-set_property IOSTANDARD LVCMOS18 [get_ports {vadj_level_0}]
-set_property IOSTANDARD LVCMOS18 [get_ports {vadj_level_1}]
+set_property IOSTANDARD LVCMOS33 [get_ports {vadj_level_0}]
+set_property IOSTANDARD LVCMOS33 [get_ports {vadj_level_1}]
 set_property IOSTANDARD LVCMOS18 [get_ports {vadj_auton}]
 #set_property IOSTANDARD LVCMOS18 [get_ports {mcu_tri_io[3]}]
 
@@ -265,8 +265,8 @@ set_property PACKAGE_PIN C13 [get_ports {pmod2_tri_io[5]}]; #IO_L4N_AD8N_46/26 S
 set_property PACKAGE_PIN C14 [get_ports {pmod2_tri_io[6]}]; #IO_L4P_AD8P_46/26 Sch=jc[9]
 set_property PACKAGE_PIN A13 [get_ports {pmod2_tri_io[7]}]; #IO_L3N_AD9N_46/26 Sch=jc[10]
 ##PMOD JD
-set_property -dict { PACKAGE_PIN E15    IOSTANDARD LVCMOS18 } [get_ports {UART_CTL_rxd}]; #IO_L4P_AD12P_44/24 Sch=jd[1]
-set_property -dict { PACKAGE_PIN E14    IOSTANDARD LVCMOS18 } [get_ports {UART_CTL_txd}];   #IO_L1N_AD15N_44/24 Sch=jd[7]
+set_property -dict { PACKAGE_PIN E15    IOSTANDARD LVCMOS33 } [get_ports {UART_CTL_rxd}]; #IO_L4P_AD12P_44/24 Sch=jd[1]
+set_property -dict { PACKAGE_PIN E14    IOSTANDARD LVCMOS33 } [get_ports {UART_CTL_txd}];   #IO_L1N_AD15N_44/24 Sch=jd[7]
 set_property PACKAGE_PIN A14 [get_ports {pmod_tri_io[8]}]; #IO_L2P_AD14P_44/24 Sch=jd[2]
 set_property PACKAGE_PIN B15 [get_ports {pmod_tri_io[9]}];   #IO_L2N_AD14N_44/24 Sch=jd[3]
 set_property PACKAGE_PIN F15 [get_ports {pmod_tri_io[10]}];   #IO_L3P_AD13P_44/24 Sch=jd[4]
@@ -275,12 +275,12 @@ set_property PACKAGE_PIN D15 [get_ports {pmod2_tri_io[9]}];   #IO_L1P_AD15P_44/2
 set_property PACKAGE_PIN A15 [get_ports {pmod2_tri_io[10]}];   #IO_L3N_AD13N_44/24 Sch=jd[10]
 #set_property IOSTANDARD LVCMOS33 [get_ports {PMOD_*}];
 
-set_property IOSTANDARD LVCMOS18 [get_ports {pmod_tri_io[*]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {pmod_tri_io[*]}]
 set_property DRIVE 4 [get_ports {pmod_tri_io[*]}]
 set_property SLEW SLOW [get_ports {pmod_tri_io[*]}]
 set_property PULLUP true [get_ports {pmod_tri_io[*]}]
 
-set_property IOSTANDARD LVCMOS18 [get_ports {pmod2_tri_io[*]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {pmod2_tri_io[*]}]
 set_property DRIVE 4 [get_ports {pmod2_tri_io[*]}]
 set_property SLEW SLOW [get_ports {pmod2_tri_io[*]}]
 set_property PULLUP true [get_ports {pmod2_tri_io[*]}]
@@ -293,16 +293,16 @@ set_property -dict { PACKAGE_PIN H12    IOSTANDARD LVCMOS18 } [get_ports { pl_bu
 set_property -dict { PACKAGE_PIN B10    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons_tri_i[4] }]; #IO_L9N_AD11N_45/25 Sch=btn[2]
 
 ## Switches
-set_property -dict { PACKAGE_PIN AB15  IOSTANDARD LVCMOS18 } [get_ports { pl_switches_tri_i[0] }]; #IO_L8P_HDGC_44/24 Sch=sw[3]
-set_property -dict { PACKAGE_PIN W12   IOSTANDARD LVCMOS18 } [get_ports { pl_switches_tri_i[1] }]; #IO_L11P_AD9P_44/24 Sch=sw[2]
-set_property -dict { PACKAGE_PIN Y13   IOSTANDARD LVCMOS18 } [get_ports { pl_switches_tri_i[2] }]; #IO_L10N_AD10N_44/24 Sch=sw[1]
-set_property -dict { PACKAGE_PIN AB14  IOSTANDARD LVCMOS18 } [get_ports { pl_switches_tri_i[3] }]; #IO_L8N_HDGC_44/24 Sch=sw[0]
+set_property -dict { PACKAGE_PIN AB15  IOSTANDARD LVCMOS33 } [get_ports { pl_switches_tri_i[0] }]; #IO_L8P_HDGC_44/24 Sch=sw[3]
+set_property -dict { PACKAGE_PIN W12   IOSTANDARD LVCMOS33 } [get_ports { pl_switches_tri_i[1] }]; #IO_L11P_AD9P_44/24 Sch=sw[2]
+set_property -dict { PACKAGE_PIN Y13   IOSTANDARD LVCMOS33 } [get_ports { pl_switches_tri_i[2] }]; #IO_L10N_AD10N_44/24 Sch=sw[1]
+set_property -dict { PACKAGE_PIN AB14  IOSTANDARD LVCMOS33 } [get_ports { pl_switches_tri_i[3] }]; #IO_L8N_HDGC_44/24 Sch=sw[0]
 
 ## LED
-set_property -dict { PACKAGE_PIN J14   IOSTANDARD LVCMOS18 } [get_ports { pl_leds_tri_o[0] }]; #IO_L11N_AD1N_46/26 Sch=ld[4]
-set_property -dict { PACKAGE_PIN K14   IOSTANDARD LVCMOS18 } [get_ports { pl_leds_tri_o[1] }]; #IO_L11P_AD1P_46/26 Sch=ld[3]
-set_property -dict { PACKAGE_PIN L13   IOSTANDARD LVCMOS18 } [get_ports { pl_leds_tri_o[2] }]; #IO_L12N_AD0N_46/26 Sch=ld[2]
-set_property -dict { PACKAGE_PIN L14   IOSTANDARD LVCMOS18 } [get_ports { pl_leds_tri_o[3] }]; #IO_L12P_AD0P_46/26 Sch=ld[1]
+set_property -dict { PACKAGE_PIN J14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[0] }]; #IO_L11N_AD1N_46/26 Sch=ld[4]
+set_property -dict { PACKAGE_PIN K14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[1] }]; #IO_L11P_AD1P_46/26 Sch=ld[3]
+set_property -dict { PACKAGE_PIN L13   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[2] }]; #IO_L12N_AD0N_46/26 Sch=ld[2]
+set_property -dict { PACKAGE_PIN L14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[3] }]; #IO_L12P_AD0P_46/26 Sch=ld[1]
 
 ## RGB LED
 set_property -dict { PACKAGE_PIN A8    IOSTANDARD LVCMOS12 } [get_ports { pl_rgb_led_tri_o[0] }]; #IO_L23N_T3U_N9_66 Sch=ld5_b
@@ -392,7 +392,7 @@ set_property  PACKAGE_PIN K9   [get_ports { fmc_la_01_p_tri_io[3]}]; #IO_L23P_T3
 set_property  PACKAGE_PIN T7   [get_ports { fmc_la_00_n_tri_io[4]}]; #IO_L5N_T0U_N9_AD14N_65 Sch=fmc_la_n[08]
 set_property  PACKAGE_PIN R7   [get_ports { fmc_la_00_p_tri_io[4]}]; #IO_L5P_T0U_N8_AD14P_65 Sch=fmc_la_p[08]
 set_property  PACKAGE_PIN L8   [get_ports { fmc_la_01_n_tri_io[4]}]; #IO_L18N_T2U_N11_AD2N_65 Sch=fmc_la_n[09]
-set_property  PACKAGE_PIN M8   [get_ports { fmc_la_01_p_tri_io[4]}]; #IO_L18P_T2U_N10_AD2P_65 Sch=fmc_la_p[09]
+set_property  PACKAGE_PIN M8   [get_ports { fmc_la_01_p_tri_io[4]}]; #IO_L18P_T2U_N10_AD2P_65 Sch=fmc_la_p[09]f
 set_property  PACKAGE_PIN H1   [get_ports { fmc_la_00_n_tri_io[5]}]; #IO_L8N_T1L_N3_AD5N_65 Sch=fmc_la_n[10]
 set_property  PACKAGE_PIN J1   [get_ports { fmc_la_00_p_tri_io[5]}]; #IO_L8P_T1L_N2_AD5P_65 Sch=fmc_la_p[10]
 set_property  PACKAGE_PIN J4   [get_ports { fmc_la_01_n_tri_io[5]}]; #IO_L19N_T3L_N1_DBC_AD9N_65 Sch=fmc_la_n[11]
@@ -442,7 +442,7 @@ set_property  PACKAGE_PIN AB2  [get_ports { fmc_la_00_p_tri_io[16]}]; #IO_L14P_T
 set_property  PACKAGE_PIN AC6  [get_ports { fmc_la_01_n_tri_io[16]}]; #IO_L6N_T0U_N11_AD6N_64 Sch=fmc_la_n[33]
 set_property  PACKAGE_PIN AB6  [get_ports { fmc_la_01_p_tri_io[16]}]; #IO_L6P_T0U_N10_AD6P_64 Sch=fmc_la_p[33]
 
-set_property -dict {PACKAGE_PIN W11 IOSTANDARD LVCMOS18} [get_ports fmc_prsnt_tri_io]
+set_property -dict {PACKAGE_PIN W11 IOSTANDARD LVCMOS33} [get_ports fmc_prsnt_tri_io]
 
 set_property IOSTANDARD LVCMOS18 [get_ports {fmc_??_0?_?_tri_io[*]}];
 set_property SLEW SLOW [get_ports {fmc_??_0?_?_tri_io[*]}];
