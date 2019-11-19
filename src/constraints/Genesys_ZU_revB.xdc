@@ -265,8 +265,8 @@ set_property PACKAGE_PIN C13 [get_ports {pmod2_tri_io[5]}]; #IO_L4N_AD8N_46/26 S
 set_property PACKAGE_PIN C14 [get_ports {pmod2_tri_io[6]}]; #IO_L4P_AD8P_46/26 Sch=jc[9]
 set_property PACKAGE_PIN A13 [get_ports {pmod2_tri_io[7]}]; #IO_L3N_AD9N_46/26 Sch=jc[10]
 ##PMOD JD
-set_property -dict { PACKAGE_PIN E15    IOSTANDARD LVCMOS33 } [get_ports {UART_CTL_rxd}]; #IO_L4P_AD12P_44/24 Sch=jd[1]
-set_property -dict { PACKAGE_PIN E14    IOSTANDARD LVCMOS33 } [get_ports {UART_CTL_txd}];   #IO_L1N_AD15N_44/24 Sch=jd[7]
+set_property -dict { PACKAGE_PIN E15    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {UART_CTL_rxd}]; #IO_L4P_AD12P_44/24 Sch=jd[1]
+set_property -dict { PACKAGE_PIN E14    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {UART_CTL_txd}];   #IO_L1N_AD15N_44/24 Sch=jd[7]
 set_property PACKAGE_PIN A14 [get_ports {pmod_tri_io[8]}]; #IO_L2P_AD14P_44/24 Sch=jd[2]
 set_property PACKAGE_PIN B15 [get_ports {pmod_tri_io[9]}];   #IO_L2N_AD14N_44/24 Sch=jd[3]
 set_property PACKAGE_PIN F15 [get_ports {pmod_tri_io[10]}];   #IO_L3P_AD13P_44/24 Sch=jd[4]
