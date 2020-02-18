@@ -1574,10 +1574,10 @@ proc create_root_design { parentCell } {
    CONFIG.PSU__CRL_APB__PL3_REF_CTRL__DIVISOR1 {1} \
    CONFIG.PSU__CRL_APB__PL3_REF_CTRL__FREQMHZ {100} \
    CONFIG.PSU__CRL_APB__PL3_REF_CTRL__SRCSEL {RPLL} \
-   CONFIG.PSU__CRL_APB__QSPI_REF_CTRL__ACT_FREQMHZ {300.000000} \
-   CONFIG.PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR0 {5} \
+   CONFIG.PSU__CRL_APB__QSPI_REF_CTRL__ACT_FREQMHZ {250.000000} \
+   CONFIG.PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR0 {6} \
    CONFIG.PSU__CRL_APB__QSPI_REF_CTRL__DIVISOR1 {1} \
-   CONFIG.PSU__CRL_APB__QSPI_REF_CTRL__FREQMHZ {300} \
+   CONFIG.PSU__CRL_APB__QSPI_REF_CTRL__FREQMHZ {250} \
    CONFIG.PSU__CRL_APB__QSPI_REF_CTRL__SRCSEL {IOPLL} \
    CONFIG.PSU__CRL_APB__RPLL_CTRL__DIV2 {1} \
    CONFIG.PSU__CRL_APB__RPLL_CTRL__FBDIV {53} \
@@ -2441,7 +2441,6 @@ proc create_root_design { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
-  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -2453,4 +2452,6 @@ proc create_root_design { parentCell } {
 
 create_root_design ""
 
+
+common::send_msg_id "BD_TCL-1000" "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
