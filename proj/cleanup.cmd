@@ -1,3 +1,12 @@
+rem save working directory
+set orig_dir=%cd%
+rem get the directory containing this script
+set script_path=%~dp0
+set script_dir=%script_path:~0,-1%
+:: Do (Payload) within the script's directory
+cd %script_dir%
+
+rem go silent
 @echo off
 rem delete all files from subfolders
 for /d /r %%i in (*) do del /f /q %%i\*
@@ -19,3 +28,5 @@ del /Q /A:-R .\*
 rem unmark read-only
 attrib -R .\*
 
+rem restore original working directory
+cd %orig_dir%
