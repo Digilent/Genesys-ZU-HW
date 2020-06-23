@@ -1,8 +1,11 @@
 
 /***************************** Include Files *******************************/
 #include "pwm_rgb.h"
+
+#include <stdio.h>
+#include <stdint.h>
+
 #include "xparameters.h"
-#include "stdio.h"
 #include "xil_io.h"
 
 /************************** Constant Definitions ***************************/
@@ -30,12 +33,11 @@
  */
 XStatus PWM_RGB_Reg_SelfTest(void * baseaddr_p)
 {
-	u32 baseaddr;
-	int write_loop_index;
-	int read_loop_index;
-	int Index;
+	uintptr_t baseaddr;
+	unsigned int write_loop_index;
+	unsigned int read_loop_index;
 
-	baseaddr = (u32) baseaddr_p;
+	baseaddr = (uintptr_t) baseaddr_p;
 
 	xil_printf("******************************\n\r");
 	xil_printf("* User Peripheral Self Test\n\r");
@@ -50,7 +52,7 @@ XStatus PWM_RGB_Reg_SelfTest(void * baseaddr_p)
 	  PWM_RGB_mWriteReg (baseaddr, write_loop_index*4, (write_loop_index+1)*READ_WRITE_MUL_FACTOR);
 	for (read_loop_index = 0 ; read_loop_index < 4; read_loop_index++)
 	  if ( PWM_RGB_mReadReg (baseaddr, read_loop_index*4) != (read_loop_index+1)*READ_WRITE_MUL_FACTOR){
-	    xil_printf ("Error reading register value at address %x\n", (int)baseaddr + read_loop_index*4);
+	    xil_printf ("Error reading register value at address %x\n", baseaddr + read_loop_index*4);
 	    return XST_FAILURE;
 	  }
 
