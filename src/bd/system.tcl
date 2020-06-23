@@ -141,7 +141,7 @@ digilentinc.com:user:digilent_axi_i2s:2.0\
 xilinx.com:user:edge_detect:1.0\
 xilinx.com:ip:xfft:9.1\
 xilinx.com:ip:xlconstant:1.1\
-user.org:user:pwm_rgb:1.0\
+digilentinc.com:user:pwm_rgb:1.1\
 "
 
    set list_ips_missing ""
@@ -258,7 +258,7 @@ proc create_hier_cell_uio { parentCell nameHier } {
  ] $axi_gpio_sw
 
   # Create instance: pwm_rgb_led, and set properties
-  set pwm_rgb_led [ create_bd_cell -type ip -vlnv user.org:user:pwm_rgb:1.0 pwm_rgb_led ]
+  set pwm_rgb_led [ create_bd_cell -type ip -vlnv digilentinc.com:user:pwm_rgb:1.1 pwm_rgb_led ]
   set_property -dict [ list \
    CONFIG.CLK_SPEED {1} \
    CONFIG.C_S_AXI_ADDR_WIDTH {5} \
@@ -2396,7 +2396,6 @@ proc create_root_design { parentCell } {
   # Create address segments
   assign_bd_address -offset 0x80008000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_test/axi_dma_0/S_AXI_LITE/Reg] -force
   assign_bd_address -offset 0x8000A000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_test/axi_dma_1/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x80001000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/pmods/S_AXI/Reg] -force
   assign_bd_address -offset 0x80009000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_test/axi_gpio_0/S_AXI/Reg] -force
   assign_bd_address -offset 0x80000000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs uio/axi_gpio_btn/S_AXI/Reg] -force
   assign_bd_address -offset 0x8000E000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs uio/axi_gpio_led/S_AXI/Reg] -force
@@ -2408,6 +2407,7 @@ proc create_root_design { parentCell } {
   assign_bd_address -offset 0x80004000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/la_01/S_AXI/Reg] -force
   assign_bd_address -offset 0x80006000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/mipi_ffc_a/S_AXI/Reg] -force
   assign_bd_address -offset 0x80007000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/mipi_ffc_b/S_AXI/Reg] -force
+  assign_bd_address -offset 0x80001000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/pmods/S_AXI/Reg] -force
   assign_bd_address -offset 0x8000D000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs uio/pwm_rgb_led/S_AXI/S_AXI_reg] -force
   assign_bd_address -offset 0x80005000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/syszygy/S_AXI/Reg] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces audio_test/axi_dma_0/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] -force
