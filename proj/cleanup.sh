@@ -5,10 +5,11 @@
 # this 'cleanup' file if needed:
 # chmod u+x cleanup.sh
 ###
+script_dir=$(dirname ${BASH_SOURCE[0]})
 # Remove directories/subdirectories
-find . -mindepth 1 -type d -exec rm -rf {} +
+find $script_dir -mindepth 1 -type d -exec rm -rf {} +
 # Remove any other files than:
-find . -type f ! -name 'cleanup.sh' \
+find $script_dir -type f ! -name 'cleanup.sh' \
                ! -name 'cleanup.cmd' \
                ! -name 'create_project.tcl' \
                ! -name '.gitignore' \

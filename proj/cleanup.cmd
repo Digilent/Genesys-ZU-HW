@@ -1,4 +1,7 @@
 @echo off
+rem save current working directory
+pushd %~dp0
+
 rem delete all files from subfolders
 for /d /r %%i in (*) do del /f /q %%i\*
 rem delete all subfolders
@@ -19,3 +22,5 @@ del /Q /A:-R .\*
 rem unmark read-only
 attrib -R .\*
 
+rem restore original working directory
+popd
