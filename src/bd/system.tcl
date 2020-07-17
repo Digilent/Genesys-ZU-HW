@@ -406,8 +406,8 @@ proc create_hier_cell_short_loopback_tests { parentCell nameHier } {
   # Create instance: pmods, and set properties
   set pmods [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 pmods ]
   set_property -dict [ list \
-   CONFIG.C_GPIO2_WIDTH {11} \
-   CONFIG.C_GPIO_WIDTH {11} \
+   CONFIG.C_GPIO2_WIDTH {15} \
+   CONFIG.C_GPIO_WIDTH {15} \
    CONFIG.C_IS_DUAL {1} \
  ] $pmods
 
