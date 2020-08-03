@@ -12,6 +12,7 @@ cd $dest_dir
 # Set the reference directory for source file relative paths (by default the value is script directory path)
 set proj_name "GZU3EG_demo"
 set part "xczu3eg-sfvc784-1-e"
+set board_part "digilentinc.com:gzu_3eg:part0:1.0"
 
 # Set the reference directory for source file relative paths (by default the value is script directory path)
 set origin_dir ".."
@@ -31,7 +32,8 @@ set proj_dir [get_property directory [current_project]]
 # Set project properties
 set obj [get_projects $proj_name]
 set_property "default_lib" "xil_defaultlib" $obj
-set_property "part" $part $obj
+#set_property "part" $part $obj
+set_property -name "board_part" -value $board_part -objects $obj
 set_property "simulator_language" "Mixed" $obj
 set_property "target_language" "VHDL" $obj
 
