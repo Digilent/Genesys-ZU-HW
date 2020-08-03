@@ -26,26 +26,6 @@ To make sure changes to the project are checked into git:
 ----------------------------
 -- Software
 ----------------------------
-Workspace folder: ./sdk
-The workspace folder is versioned on Git without workspace information. This means
-that when first cloning the repository and opening the ./sdk folder as workspace, it
-will be empty in SDK. The workspace needs to be re-built locally by manually importing projects, BSPs and
-hardware platforms. Once this is done locally the first time, subsequent git pulls will not
-touch the workspace. New imports will only be necessary when new projects appear.
-Use File -> Import -> Existing projects into Workspace and select ./sdk as root directory. Check the
-projects you want imported and make sure "Copy projects into workspace" is unchecked.
-"Internal Error" during BSP import can be ignored. Just re-generate BSPs.
-
-Projects:
-   bootloader:    To be added to the bitstream from the hw_platform. Runs from BRAM. Loads SREC image
-                  from QSPI Flash address 0x01000000, and jumps to it.
-   bist:          To be loaded by BT over JTAG.
-   ce_test:       To be loaded by BT over JTAG.
-   demo:          To be converted to SREC and burned to QSPI Flash at address 0x01000000. Project includes custom
-                  build step to generate SREC image automatically.
-   
-./bin/create_download_bit.cmd:   system.bit + bootloader.elf = download.bit
-./bin/create_flash_mcs.tcl:      download.bit + demo.elf.srec = atlys2_demo.mcs
-
+Vitis workspace is versioned in separate repo.
 
  
