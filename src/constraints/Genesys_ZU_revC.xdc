@@ -213,6 +213,7 @@ set_property PACKAGE_PIN AC14 [get_ports {vadj_level_0}];     #IO_L6P_HDGC_44/24
 set_property PACKAGE_PIN AC13 [get_ports {vadj_level_1}];     #IO_L6N_HDGC_44/24 Sch=vadj_level[1]
 set_property PACKAGE_PIN G10 [get_ports {vadj_auton}];      #IO_L3N_AD13N_45/25 Sch=vadj_auton
 #set_property PACKAGE_PIN H11 [get_ports {mcu_tri_io[3]}];      #IO_L3P_AD13P_45/25 Sch=syzygy_detectedn
+#set_property -dict { PACKAGE_PIN AA12  IOSTANDARD LVCMOS33 } [get_ports { PG_VADJ_R }]; #IO_L12N_AD8N_44/24 Sch=pg_vadj_r
 
 set_property IOSTANDARD LVCMOS33 [get_ports {vadj_level_0}]
 set_property IOSTANDARD LVCMOS33 [get_ports {vadj_level_1}]
