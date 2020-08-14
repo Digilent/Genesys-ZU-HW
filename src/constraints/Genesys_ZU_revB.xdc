@@ -238,43 +238,43 @@ set_property IOSTANDARD LVCMOS18 [get_ports dp_aux_hotplug_detect]
 #set_property DRIVE 6 [get_ports {eth_jtag_tri_io[*]}]
 
 # PMOD XADC
-set_property -dict { PACKAGE_PIN W10    IOSTANDARD LVCMOS18     PULLUP true} [get_ports { pmod_tri_io[0] }]; #IO_L10P_AD2P_43/44 Sch=ja1_r_p
-set_property -dict { PACKAGE_PIN AA11   IOSTANDARD LVCMOS18     PULLUP true} [get_ports { pmod_tri_io[1] }]; #IO_L9P_AD3P_43/44 Sch=ja2_r_p
-set_property -dict { PACKAGE_PIN AB10   IOSTANDARD LVCMOS18     PULLUP true} [get_ports { pmod_tri_io[2] }]; #IO_L12P_AD0P_43/44 Sch=ja3_r_p
-set_property -dict { PACKAGE_PIN Y9     IOSTANDARD LVCMOS18     PULLUP true} [get_ports { pmod_tri_io[3] }]; #IO_L11P_AD1P_43/44 Sch=ja4_r_p
+set_property -dict { PACKAGE_PIN W10    IOSTANDARD LVCMOS18     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports { pmod_tri_io[0] }]; #IO_L10P_AD2P_43/44 Sch=ja1_r_p
+set_property -dict { PACKAGE_PIN AA11   IOSTANDARD LVCMOS18     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports { pmod_tri_io[1] }]; #IO_L9P_AD3P_43/44 Sch=ja2_r_p
+set_property -dict { PACKAGE_PIN AB10   IOSTANDARD LVCMOS18     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports { pmod_tri_io[2] }]; #IO_L12P_AD0P_43/44 Sch=ja3_r_p
+set_property -dict { PACKAGE_PIN Y9     IOSTANDARD LVCMOS18     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports { pmod_tri_io[3] }]; #IO_L11P_AD1P_43/44 Sch=ja4_r_p
 
-set_property -dict { PACKAGE_PIN Y10    IOSTANDARD LVCMOS18     PULLUP true} [get_ports { pmod2_tri_io[0] }]; #IO_L10N_AD2N_43/44 Sch=ja1_r_n
-set_property -dict { PACKAGE_PIN AA10   IOSTANDARD LVCMOS18     PULLUP true} [get_ports { pmod2_tri_io[1] }]; #IO_L9N_AD3N_43/44 Sch=ja2_r_n
-set_property -dict { PACKAGE_PIN AB9    IOSTANDARD LVCMOS18     PULLUP true} [get_ports { pmod2_tri_io[2] }]; #IO_L12N_AD0N_43/44 Sch=ja3_r_n
-set_property -dict { PACKAGE_PIN AA8    IOSTANDARD LVCMOS18     PULLUP true} [get_ports { pmod2_tri_io[3] }]; #IO_L11N_AD1N_43/44 Sch=ja4_r_n
+set_property -dict { PACKAGE_PIN Y10    IOSTANDARD LVCMOS18     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports { pmod2_tri_io[0] }]; #IO_L10N_AD2N_43/44 Sch=ja1_r_n
+set_property -dict { PACKAGE_PIN AA10   IOSTANDARD LVCMOS18     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports { pmod2_tri_io[1] }]; #IO_L9N_AD3N_43/44 Sch=ja2_r_n
+set_property -dict { PACKAGE_PIN AB9    IOSTANDARD LVCMOS18     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports { pmod2_tri_io[2] }]; #IO_L12N_AD0N_43/44 Sch=ja3_r_n
+set_property -dict { PACKAGE_PIN AA8    IOSTANDARD LVCMOS18     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports { pmod2_tri_io[3] }]; #IO_L11N_AD1N_43/44 Sch=ja4_r_n
  
 ##PMOD JB
-set_property -dict { PACKAGE_PIN AE13   IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod_tri_io[4]}];  #IO_L8N_HDGC_AD4N_46/26 Sch=jb[1]
-set_property -dict { PACKAGE_PIN AG14   IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod_tri_io[5]}];  #IO_L2N_AD10N_46/26 Sch=jb[2]
-set_property -dict { PACKAGE_PIN AH14   IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod_tri_io[6]}];  #IO_L1P_AD11P_46/26 Sch=jb[3]
-set_property -dict { PACKAGE_PIN AG13   IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod_tri_io[7]}];  #IO_L8P_HDGC_AD4P_46/26 Sch=jb[4]
-set_property -dict { PACKAGE_PIN AE14   IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod2_tri_io[4]}];  #IO_L6P_HDGC_AD6P_46/26 Sch=jb[7]
-set_property -dict { PACKAGE_PIN AF13   IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod2_tri_io[5]}];  #IO_L2P_AD10P_46/26 Sch=jb[8]
-set_property -dict { PACKAGE_PIN AE15   IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod2_tri_io[6]}];  #IO_L5P_HDGC_AD7P_46/26 Sch=jb[9]
-set_property -dict { PACKAGE_PIN AH13   IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod2_tri_io[7]}];  #IO_L1N_AD11N_46/26 Sch=jb[10]
+set_property -dict { PACKAGE_PIN AE13   IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod_tri_io[4]}];  #IO_L8N_HDGC_AD4N_46/26 Sch=jb[1]
+set_property -dict { PACKAGE_PIN AG14   IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod_tri_io[5]}];  #IO_L2N_AD10N_46/26 Sch=jb[2]
+set_property -dict { PACKAGE_PIN AH14   IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod_tri_io[6]}];  #IO_L1P_AD11P_46/26 Sch=jb[3]
+set_property -dict { PACKAGE_PIN AG13   IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod_tri_io[7]}];  #IO_L8P_HDGC_AD4P_46/26 Sch=jb[4]
+set_property -dict { PACKAGE_PIN AE14   IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod2_tri_io[4]}];  #IO_L6P_HDGC_AD6P_46/26 Sch=jb[7]
+set_property -dict { PACKAGE_PIN AF13   IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod2_tri_io[5]}];  #IO_L2P_AD10P_46/26 Sch=jb[8]
+set_property -dict { PACKAGE_PIN AE15   IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod2_tri_io[6]}];  #IO_L5P_HDGC_AD7P_46/26 Sch=jb[9]
+set_property -dict { PACKAGE_PIN AH13   IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod2_tri_io[7]}];  #IO_L1N_AD11N_46/26 Sch=jb[10]
 #PMOD JC
-set_property -dict { PACKAGE_PIN E13    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod_tri_io[8]}];  #IO_L6N_HDGC_AD6N_46/26 Sch=jc[1]
-set_property -dict { PACKAGE_PIN G13    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod_tri_io[9]}];  #IO_L7P_HDGC_AD5P_46/26 Sch=jc[2]
-set_property -dict { PACKAGE_PIN B13    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod_tri_io[10]}]; #IO_L3P_AD9P_46/26 Sch=jc[3]
-set_property -dict { PACKAGE_PIN D14    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod_tri_io[11]}]; #IO_L5N_HDGC_AD7N_46/26 Sch=jc[4]
-set_property -dict { PACKAGE_PIN F13    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod2_tri_io[8]}]; #IO_L7N_HDGC_AD5N_46/26 Sch=jc[7]
-set_property -dict { PACKAGE_PIN C13    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod2_tri_io[9]}]; #IO_L4N_AD8N_46/26 Sch=jc[8]
-set_property -dict { PACKAGE_PIN C14    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod2_tri_io[10]}]; #IO_L4P_AD8P_46/26 Sch=jc[9]
-set_property -dict { PACKAGE_PIN A13    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod2_tri_io[11]}]; #IO_L3N_AD9N_46/26 Sch=jc[10]
+set_property -dict { PACKAGE_PIN E13    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod_tri_io[8]}];  #IO_L6N_HDGC_AD6N_46/26 Sch=jc[1]
+set_property -dict { PACKAGE_PIN G13    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod_tri_io[9]}];  #IO_L7P_HDGC_AD5P_46/26 Sch=jc[2]
+set_property -dict { PACKAGE_PIN B13    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod_tri_io[10]}]; #IO_L3P_AD9P_46/26 Sch=jc[3]
+set_property -dict { PACKAGE_PIN D14    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod_tri_io[11]}]; #IO_L5N_HDGC_AD7N_46/26 Sch=jc[4]
+set_property -dict { PACKAGE_PIN F13    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod2_tri_io[8]}]; #IO_L7N_HDGC_AD5N_46/26 Sch=jc[7]
+set_property -dict { PACKAGE_PIN C13    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod2_tri_io[9]}]; #IO_L4N_AD8N_46/26 Sch=jc[8]
+set_property -dict { PACKAGE_PIN C14    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod2_tri_io[10]}]; #IO_L4P_AD8P_46/26 Sch=jc[9]
+set_property -dict { PACKAGE_PIN A13    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod2_tri_io[11]}]; #IO_L3N_AD9N_46/26 Sch=jc[10]
 ##PMOD JD
-set_property -dict { PACKAGE_PIN E15    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {UART_CTL_rxd}]; #IO_L4P_AD12P_44/24 Sch=jd[1]
-set_property -dict { PACKAGE_PIN E14    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {UART_CTL_txd}];   #IO_L1N_AD15N_44/24 Sch=jd[7]
-set_property -dict { PACKAGE_PIN A14    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod_tri_io[12]}]; #IO_L2P_AD14P_44/24 Sch=jd[2]
-set_property -dict { PACKAGE_PIN B15    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod_tri_io[13]}];   #IO_L2N_AD14N_44/24 Sch=jd[3]
-set_property -dict { PACKAGE_PIN F15    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod_tri_io[14]}];   #IO_L3P_AD13P_44/24 Sch=jd[4]
-set_property -dict { PACKAGE_PIN B14    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod2_tri_io[12]}];   #IO_L4N_AD12N_44/24 Sch=jd[8]
-set_property -dict { PACKAGE_PIN D15    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod2_tri_io[13]}];   #IO_L1P_AD15P_44/24 Sch=jd[9]
-set_property -dict { PACKAGE_PIN A15    IOSTANDARD LVCMOS33     PULLUP true} [get_ports {pmod2_tri_io[14]}];   #IO_L3N_AD13N_44/24 Sch=jd[10]
+set_property -dict { PACKAGE_PIN E15    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {UART_CTL_rxd}]; #IO_L4P_AD12P_44/24 Sch=jd[1]
+set_property -dict { PACKAGE_PIN E14    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {UART_CTL_txd}];   #IO_L1N_AD15N_44/24 Sch=jd[7]
+set_property -dict { PACKAGE_PIN A14    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod_tri_io[12]}]; #IO_L2P_AD14P_44/24 Sch=jd[2]
+set_property -dict { PACKAGE_PIN B15    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod_tri_io[13]}];   #IO_L2N_AD14N_44/24 Sch=jd[3]
+set_property -dict { PACKAGE_PIN F15    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod_tri_io[14]}];   #IO_L3P_AD13P_44/24 Sch=jd[4]
+set_property -dict { PACKAGE_PIN B14    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod2_tri_io[12]}];   #IO_L4N_AD12N_44/24 Sch=jd[8]
+set_property -dict { PACKAGE_PIN D15    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod2_tri_io[13]}];   #IO_L1P_AD15P_44/24 Sch=jd[9]
+set_property -dict { PACKAGE_PIN A15    IOSTANDARD LVCMOS33     DRIVE 4     SLEW SLOW       PULLUP true} [get_ports {pmod2_tri_io[14]}];   #IO_L3N_AD13N_44/24 Sch=jd[10]
 
 ## Buttons
 set_property -dict { PACKAGE_PIN A12    IOSTANDARD LVCMOS18 } [get_ports { pl_buttons_tri_i[0] }]; #IO_L11P_AD9P_45/25 Sch=btn[6]
