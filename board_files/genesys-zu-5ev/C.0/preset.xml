@@ -31,8 +31,7 @@
 		<user_parameter name="CONFIG.PSU_MIO_17_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_19_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_20_SLEW" value="slow"/>
-		<user_parameter name="CONFIG.PSU_MIO_21_PULLUPDOWN" value="pulldown"/>
-<!-- needs to be verified start-->		
+		<user_parameter name="CONFIG.PSU_MIO_21_PULLUPDOWN" value="pulldown"/>	
 		<user_parameter name="CONFIG.PSU_MIO_21_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_22_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_23_SLEW" value="slow"/>
@@ -112,10 +111,7 @@
 		<user_parameter name="CONFIG.PSU_MIO_75_INPUT_TYPE" value="schmitt"/>
 		<user_parameter name="CONFIG.PSU_MIO_75_PULLUPDOWN" value="disable"/>
 		<user_parameter name="CONFIG.PSU_MIO_76_SLEW" value="slow"/>
-		<user_parameter name="CONFIG.PSU_MIO_77_SLEW" value="slow"/>
-<!-- needs to be verified stop -->
-
-		
+		<user_parameter name="CONFIG.PSU_MIO_77_SLEW" value="slow"/>		
 		<user_parameter name="CONFIG.PSU__CAN1__PERIPHERAL__ENABLE" value="0"/>
 		
 		<user_parameter name="CONFIG.PSU__ENET3__GRP_MDIO__ENABLE" value="0"/>
