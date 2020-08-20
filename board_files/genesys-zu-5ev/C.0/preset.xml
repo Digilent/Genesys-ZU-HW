@@ -12,24 +12,135 @@
 		<user_parameter name="CONFIG.PSU_BANK_1_IO_STANDARD" value="LVCMOS18"/>
 		<user_parameter name="CONFIG.PSU_BANK_2_IO_STANDARD" value="LVCMOS18"/>
 		<user_parameter name="CONFIG.PSU_BANK_3_IO_STANDARD" value="LVCMOS33"/>
+		<user_parameter name="CONFIG.PSU_DDR_RAM_HIGHADDR" value="0xFFFFFFFF"/>
+		<user_parameter name="CONFIG.PSU_DDR_RAM_HIGHADDR_OFFSET" value="0x800000000"/>			
+		<user_parameter name="CONFIG.PSU_MIO_0_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_7_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_8_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_9_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_10_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_10_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_11_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_11_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_12_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_13_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_13_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_14_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_15_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_16_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_17_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_19_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_20_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_21_PULLUPDOWN" value="pulldown"/>
+<!-- needs to be verified start-->		
+		<user_parameter name="CONFIG.PSU_MIO_21_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_22_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_23_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_24_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_24_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_25_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_26_DRIVE_STRENGTH" value="8"/>
+		<user_parameter name="CONFIG.PSU_MIO_26_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_26_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_27_DRIVE_STRENGTH" value="8"/>
+		<user_parameter name="CONFIG.PSU_MIO_27_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_27_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_28_DRIVE_STRENGTH" value="8"/>
+		<user_parameter name="CONFIG.PSU_MIO_28_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_28_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_29_DRIVE_STRENGTH" value="8"/>
+		<user_parameter name="CONFIG.PSU_MIO_29_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_29_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_30_DRIVE_STRENGTH" value="8"/>
+		<user_parameter name="CONFIG.PSU_MIO_30_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_30_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_31_DRIVE_STRENGTH" value="8"/>
+		<user_parameter name="CONFIG.PSU_MIO_31_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_31_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_32_PULLUPDOWN" value="pulldown"/>
+		<user_parameter name="CONFIG.PSU_MIO_33_PULLUPDOWN" value="pulldown"/>
+		<user_parameter name="CONFIG.PSU_MIO_34_PULLUPDOWN" value="pulldown"/>
+		<user_parameter name="CONFIG.PSU_MIO_35_PULLUPDOWN" value="pulldown"/>
+		<user_parameter name="CONFIG.PSU_MIO_36_PULLUPDOWN" value="pulldown"/>
+		<user_parameter name="CONFIG.PSU_MIO_37_PULLUPDOWN" value="pulldown"/>
+		<user_parameter name="CONFIG.PSU_MIO_38_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_38_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_44_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_44_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_52_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_52_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_53_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_53_PULLUPDOWN" value="pulldown"/>
+		<user_parameter name="CONFIG.PSU_MIO_54_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_54_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_55_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_55_PULLUPDOWN" value="pulldown"/>
+		<user_parameter name="CONFIG.PSU_MIO_56_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_56_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_57_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_57_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_59_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_59_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_60_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_60_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_61_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_61_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_62_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_62_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_63_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_63_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_64_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_64_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_65_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_65_PULLUPDOWN" value="pulldown"/>
+		<user_parameter name="CONFIG.PSU_MIO_66_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_66_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_67_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_67_PULLUPDOWN" value="pulldown"/>
+		<user_parameter name="CONFIG.PSU_MIO_68_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_68_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_69_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_69_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_71_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_71_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_72_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_72_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_73_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_73_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_74_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_74_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_75_INPUT_TYPE" value="schmitt"/>
+		<user_parameter name="CONFIG.PSU_MIO_75_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_76_SLEW" value="slow"/>
+		<user_parameter name="CONFIG.PSU_MIO_77_SLEW" value="slow"/>
+<!-- needs to be verified stop -->
+
+		
 		<user_parameter name="CONFIG.PSU__CAN1__PERIPHERAL__ENABLE" value="0"/>
+		
 		<user_parameter name="CONFIG.PSU__ENET3__GRP_MDIO__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__ENET3__PERIPHERAL__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__GPIO0_MIO__PERIPHERAL__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__GPIO1_MIO__PERIPHERAL__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__I2C0__PERIPHERAL__ENABLE" value="0"/>
+		
+		<user_parameter name="CONFIG.PSU__GPIO0_MIO__PERIPHERAL__ENABLE" value="1"/>
+		<user_parameter name="CONFIG.PSU__GPIO0_MIO__IO" value="MIO 0 .. 25"/>
+		<user_parameter name="CONFIG.PSU__GPIO1_MIO__PERIPHERAL__ENABLE" value="1"/>
+		<user_parameter name="CONFIG.PSU__GPIO1_MIO__IO" value="MIO 26 .. 51"/>
+		
+		<user_parameter name="CONFIG.PSU__I2C0__PERIPHERAL__ENABLE" value="1"/>
+		<user_parameter name="CONFIG.PSU__I2C0__PERIPHERAL__IO" value="MIO 22 .. 23"/>
 		<user_parameter name="CONFIG.PSU__I2C1__PERIPHERAL__ENABLE" value="1"/>
-		<user_parameter name="CONFIG.PSU__I2C1__PERIPHERAL__IO" value="MIO 16 .. 17"/>
+		<user_parameter name="CONFIG.PSU__I2C1__PERIPHERAL__IO" value="MIO 8 .. 9"/>
+		
 		<user_parameter name="CONFIG.PSU__QSPI__PERIPHERAL__ENABLE" value="1"/>
-		<user_parameter name="CONFIG.PSU__QSPI__GRP_FBCLK__ENABLE" value="1"/>
-		<user_parameter name="CONFIG.PSU__QSPI__PERIPHERAL__DATA_MODE" value="x4"/>
 		<user_parameter name="CONFIG.PSU__QSPI__PERIPHERAL__IO" value="MIO 0 .. 5"/>
 		<user_parameter name="CONFIG.PSU__QSPI__PERIPHERAL__MODE" value="Single"/>
+		<user_parameter name="CONFIG.PSU__QSPI__PERIPHERAL__DATA_MODE" value="x4"/>
+		<user_parameter name="CONFIG.PSU__QSPI__GRP_FBCLK__ENABLE" value="1"/>
+		<user_parameter name="CONFIG.PSU__QSPI__GRP_FBCLK__IO" value="MIO 6"/>
 
 		<user_parameter name="CONFIG.PSU__SD1__GRP_CD__ENABLE" value="1"/>
-		<user_parameter name="CONFIG.PSU__SD1__GRP_CD__IO" value="MIO 45"/>
-		
-		<user_parameter name="CONFIG.PSU__SD1__GRP_POW__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SD1__GRP_CD__IO" value="MIO 45"/>		
+		<user_parameter name="CONFIG.PSU__SD1__GRP_POW__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__SD1__GRP_WP__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__SD1__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__SD1__DATA_TRANSFER_MODE" value="8Bit"/> 
@@ -45,9 +156,10 @@
 		<user_parameter name="CONFIG.PSU__USB0__PERIPHERAL__IO" value="MIO 52 .. 63"/>
 
 		<user_parameter name="CONFIG.PSU__USE__IRQ0" value="1"/>
-		<user_parameter name="CONFIG.PSU__USE__M_AXI_GP0" value="1"/>
-		<user_parameter name="CONFIG.PSU__USE__M_AXI_GP1" value="1"/>
-		<user_parameter name="CONFIG.PSU__USE__M_AXI_GP2" value="0"/>
+<!-- needs to be verified start-->		
+		<user_parameter name="CONFIG.PSU__USE__M_AXI_GP0" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__M_AXI_GP1" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__M_AXI_GP2" value="1"/>
 
 		<user_parameter name="CONFIG.PSU__SATA__PERIPHERAL__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__SATA__LANE1__ENABLE" value="0"/>
@@ -55,22 +167,6 @@
 
 		<user_parameter name="CONFIG.PSU__USB3_0__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__USB3_0__PERIPHERAL__IO" value="GT Lane1"/>
-
-<!-- 		<user_parameter name="CONFIG.PSU__PMU__PERIPHERAL__ENABLE" value="0"/> -->
-
-<!-- <user_parameter name="CONFIG.PSU__PMU__GPI0__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__PMU__GPI1__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__PMU__GPI2__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__PMU__GPI3__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__PMU__GPI4__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__PMU__GPI5__ENABLE" value="0"/>
-
-		<user_parameter name="CONFIG.PSU__PMU__GPO0__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__PMU__GPO1__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__PMU__GPO2__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__PMU__GPO3__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__PMU__GPO4__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__PMU__GPO5__ENABLE" value="0"/> -->
 
 		<user_parameter name="CONFIG.PSU__DDRC__VREF" value="1"/>
 		<user_parameter name="CONFIG.PSU__DDRC__ECC" value="Disabled"/>
