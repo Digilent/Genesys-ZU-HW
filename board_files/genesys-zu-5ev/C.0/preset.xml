@@ -232,6 +232,8 @@
 		<user_parameter name="CONFIG.PSU__UART1__PERIPHERAL__IO" value="MIO 20 .. 21"/>
 		<user_parameter name="CONFIG.PSU__USB0__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__USB0__PERIPHERAL__IO" value="MIO 52 .. 63"/>	
+		<user_parameter name="CONFIG.PSU__USB1__PERIPHERAL__ENABLE" value="1"/>	
+		<user_parameter name="CONFIG.PSU__USB1__PERIPHERAL__IO" value="MIO 64 .. 75"/>	
 		<user_parameter name="CONFIG.PSU__SPI0__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__SPI0__PERIPHERAL__IO" value="MIO 12 .. 17"/>
 		<user_parameter name="CONFIG.PSU__SPI0__GRP_SS0__ENABLE" value="1"/>
