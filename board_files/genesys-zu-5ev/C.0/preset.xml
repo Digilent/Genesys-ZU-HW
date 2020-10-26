@@ -229,7 +229,7 @@
 		<user_parameter name="CONFIG.PSU__UART0__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__UART0__PERIPHERAL__IO" value="MIO 18 .. 19"/>
 		<user_parameter name="CONFIG.PSU__UART1__PERIPHERAL__ENABLE" value="1"/>
-		<user_parameter name="CONFIG.PSU__UART1__PERIPHERAL__IO" value="MIO 20 .. 21"/>
+		<user_parameter name="CONFIG.PSU__UART1__PERIPHERAL__IO" value="EMIO"/>
 		<user_parameter name="CONFIG.PSU__USB0__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__USB0__PERIPHERAL__IO" value="MIO 52 .. 63"/>	
 		<user_parameter name="CONFIG.PSU__USB1__PERIPHERAL__ENABLE" value="1"/>	
@@ -279,7 +279,7 @@
 		<user_parameter name="CONFIG.PSU__DDRC__TRAIN_DATA_EYE" value="1"/>
 		<user_parameter name="CONFIG.PSU__DDRC__TRAIN_READ_GATE" value="1"/>
 		<user_parameter name="CONFIG.PSU__DDRC__TRAIN_WRITE_LEVEL" value="1"/>
-		<user_parameter name="CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING" value="1"/>
 		<user_parameter name="CONFIG.PSU__DDRC__BRC_MAPPING" value="ROW_BANK_COL"/>
 		<user_parameter name="CONFIG.PSU__DDRC__DM_DBI" value="DM_NO_DBI"/>
 		<user_parameter name="CONFIG.PSU__DDRC__PER_BANK_REFRESH" value="0"/>
@@ -378,7 +378,7 @@
 		<user_parameter name="CONFIG.PSU__CRF_APB__DPDMA_REF_CTRL__SRCSEL" value="APLL"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DPDMA_REF_CTRL__FREQMHZ" value="600"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_MAIN_CTRL__SRCSEL" value="DPLL"/>
-		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_MAIN_CTRL__FREQMHZ" value="533.33"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_MAIN_CTRL__FREQMHZ" value="533.333"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_LSBUS_CTRL__SRCSEL" value="IOPLL"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_LSBUS_CTRL__FREQMHZ" value="100"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DP_VIDEO_REF_CTRL__SRCSEL" value="VPLL"/>
