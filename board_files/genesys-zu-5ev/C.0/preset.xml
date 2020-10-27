@@ -562,16 +562,28 @@
 		<user_parameter name="CONFIG.PSU_MIO_77_INPUT_TYPE " value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_77_SLEW " value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_77_DIRECTION " value="inout"/>
-		
 		<user_parameter name="CONFIG.PSU__CAN1__PERIPHERAL__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__CAN1__GRP_CLK__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET0__GRP_MDIO__ENABLE" value="1"/>
+		<user_parameter name="CONFIG.PSU__ACT_DDR_FREQ_MHZ" value="1065.000000"/>
+		<user_parameter name="CONFIG.PSU__ENET0__GRP_MDIO__IO" value="MIO 76 .. 77"/>
+		<user_parameter name="CONFIG.PSU__GEM__TSU__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__ENET0__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__ENET0__FIFO__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__ENET0__PTP__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__ENET0__PERIPHERAL__IO" value="MIO 26 .. 37"/>
-		<user_parameter name="CONFIG.PSU__ENET0__GRP_MDIO__ENABLE" value="1"/>
-		<user_parameter name="CONFIG.PSU__ENET0__GRP_MDIO__IO" value="MIO 76 .. 77"/> 
-		<user_parameter name="CONFIG.PSU__ENET3__GRP_MDIO__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET1__PERIPHERAL__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET1__FIFO__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET1__PTP__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET1__GRP_MDIO__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET2__PERIPHERAL__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET2__FIFO__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET2__PTP__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET2__GRP_MDIO__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__ENET3__PERIPHERAL__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET3__FIFO__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET3__PTP__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__ENET3__GRP_MDIO__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__GPIO0_MIO__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__GPIO0_MIO__IO" value="MIO 0 .. 25"/>
 		<user_parameter name="CONFIG.PSU__GPIO1_MIO__PERIPHERAL__ENABLE" value="1"/>
