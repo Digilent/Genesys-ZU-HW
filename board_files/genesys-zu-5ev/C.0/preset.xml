@@ -584,14 +584,22 @@
 		<user_parameter name="CONFIG.PSU__ENET3__FIFO__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__ENET3__PTP__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__ENET3__GRP_MDIO__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__GPIO_EMIO__PERIPHERAL__ENABLE" value="1"/>
+		<user_parameter name="CONFIG.PSU__GPIO_EMIO__PERIPHERAL__IO" value="3"/>
+		<user_parameter name="CONFIG.PSU__GPIO_EMIO_WIDTH" value="3"/>
+		<user_parameter name="CONFIG.PSU__GPIO_EMIO__WIDTH" value="[94:0]"/>
 		<user_parameter name="CONFIG.PSU__GPIO0_MIO__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__GPIO0_MIO__IO" value="MIO 0 .. 25"/>
 		<user_parameter name="CONFIG.PSU__GPIO1_MIO__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__GPIO1_MIO__IO" value="MIO 26 .. 51"/>
 		<user_parameter name="CONFIG.PSU__I2C0__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__I2C0__PERIPHERAL__IO" value="MIO 22 .. 23"/>
+		<user_parameter name="CONFIG.PSU__I2C0__GRP_INT__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__I2C1__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__I2C1__PERIPHERAL__IO" value="MIO 8 .. 9"/>
+		<user_parameter name="CONFIG.PSU__I2C1__GRP_INT__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__I2C0_LOOP_I2C1__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__GT_REF_CLK__FREQMHZ" value="33.333"/>
 		<user_parameter name="CONFIG.PSU__GT__LINK_SPEED" value="HBR"/>
 		<user_parameter name="CONFIG.PSU__GT__VLT_SWNG_LVL_4" value="0"/> 
 		<user_parameter name="CONFIG.PSU__GT__PRE_EMPH_LVL_4" value="0"/>
@@ -601,22 +609,40 @@
 		<user_parameter name="CONFIG.PSU__QSPI__PERIPHERAL__DATA_MODE" value="x4"/>
 		<user_parameter name="CONFIG.PSU__QSPI__GRP_FBCLK__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__QSPI__GRP_FBCLK__IO" value="MIO 6"/>
+		<user_parameter name="CONFIG.PSU__QSPI_ROUTE_THROUGH_FPD" value="0"/>
+		<user_parameter name="CONFIG.PSU__QSPI_COHERENCY" value="0"/>
+		<user_parameter name="CONFIG.PSU__SD0__PERIPHERAL__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SD0__GRP_CD__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SD0__GRP_POW__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SD0__GRP_WP__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SD0__RESET__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SD1__PERIPHERAL__ENABLE" value="1"/>
+		<user_parameter name="CONFIG.PSU__SD1__PERIPHERAL__IO" value="MIO 39 .. 51"/>
 		<user_parameter name="CONFIG.PSU__SD1__GRP_CD__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__SD1__GRP_CD__IO" value="MIO 45"/>
 		<user_parameter name="CONFIG.PSU__SD1__GRP_POW__ENABLE" value="1"/>
+		<user_parameter name="CONFIG.PSU__SD1__GRP_POW__IO" value="MIO 43"/>
 		<user_parameter name="CONFIG.PSU__SD1__GRP_WP__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__SD1__PERIPHERAL__ENABLE" value="1"/>
-		<user_parameter name="CONFIG.PSU__SD1__DATA_TRANSFER_MODE" value="8Bit"/> 
-		<user_parameter name="CONFIG.PSU__SD1__PERIPHERAL__IO" value="MIO 39 .. 51"/>
 		<user_parameter name="CONFIG.PSU__SD1__SLOT_TYPE" value="SD 3.0"/>
+		<user_parameter name="CONFIG.PSU__SD1__RESET__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SD1__DATA_TRANSFER_MODE" value="8Bit"/>
+		<user_parameter name="CONFIG.PSU__SD1_ROUTE_THROUGH_FPD" value="0"/>
+		<user_parameter name="CONFIG.PSU__SD1_COHERENCY" value="0"/>
+		<user_parameter name="CONFIG.PSU__UART0__BAUD_RATE" value="115200"/>
 		<user_parameter name="CONFIG.PSU__UART0__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__UART0__PERIPHERAL__IO" value="MIO 18 .. 19"/>
+		<user_parameter name="CONFIG.PSU__UART0__MODEM__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__UART1__BAUD_RATE" value="115200"/>
 		<user_parameter name="CONFIG.PSU__UART1__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__UART1__PERIPHERAL__IO" value="EMIO"/>
+		<user_parameter name="CONFIG.PSU__UART1__MODEM__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__UART0_LOOP_UART1__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__USB0__PERIPHERAL__ENABLE" value="1"/>
-		<user_parameter name="CONFIG.PSU__USB0__PERIPHERAL__IO" value="MIO 52 .. 63"/>	
-		<user_parameter name="CONFIG.PSU__USB1__PERIPHERAL__ENABLE" value="1"/>	
-		<user_parameter name="CONFIG.PSU__USB1__PERIPHERAL__IO" value="MIO 64 .. 75"/>	
+		<user_parameter name="CONFIG.PSU__USB0__PERIPHERAL__IO" value="MIO 52 .. 63"/>
+		<user_parameter name="CONFIG.PSU__USB0__RESET__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__USB1__PERIPHERAL__ENABLE" value="1"/>
+		<user_parameter name="CONFIG.PSU__USB1__PERIPHERAL__IO" value="MIO 64 .. 75"/>
+		<user_parameter name="CONFIG.PSU__USB1__RESET__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__SPI0__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__SPI0__PERIPHERAL__IO" value="MIO 12 .. 17"/>
 		<user_parameter name="CONFIG.PSU__SPI0__GRP_SS0__ENABLE" value="1"/>
@@ -624,11 +650,61 @@
 		<user_parameter name="CONFIG.PSU__SPI0__GRP_SS1__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__SPI0__GRP_SS1__IO" value="MIO 14"/>
 		<user_parameter name="CONFIG.PSU__SPI0__GRP_SS2__ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__USE__IRQ0" value="1"/>
+		<user_parameter name="CONFIG.PSU__SPI1__PERIPHERAL__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SPI1__GRP_SS0__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SPI1__GRP_SS1__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SPI1__GRP_SS2__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SPI0_LOOP_SPI1__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__DDR_INTF_REQUESTED" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__USB3_0_HUB" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__USB3_1_HUB" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__ADMA" value="0"/>
 		<user_parameter name="CONFIG.PSU__USE__M_AXI_GP0" value="0"/>
 		<user_parameter name="CONFIG.PSU__USE__M_AXI_GP1" value="0"/>
 		<user_parameter name="CONFIG.PSU__USE__M_AXI_GP2" value="1"/>
+		<user_parameter name="CONFIG.PSU__USE__S_AXI_ACP" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__S_AXI_GP0" value="1"/>
+		<user_parameter name="CONFIG.PSU__USE_DIFF_RW_CLK_GP0" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__S_AXI_GP1" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE_DIFF_RW_CLK_GP1" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__S_AXI_GP2" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE_DIFF_RW_CLK_GP2" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__S_AXI_GP3" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE_DIFF_RW_CLK_GP3" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__S_AXI_GP4" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE_DIFF_RW_CLK_GP4" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__S_AXI_GP5" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE_DIFF_RW_CLK_GP5" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__S_AXI_GP6" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE_DIFF_RW_CLK_GP6" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__S_AXI_ACE" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__AUDIO" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__VIDEO" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__PROC_EVENT_BUS" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__FTM" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__CROSS_TRIGGER" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__GDMA" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__IRQ" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__IRQ0" value="1"/>
+		<user_parameter name="CONFIG.PSU__USE__IRQ1" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__CLK0" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__CLK1" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__CLK2" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__CLK3" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__RST0" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__RST1" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__RST2" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__RST3" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__FABRIC__RST" value="1"/>
+		<user_parameter name="CONFIG.PSU__USE__RTC" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__EVENT_RPU" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__APU_LEGACY_INTERRUPT" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__RPU_LEGACY_INTERRUPT" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__STM" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__DEBUG__TEST" value="0"/>
+		<user_parameter name="CONFIG.PSU__USE__CLK" value="0"/>
 		<user_parameter name="CONFIG.PSU__SATA__PERIPHERAL__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__SATA__LANE0__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__SATA__LANE1__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__USB3_0__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__USB3_0__PERIPHERAL__IO" value="GT Lane1"/>
@@ -723,6 +799,9 @@
 		<user_parameter name="CONFIG.PSU__CRL_APB__GEM3_REF_CTRL__SRCSEL" value="IOPLL"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__GEM3_REF_CTRL__FREQMHZ" value="125"/>
 		<user_parameter name="CONFIG.PSU__FPGA_PL0_ENABLE" value="1"/>
+		<user_parameter name="CONFIG.PSU__FPGA_PL1_ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__FPGA_PL2_ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__FPGA_PL3_ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__PL0_REF_CTRL__SRCSEL" value="IOPLL"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ" value="100"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__DBG_LPD_CTRL__SRCSEL" value="IOPLL"/>
