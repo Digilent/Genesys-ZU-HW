@@ -708,50 +708,91 @@
 		<user_parameter name="CONFIG.PSU__SATA__LANE1__ENABLE" value="0"/>
 		<user_parameter name="CONFIG.PSU__USB3_0__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__USB3_0__PERIPHERAL__IO" value="GT Lane1"/>
-		<user_parameter name="CONFIG.PSU__DDRC__VREF" value="1"/>
-		<user_parameter name="CONFIG.PSU__DDRC__ECC" value="Disabled"/>
-		<user_parameter name="CONFIG.PSU__DDRC__BUS_WIDTH" value="64 Bit"/>
-		<user_parameter name="CONFIG.PSU__DDRC__DRAM_WIDTH" value="8 Bits"/>
-		<user_parameter name="CONFIG.PSU__DDRC__MEMORY_TYPE" value="DDR 4"/>
-		<user_parameter name="CONFIG.PSU__DDRC__COMPONENTS" value="UDIMM"/>
-		<user_parameter name="CONFIG.PSU__DDRC__SPEED_BIN" value="DDR4_2133P"/>
-		<user_parameter name="CONFIG.PSU__CRF_APB__DDR_CTRL__FREQMHZ" value="1066"/>
-		<user_parameter name="CONFIG.PSU__DDRC__DEVICE_CAPACITY" value="4096 MBits"/>
-		<user_parameter name="CONFIG.PSU__DDRC__BG_ADDR_COUNT" value="2"/>
+		<user_parameter name="CONFIG.PSU__DDRC__AL" value="0"/>
 		<user_parameter name="CONFIG.PSU__DDRC__BANK_ADDR_COUNT" value="2"/>
-		<user_parameter name="CONFIG.PSU__DDRC__ROW_ADDR_COUNT" value="15"/>
-		<user_parameter name="CONFIG.PSU__DDRC__COL_ADDR_COUNT" value="10"/>
+		<user_parameter name="CONFIG.PSU__DDRC__BUS_WIDTH" value="64 Bit"/>
 		<user_parameter name="CONFIG.PSU__DDRC__CL" value="15"/>
+		<user_parameter name="CONFIG.PSU__DDRC__CLOCK_STOP_EN" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__COL_ADDR_COUNT" value="10"/>
+		<user_parameter name="CONFIG.PSU__DDRC__RANK_ADDR_COUNT" value="0"/>
 		<user_parameter name="CONFIG.PSU__DDRC__CWL" value="14"/>
+		<user_parameter name="CONFIG.PSU__DDRC__BG_ADDR_COUNT" value="2"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DEVICE_CAPACITY" value="4096 MBits"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DRAM_WIDTH" value="8 Bits"/>
+		<user_parameter name="CONFIG.PSU__DDRC__ECC" value="Disabled"/>
+		<user_parameter name="CONFIG.PSU__DDRC__ECC_SCRUB" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__ENABLE" value="1"/>
+		<user_parameter name="CONFIG.PSU__DDRC__FREQ_MHZ" value="1"/>
+		<user_parameter name="CONFIG.PSU__DDRC__MEMORY_TYPE" value="DDR 4"/>
+		<user_parameter name="CONFIG.PSU__DDRC__ROW_ADDR_COUNT" value="15"/>
+		<user_parameter name="CONFIG.PSU__DDRC__SPEED_BIN" value="DDR4_2133P"/>
+		<user_parameter name="CONFIG.PSU__DDRC__T_FAW" value="30.0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__T_RAS_MIN" value="33"/>
+		<user_parameter name="CONFIG.PSU__DDRC__T_RC" value="47.06"/>
 		<user_parameter name="CONFIG.PSU__DDRC__T_RCD" value="15"/>
 		<user_parameter name="CONFIG.PSU__DDRC__T_RP" value="15"/>
-		<user_parameter name="CONFIG.PSU__DDRC__T_RC" value="47.06"/>
-		<user_parameter name="CONFIG.PSU__DDRC__T_RAS_MIN" value="33"/>
-		<user_parameter name="CONFIG.PSU__DDRC__T_FAW" value="30.0"/>
-		<user_parameter name="CONFIG.PSU__DDRC__DDR4_T_REF_MODE" value="1"/>
-		<user_parameter name="CONFIG.PSU__DDRC__DDR4_T_REF_RANGE" value="Normal (0-85)"/>
-		<user_parameter name="CONFIG.PSU__DDRC__PHY_DBI_MODE" value="0"/>
-		<user_parameter name="CONFIG.PSU__DDRC__PARITY_ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__DDRC__CLOCK_STOP_EN" value="0"/>
-		<user_parameter name="CONFIG.PSU__DDRC__DDR4_CAL_MODE_ENABLE" value="0"/>
-		<user_parameter name="CONFIG.PSU__DDRC__DDR4_CRC_CONTROL" value="0"/>
 		<user_parameter name="CONFIG.PSU__DDRC__TRAIN_DATA_EYE" value="1"/>
 		<user_parameter name="CONFIG.PSU__DDRC__TRAIN_READ_GATE" value="1"/>
 		<user_parameter name="CONFIG.PSU__DDRC__TRAIN_WRITE_LEVEL" value="1"/>
-		<user_parameter name="CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING" value="1"/>
+		<user_parameter name="CONFIG.PSU__DDRC__VREF" value="1"/>
+		<user_parameter name="CONFIG.PSU__DDRC__VIDEO_BUFFER_SIZE" value="0"/>
 		<user_parameter name="CONFIG.PSU__DDRC__BRC_MAPPING" value="ROW_BANK_COL"/>
-		<user_parameter name="CONFIG.PSU__DDRC__DM_DBI" value="DM_NO_DBI"/>
-		<user_parameter name="CONFIG.PSU__DDRC__PER_BANK_REFRESH" value="0"/>
-		<user_parameter name="CONFIG.PSU__DDRC__FGRM" value="1X"/>
-		<user_parameter name="CONFIG.PSU__DDRC__LP_ASR" value="manual normal"/>
 		<user_parameter name="CONFIG.PSU__DDRC__DIMM_ADDR_MIRROR" value="0"/>
 		<user_parameter name="CONFIG.PSU__DDRC__STATIC_RD_MODE" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DDR4_MAXPWR_SAVING_EN" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__PWR_DOWN_EN" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DEEP_PWR_DOWN_EN" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__PLL_BYPASS" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DDR4_T_REF_MODE" value="1"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DDR4_T_REF_RANGE" value="Normal (0-85)"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DDR3_T_REF_RANGE" value="NA"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DDR3L_T_REF_RANGE" value="NA"/>
+		<user_parameter name="CONFIG.PSU__DDRC__LPDDR3_T_REF_RANGE" value="NA"/>
+		<user_parameter name="CONFIG.PSU__DDRC__LPDDR4_T_REF_RANGE" value="NA"/>
+		<user_parameter name="CONFIG.PSU__DDRC__PHY_DBI_MODE" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DM_DBI" value="DM_NO_DBI"/>
+		<user_parameter name="CONFIG.PSU__DDRC__COMPONENTS" value="UDIMM"/>
+		<user_parameter name="CONFIG.PSU__DDRC__PARITY_ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DDR4_CAL_MODE_ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DDR4_CRC_CONTROL" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__FGRM" value="1X"/>
+		<user_parameter name="CONFIG.PSU__DDRC__VENDOR_PART" value="OTHERS"/>
+		<user_parameter name="CONFIG.PSU__DDRC__SB_TARGET" value="15-15-15"/>
+		<user_parameter name="CONFIG.PSU__DDRC__LP_ASR" value="manual normal"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DDR4_ADDR_MAPPING" value="1"/>
 		<user_parameter name="CONFIG.PSU__DDRC__SELF_REF_ABORT" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__ADDR_MIRROR" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__EN_2ND_CLK" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__LPDDR3_DUALRANK_SDP" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__PER_BANK_REFRESH" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__ENABLE_DP_SWITCH" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__ENABLE_LP4_SLOWBOOT" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__ENABLE_LP4_HAS_ECC_COMP" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__ENABLE_2T_TIMING" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__RD_DQS_CENTER" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_0_3" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_4_7" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_8_11" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_12_15" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_16_19" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_20_23" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_24_27" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_28_31" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_32_35" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_36_39" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_40_43" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_44_47" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_48_51" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_52_55" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_56_59" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_60_63" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_64_67" value="0"/>
+		<user_parameter name="CONFIG.PSU__DDRC__DQMAP_68_71" value="0"/>
+		<user_parameter name="CONFIG.PSU__DISPLAYPORT__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__DISPLAYPORT__LANE0__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__DISPLAYPORT__LANE0__IO" value="GT Lane3"/>
 		<user_parameter name="CONFIG.PSU__DISPLAYPORT__LANE1__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__DISPLAYPORT__LANE1__IO" value="GT Lane2"/>
-		<user_parameter name="CONFIG.PSU__DISPLAYPORT__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__DPAUX__PERIPHERAL__ENABLE" value="1"/>
 		<user_parameter name="CONFIG.PSU__DPAUX__PERIPHERAL__IO" value="EMIO"/>
 		<user_parameter name="CONFIG.PSU__DP__LANE_SEL" value="Dual Higher"/>
@@ -761,8 +802,11 @@
 		<user_parameter name="CONFIG.PSU__USB0__REF_CLK_SEL" value="Ref Clk0"/>
 		<user_parameter name="CONFIG.PSU__USB0__REF_CLK_FREQ" value="100"/>
 		<user_parameter name="CONFIG.PSU__OVERRIDE__BASIC_CLOCK" value="0"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__APLL_CTRL__FRACFREQ" value="1200"/> 
 		<user_parameter name="CONFIG.PSU__CRF_APB__APLL_CTRL__SRCSEL" value="PSS_REF_CLK"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DPLL_CTRL__FRACFREQ" value="27.138"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DPLL_CTRL__SRCSEL" value="PSS_REF_CLK"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__VPLL_CTRL__FRACFREQ" value="27.138"/> 
 		<user_parameter name="CONFIG.PSU__CRF_APB__VPLL_CTRL__SRCSEL" value="PSS_REF_CLK"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__IOPLL_CTRL__SRCSEL" value="PSS_REF_CLK"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__RPLL_CTRL__SRCSEL" value="PSS_REF_CLK"/>
@@ -806,20 +850,87 @@
 		<user_parameter name="CONFIG.PSU__CRL_APB__PL0_REF_CTRL__FREQMHZ" value="100"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__DBG_LPD_CTRL__SRCSEL" value="IOPLL"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__DBG_LPD_CTRL__FREQMHZ" value="250"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__APLL_CTRL__FRACDATA" value="0.000000"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__VPLL_CTRL__FRACDATA" value="0.000000"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DPLL_CTRL__FRACDATA" value="0.000000"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DPLL_CTRL__DIV2" value="1"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__APLL_CTRL__DIV2" value="1"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__VPLL_CTRL__DIV2" value="1"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__APLL_CTRL__FBDIV" value="80"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DPLL_CTRL__FBDIV" value="71"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__VPLL_CTRL__FBDIV" value="100"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__APLL_TO_LPD_CTRL__DIVISOR0" value="3"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DPLL_TO_LPD_CTRL__DIVISOR0" value="2"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__VPLL_TO_LPD_CTRL__DIVISOR0" value="3"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__ACPU_CTRL__DIVISOR0" value="1"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_TRACE_CTRL__DIVISOR0" value="5"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_FPD_CTRL__DIVISOR0" value="2"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__APM_CTRL__DIVISOR0" value="1"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__APM_CTRL__FREQMHZ " value="1"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_VIDEO_REF_CTRL__DIVISOR0" value="5"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_VIDEO_REF_CTRL__DIVISOR1" value="1"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_AUDIO_REF_CTRL__DIVISOR0" value="16"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_AUDIO_REF_CTRL__DIVISOR1" value="1"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_STC_REF_CTRL__DIVISOR0" value="15"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_STC_REF_CTRL__DIVISOR1" value="1"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DDR_CTRL__DIVISOR0" value="2"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__GPU_REF_CTRL__DIVISOR0" value="1"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__ACPU_CTRL__ACT_FREQMHZ" value="1200.000000"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__ACPU_CTRL__SRCSEL" value="APLL"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__ACPU_CTRL__FREQMHZ" value="1200"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__GPU_REF_CTRL__ACT_FREQMHZ" value="500.000000"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__GPU_REF_CTRL__SRCSEL" value="IOPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DDR_CTRL__ACT_FREQMHZ" value="532.500000"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DDR_CTRL__FREQMHZ" value="1066"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__GPU_REF_CTRL__FREQMHZ" value="600"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DDR_CTRL__SRCSEL" value="DPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI0_REF_CTRL__DIVISOR0" value="2"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI0_REF__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI0_REF_CTRL__SRCSEL" value="DPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI0_REF_CTRL__ACT_FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI0_REF_CTRL__FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI1_REF_CTRL__DIVISOR0" value="2"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI1_REF__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI1_REF_CTRL__SRCSEL" value="DPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI1_REF_CTRL__ACT_FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI1_REF_CTRL__FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI2_REF_CTRL__DIVISOR0" value="2"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI2_REF__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI2_REF_CTRL__SRCSEL" value="DPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI2_REF_CTRL__ACT_FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI2_REF_CTRL__FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI3_REF_CTRL__DIVISOR0" value="2"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI3_REF__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI3_REF_CTRL__SRCSEL" value="DPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI3_REF_CTRL__ACT_FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI3_REF_CTRL__FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI4_REF_CTRL__DIVISOR0" value="2"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI4_REF__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI4_REF_CTRL__SRCSEL" value="DPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI4_REF_CTRL__ACT_FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI4_REF_CTRL__FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI5_REF_CTRL__DIVISOR0" value="2"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI5_REF__ENABLE" value="0"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI5_REF_CTRL__SRCSEL" value="DPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI5_REF_CTRL__ACT_FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__AFI5_REF_CTRL__FREQMHZ" value="667"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__PCIE_REF_CTRL__DIVISOR0" value="2"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__PCIE_REF_CTRL__SRCSEL" value="IOPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__PCIE_REF_CTRL__ACT_FREQMHZ " value="250.000000"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__PCIE_REF_CTRL__FREQMHZ" value="250"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__SATA_REF_CTRL__DIVISOR0" value="5"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__SATA_REF_CTRL__SRCSEL" value="IOPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__SATA_REF_CTRL__ACT_FREQMHZ " value="250"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__SATA_REF_CTRL__FREQMHZ" value="250"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_FPD_CTRL__ACT_FREQMHZ" value="250.000000"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_FPD_CTRL__SRCSEL" value="IOPLL"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_FPD_CTRL__FREQMHZ" value="250"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_TRACE_CTRL__ACT_FREQMHZ" value="250"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_TRACE_CTRL__SRCSEL" value="IOPLL"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_TRACE_CTRL__FREQMHZ" value="250"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_TSTMP_CTRL__DIVISOR0" value="2"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_TSTMP_CTRL__SRCSEL" value="IOPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_TSTMP_CTRL__ACT_FREQMHZ " value="250.000000"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DBG_TSTMP_CTRL__FREQMHZ" value="250"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__IOU_SWITCH_CTRL__SRCSEL" value="RPLL"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__IOU_SWITCH_CTRL__FREQMHZ" value="267"/>
@@ -830,21 +941,33 @@
 		<user_parameter name="CONFIG.PSU__CRL_APB__TIMESTAMP_REF_CTRL__SRCSEL" value="PSS_REF_CLK"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__TIMESTAMP_REF_CTRL__FREQMHZ" value="100"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__PCAP_CTRL__SRCSEL" value="IOPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_STC_REF_CTRL__FREQMHZ " value="27"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_STC_REF_CTRL__ACT_FREQMHZ" value="26.500000"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DP_STC_REF_CTRL__SRCSEL" value="RPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_AUDIO_REF_CTRL__FREQMHZ " value="25"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_AUDIO_REF_CTRL__ACT_FREQMHZ" value="24.843750"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DP_AUDIO_REF_CTRL__SRCSEL" value="RPLL"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__PCAP_CTRL__FREQMHZ" value="200"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__ADMA_REF_CTRL__SRCSEL" value="IOPLL"/>
 		<user_parameter name="CONFIG.PSU__CRL_APB__ADMA_REF_CTRL__FREQMHZ" value="500"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__GDMA_REF_CTRL__DIVISOR0" value="2"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__GDMA_REF_CTRL__SRCSEL" value="APLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__GDMA_REF_CTRL__ACT_FREQMHZ " value="600.000000"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__GDMA_REF_CTRL__FREQMHZ" value="600"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DPDMA_REF_CTRL__DIVISOR0" value="2"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DPDMA_REF_CTRL__SRCSEL" value="APLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DPDMA_REF_CTRL__ACT_FREQMHZ " value="600.000000"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DPDMA_REF_CTRL__FREQMHZ" value="600"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_MAIN_CTRL__DIVISOR0" value="2"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_MAIN_CTRL__SRCSEL" value="DPLL"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_MAIN_CTRL__ACT_FREQMHZ " value="532.500000"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_MAIN_CTRL__FREQMHZ" value="533.333"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_LSBUS_CTRL__DIVISOR0" value="5"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_LSBUS_CTRL__SRCSEL" value="IOPLL"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__TOPSW_LSBUS_CTRL__FREQMHZ" value="100"/>
 		<user_parameter name="CONFIG.PSU__CRF_APB__DP_VIDEO_REF_CTRL__SRCSEL" value="VPLL"/>
-
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_VIDEO_REF_CTRL__FREQMHZ " value="300"/>
+		<user_parameter name="CONFIG.PSU__CRF_APB__DP_VIDEO_REF_CTRL__ACT_FREQMHZ" value="300.000000"/>
 			</user_parameters>
 		</ip>
 	</ip_preset>
