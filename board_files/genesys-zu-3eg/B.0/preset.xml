@@ -748,7 +748,7 @@
 				<user_parameter name="CONFIG.PSU__GPIO0_MIO__PERIPHERAL__ENABLE" value="1"/>
 				<user_parameter name="CONFIG.PSU__GPIO1_MIO__IO" value="MIO 26 .. 51"/>
 				<user_parameter name="CONFIG.PSU__GPIO1_MIO__PERIPHERAL__ENABLE" value="1"/>
-				<user_parameter name="CONFIG.PSU__GPIO_EMIO__PERIPHERAL__ENABLE" value="1"/>
+				<user_parameter name="CONFIG.PSU__GPIO_EMIO__PERIPHERAL__ENABLE" value="0"/>
 				<user_parameter name="CONFIG.PSU__GPIO_EMIO__PERIPHERAL__IO" value="3"/>
 				<user_parameter name="CONFIG.PSU__GPIO_EMIO_WIDTH" value="3"/>
 				<user_parameter name="CONFIG.PSU__GPIO_EMIO__WIDTH" value="[94:0]"/>
@@ -898,7 +898,7 @@
 				<user_parameter name="CONFIG.PSU__UART0_LOOP_UART1__ENABLE" value="0"/>
 				<user_parameter name="CONFIG.PSU__UART0__PERIPHERAL__IO" value="MIO 18 .. 19"/>
 				<user_parameter name="CONFIG.PSU__UART1__BAUD_RATE" value="115200"/>
-				<user_parameter name="CONFIG.PSU__UART1__PERIPHERAL__ENABLE" value="1"/>
+				<user_parameter name="CONFIG.PSU__UART1__PERIPHERAL__ENABLE" value="0"/>
 				<user_parameter name="CONFIG.PSU__UART1__PERIPHERAL__IO" value="EMIO"/>
 				<user_parameter name="CONFIG.PSU__UART1__MODEM__ENABLE" value="0"/>
 				<user_parameter name="CONFIG.PSU__USB0__REF_CLK_SEL" value="Ref Clk0"/>
