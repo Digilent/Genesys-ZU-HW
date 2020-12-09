@@ -522,8 +522,8 @@ proc create_hier_cell_short_loopback_tests { parentCell nameHier } {
   # Create instance: pmods, and set properties
   set pmods [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 pmods ]
   set_property -dict [ list \
-   CONFIG.C_GPIO2_WIDTH {11} \
-   CONFIG.C_GPIO_WIDTH {11} \
+   CONFIG.C_GPIO2_WIDTH {15} \
+   CONFIG.C_GPIO_WIDTH {15} \
    CONFIG.C_IS_DUAL {1} \
  ] $pmods
 
@@ -560,6 +560,65 @@ proc create_hier_cell_short_loopback_tests { parentCell nameHier } {
   # Create port connections
   connect_bd_net -net s_axi_aclk_1 [get_bd_pins s_axi_aclk] [get_bd_pins fmc_prsnt/s_axi_aclk] [get_bd_pins la_00/s_axi_aclk] [get_bd_pins la_01/s_axi_aclk] [get_bd_pins mipi_ffc_a/s_axi_aclk] [get_bd_pins mipi_ffc_b/s_axi_aclk] [get_bd_pins pmods/s_axi_aclk] [get_bd_pins syszygy/s_axi_aclk]
   connect_bd_net -net s_axi_aresetn_1 [get_bd_pins s_axi_aresetn] [get_bd_pins fmc_prsnt/s_axi_aresetn] [get_bd_pins la_00/s_axi_aresetn] [get_bd_pins la_01/s_axi_aresetn] [get_bd_pins mipi_ffc_a/s_axi_aresetn] [get_bd_pins mipi_ffc_b/s_axi_aresetn] [get_bd_pins pmods/s_axi_aresetn] [get_bd_pins syszygy/s_axi_aresetn]
+
+  # Restore current instance
+  current_bd_instance $oldCurInst
+}
+
+# Hierarchical cell: set_vadj_level
+proc create_hier_cell_set_vadj_level { parentCell nameHier } {
+
+  variable script_folder
+
+  if { $parentCell eq "" || $nameHier eq "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2092 -severity "ERROR" "create_hier_cell_set_vadj_level() - Empty argument(s)!"}
+     return
+  }
+
+  # Get object for parentCell
+  set parentObj [get_bd_cells $parentCell]
+  if { $parentObj == "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2090 -severity "ERROR" "Unable to find parent cell <$parentCell>!"}
+     return
+  }
+
+  # Make sure parentObj is hier blk
+  set parentType [get_property TYPE $parentObj]
+  if { $parentType ne "hier" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2091 -severity "ERROR" "Parent <$parentObj> has TYPE = <$parentType>. Expected to be <hier>."}
+     return
+  }
+
+  # Save current instance; Restore later
+  set oldCurInst [current_bd_instance .]
+
+  # Set parent object as current
+  current_bd_instance $parentObj
+
+  # Create cell and set as current instance
+  set hier_obj [create_bd_cell -type hier $nameHier]
+  current_bd_instance $hier_obj
+
+  # Create interface pins
+
+  # Create pins
+  create_bd_pin -dir O -from 0 -to 0 vadj_auton
+  create_bd_pin -dir O -from 0 -to 0 vadj_level_0
+  create_bd_pin -dir O -from 0 -to 0 vadj_level_1
+
+  # Create instance: vadj_auton, and set properties
+  set vadj_auton [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 vadj_auton ]
+
+  # Create instance: vadj_level_0, and set properties
+  set vadj_level_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 vadj_level_0 ]
+
+  # Create instance: vadj_level_1, and set properties
+  set vadj_level_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 vadj_level_1 ]
+
+  # Create port connections
+  connect_bd_net -net vadj_auton_dout [get_bd_pins vadj_auton] [get_bd_pins vadj_auton/dout]
+  connect_bd_net -net vadj_level_0_dout [get_bd_pins vadj_level_0] [get_bd_pins vadj_level_0/dout]
+  connect_bd_net -net vadj_level_1_dout [get_bd_pins vadj_level_1] [get_bd_pins vadj_level_1/dout]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -1205,6 +1264,9 @@ proc create_root_design { parentCell } {
   set phy_txn_out_0 [ create_bd_port -dir O -from 2 -to 0 phy_txn_out_0 ]
   set phy_txp_out_0 [ create_bd_port -dir O -from 2 -to 0 phy_txp_out_0 ]
   set pl_rgb_led [ create_bd_port -dir O -from 2 -to 0 pl_rgb_led ]
+  set vadj_auton [ create_bd_port -dir O -from 0 -to 0 vadj_auton ]
+  set vadj_level_0 [ create_bd_port -dir O -from 0 -to 0 vadj_level_0 ]
+  set vadj_level_1 [ create_bd_port -dir O -from 0 -to 0 vadj_level_1 ]
 
   # Create instance: audio_ss_0
   create_hier_cell_audio_ss_0 [current_bd_instance .] audio_ss_0
@@ -1232,6 +1294,9 @@ proc create_root_design { parentCell } {
 
   # Create instance: rst_ps8_0_50M, and set properties
   set rst_ps8_0_50M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_ps8_0_50M ]
+
+  # Create instance: set_vadj_level
+  create_hier_cell_set_vadj_level [current_bd_instance .] set_vadj_level
 
   # Create instance: short_loopback_tests
   create_hier_cell_short_loopback_tests [current_bd_instance .] short_loopback_tests
@@ -2887,6 +2952,9 @@ proc create_root_design { parentCell } {
   connect_bd_net -net rst_ps8_0_100M_peripheral_aresetn [get_bd_pins hdmi/s_axis_video_aresetn] [get_bd_pins ps8_0_axi_periph/M08_ARESETN] [get_bd_pins ps8_0_axi_periph/M09_ARESETN] [get_bd_pins rst_ps8_0_100M/peripheral_aresetn]
   connect_bd_net -net rst_ps8_0_50M_interconnect_aresetn [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins rst_ps8_0_50M/interconnect_aresetn]
   connect_bd_net -net rst_ps8_0_50M_peripheral_aresetn [get_bd_pins audio_ss_0/ARESETN] [get_bd_pins audio_test/axi_resetn] [get_bd_pins axi_smc/aresetn] [get_bd_pins hdmi/s_axi_cpu_aresetn] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/M03_ARESETN] [get_bd_pins ps8_0_axi_periph/M04_ARESETN] [get_bd_pins ps8_0_axi_periph/M05_ARESETN] [get_bd_pins ps8_0_axi_periph/M06_ARESETN] [get_bd_pins ps8_0_axi_periph/M07_ARESETN] [get_bd_pins ps8_0_axi_periph/M10_ARESETN] [get_bd_pins ps8_0_axi_periph/M11_ARESETN] [get_bd_pins ps8_0_axi_periph/M12_ARESETN] [get_bd_pins ps8_0_axi_periph/M13_ARESETN] [get_bd_pins ps8_0_axi_periph/M14_ARESETN] [get_bd_pins ps8_0_axi_periph/M15_ARESETN] [get_bd_pins ps8_0_axi_periph/M16_ARESETN] [get_bd_pins ps8_0_axi_periph/M17_ARESETN] [get_bd_pins ps8_0_axi_periph/M18_ARESETN] [get_bd_pins ps8_0_axi_periph/M19_ARESETN] [get_bd_pins ps8_0_axi_periph/M20_ARESETN] [get_bd_pins ps8_0_axi_periph/M21_ARESETN] [get_bd_pins ps8_0_axi_periph/M22_ARESETN] [get_bd_pins ps8_0_axi_periph/M23_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps8_0_50M/peripheral_aresetn] [get_bd_pins short_loopback_tests/s_axi_aresetn] [get_bd_pins uio/s_axi_aresetn]
+  connect_bd_net -net set_vadj_level_dout_0 [get_bd_ports vadj_auton] [get_bd_pins set_vadj_level/vadj_auton]
+  connect_bd_net -net set_vadj_level_dout_1 [get_bd_ports vadj_level_0] [get_bd_pins set_vadj_level/vadj_level_0]
+  connect_bd_net -net set_vadj_level_dout_2 [get_bd_ports vadj_level_1] [get_bd_pins set_vadj_level/vadj_level_1]
   connect_bd_net -net uio_ip2intc_irpt [get_bd_pins uio/ip2intc_irpt] [get_bd_pins xlconcat_1/In0]
   connect_bd_net -net uio_ip2intc_irpt1 [get_bd_pins uio/ip2intc_irpt1] [get_bd_pins xlconcat_1/In1]
   connect_bd_net -net util_vector_logic_0_Res [get_bd_ports dp_aux_doe] [get_bd_pins util_vector_logic_0/Res]
