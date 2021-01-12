@@ -70,12 +70,12 @@ set_property DRIVE 4 [get_ports hdmi_tx_i2c_sda_io]
 #set_property SLEW FAST [get_ports {SFP_REC_CLK_P[0]}]
 
 ## SFP Auxiliary
-#set_property -dict { PACKAGE_PIN AD14  IOSTANDARD LVCMOS33 } [get_ports { sfp_tri_io[0] }]; #IO_L5N_HDGC_44/24 Sch=sfp_mod_detect
-#set_property -dict { PACKAGE_PIN W13   IOSTANDARD LVCMOS33 } [get_ports { sfp_tri_io[1] }]; #IO_L9N_AD11N_44/24 Sch=sfp_rs[0]
-#set_property -dict { PACKAGE_PIN Y14   IOSTANDARD LVCMOS33 } [get_ports { sfp_tri_io[2] }]; #IO_L10P_AD10P_44/24 Sch=sfp_rs[1]
-#set_property -dict { PACKAGE_PIN W14   IOSTANDARD LVCMOS33 } [get_ports { sfp_tri_io[3] }]; #IO_L9P_AD11P_44/24 Sch=sfp_rx_los
-#set_property -dict { PACKAGE_PIN AB13  IOSTANDARD LVCMOS33 } [get_ports { sfp_tri_io[4] }]; #IO_L7N_HDGC_44/24 Sch=sfp_tx_disable
-#set_property -dict { PACKAGE_PIN AA13  IOSTANDARD LVCMOS33 } [get_ports { sfp_tri_io[5] }]; #IO_L7P_HDGC_44/24 Sch=sfp_tx_fault
+set_property -dict { PACKAGE_PIN AD14  IOSTANDARD LVCMOS33 } [get_ports { gpio_sfp_tri_io[0] }]; #IO_L5N_HDGC_44/24 Sch=sfp_mod_detect
+set_property -dict { PACKAGE_PIN W13   IOSTANDARD LVCMOS33 } [get_ports { gpio_sfp_tri_io[1] }]; #IO_L9N_AD11N_44/24 Sch=sfp_rs[0]
+set_property -dict { PACKAGE_PIN Y14   IOSTANDARD LVCMOS33 } [get_ports { gpio_sfp_tri_io[2] }]; #IO_L10P_AD10P_44/24 Sch=sfp_rs[1]
+set_property -dict { PACKAGE_PIN W14   IOSTANDARD LVCMOS33 } [get_ports { gpio_sfp_tri_io[3] }]; #IO_L9P_AD11P_44/24 Sch=sfp_rx_los
+set_property -dict { PACKAGE_PIN AB13  IOSTANDARD LVCMOS33 } [get_ports { gpio_sfp_tri_io[4] }]; #IO_L7N_HDGC_44/24 Sch=sfp_tx_disable
+set_property -dict { PACKAGE_PIN AA13  IOSTANDARD LVCMOS33 } [get_ports { gpio_sfp_tri_io[5] }]; #IO_L7P_HDGC_44/24 Sch=sfp_tx_fault
 #set_property -dict { PACKAGE_PIN D10   IOSTANDARD LVCMOS18 } [get_ports { sfp_tri_io[6] }]; #IO_L7N_HDGC_45/25 Sch=sel_sfp_not_fmc
 
 ## Crypto
@@ -308,10 +308,10 @@ set_property -dict {PACKAGE_PIN Y13 IOSTANDARD LVCMOS33} [get_ports {pl_switches
 set_property -dict {PACKAGE_PIN AB14 IOSTANDARD LVCMOS33} [get_ports {pl_switches_tri_i[3]}]
 
 ## LED
-set_property -dict {PACKAGE_PIN J14 IOSTANDARD LVCMOS33} [get_ports {pl_leds_tri_o[0]}]
-set_property -dict {PACKAGE_PIN K14 IOSTANDARD LVCMOS33} [get_ports {pl_leds_tri_o[1]}]
-set_property -dict {PACKAGE_PIN L13 IOSTANDARD LVCMOS33} [get_ports SI5342_LOCK]
-set_property -dict {PACKAGE_PIN L14 IOSTANDARD LVCMOS33} [get_ports LED0]
+set_property -dict { PACKAGE_PIN J14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[0] }]; #IO_L11N_AD1N_46/26 Sch=ld[4]
+set_property -dict { PACKAGE_PIN K14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[1] }]; #IO_L11P_AD1P_46/26 Sch=ld[3]
+set_property -dict { PACKAGE_PIN L13   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[2] }]; #IO_L12N_AD0N_46/26 Sch=ld[2]
+set_property -dict { PACKAGE_PIN L14   IOSTANDARD LVCMOS33 } [get_ports { pl_leds_tri_o[3] }]; #IO_L12P_AD0P_46/26 Sch=ld[1]
 
 ## RGB LED
 set_property -dict {PACKAGE_PIN A8 IOSTANDARD LVCMOS12} [get_ports {pl_rgb_led[0]}]
