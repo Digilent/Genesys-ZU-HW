@@ -312,8 +312,10 @@ set_property -dict { PACKAGE_PIN F6 IOSTANDARD LVCMOS12 DRIVE 6 } [get_ports { g
 #set_property PACKAGE_PIN G14 [get_ports { mux_sda_io }]; #IO_L9N_AD3N_46/26 Sch=mux_sda_ls
 #set_property IOSTANDARD LVCMOS33 [get_ports mux_scl_io]
 #set_property IOSTANDARD LVCMOS33 [get_ports mux_sda_io]
-#set_property PULLUP true [get_ports mux_scl_io]
-#set_property PULLUP true [get_ports mux_sda_io]
+#set_property PULLUP false [get_ports mux_scl_io]
+#set_property PULLUP false [get_ports mux_sda_io]
+#set_property DRIVE 4 [get_ports mux_scl_io]
+#set_property DRIVE 4 [get_ports mux_sda_io]
 
 ## SYZYGY
         #set_property PACKAGE_PIN AB1 [get_ports {SYZYGY_D_P[0]}]
