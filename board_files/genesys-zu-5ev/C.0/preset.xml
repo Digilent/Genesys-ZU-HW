@@ -142,14 +142,14 @@
 		<user_parameter name="CONFIG.PSU_MIO_7_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_7_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_7_DIRECTION" value="out"/>
-		<user_parameter name="CONFIG.PSU_MIO_8_PULLUPDOWN" value="pullup"/>
-		<user_parameter name="CONFIG.PSU_MIO_8_DRIVE_STRENGTH" value="12"/>
+		<user_parameter name="CONFIG.PSU_MIO_8_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_8_DRIVE_STRENGTH" value="4"/>
 		<user_parameter name="CONFIG.PSU_MIO_8_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_8_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_8_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_8_DIRECTION" value="inout"/>
-		<user_parameter name="CONFIG.PSU_MIO_9_PULLUPDOWN" value="pullup"/>
-		<user_parameter name="CONFIG.PSU_MIO_9_DRIVE_STRENGTH" value="12"/>
+		<user_parameter name="CONFIG.PSU_MIO_9_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_9_DRIVE_STRENGTH" value="4"/>
 		<user_parameter name="CONFIG.PSU_MIO_9_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_9_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_9_SLEW" value="slow"/>
@@ -226,14 +226,14 @@
 		<user_parameter name="CONFIG.PSU_MIO_21_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_21_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_21_DIRECTION" value="inout"/>
-		<user_parameter name="CONFIG.PSU_MIO_22_PULLUPDOWN" value="pullup"/>
-		<user_parameter name="CONFIG.PSU_MIO_22_DRIVE_STRENGTH" value="12"/>
+		<user_parameter name="CONFIG.PSU_MIO_22_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_22_DRIVE_STRENGTH" value="4"/>
 		<user_parameter name="CONFIG.PSU_MIO_22_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_22_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_22_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_22_DIRECTION" value="inout"/>
-		<user_parameter name="CONFIG.PSU_MIO_23_PULLUPDOWN" value="pullup"/>
-		<user_parameter name="CONFIG.PSU_MIO_23_DRIVE_STRENGTH" value="12"/>
+		<user_parameter name="CONFIG.PSU_MIO_23_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_23_DRIVE_STRENGTH" value="4"/>
 		<user_parameter name="CONFIG.PSU_MIO_23_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_23_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_23_SLEW" value="slow"/>
