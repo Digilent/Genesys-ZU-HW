@@ -1,1 +1,1 @@
-# Vivado repository for Zuca
+# Vivado repository for Genesys ZU-3EG
