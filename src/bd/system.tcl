@@ -702,6 +702,7 @@ proc create_hier_cell_hdmi { parentCell nameHier } {
   create_bd_pin -dir O -type clk hdmi_tx_clk_c_n
   create_bd_pin -dir O -type clk hdmi_tx_clk_c_p
   create_bd_pin -dir I hdmi_tx_hpd
+  create_bd_pin -dir O -type intr iic2intc_irpt
   create_bd_pin -dir O -type intr irq
   create_bd_pin -dir O -type intr irq1
   create_bd_pin -dir O -type intr irq2
@@ -838,6 +839,7 @@ proc create_hier_cell_hdmi { parentCell nameHier } {
   connect_bd_net -net acr_cts_1 [get_bd_pins acr_cts] [get_bd_pins v_hdmi_tx_ss_0/acr_cts]
   connect_bd_net -net acr_n_1 [get_bd_pins acr_n] [get_bd_pins v_hdmi_tx_ss_0/acr_n]
   connect_bd_net -net acr_valid_1 [get_bd_pins acr_valid] [get_bd_pins v_hdmi_tx_ss_0/acr_valid]
+  connect_bd_net -net axi_iic_0_iic2intc_irpt [get_bd_pins iic2intc_irpt] [get_bd_pins axi_iic_0/iic2intc_irpt]
   connect_bd_net -net clkgth_loln_ls_1 [get_bd_pins clkgth_loln_ls] [get_bd_pins OR_LOGIC/Op2]
   connect_bd_net -net hdmi_rx_5v_detn_1 [get_bd_pins hdmi_rx_5v_detn] [get_bd_pins v_hdmi_rx_ss_0/cable_detect]
   connect_bd_net -net hdmi_tx_hpd_1 [get_bd_pins hdmi_tx_hpd] [get_bd_pins v_hdmi_tx_ss_0/hpd]
@@ -1327,6 +1329,9 @@ proc create_root_design { parentCell } {
 
   # Create instance: xlconcat_1, and set properties
   set xlconcat_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_1 ]
+  set_property -dict [ list \
+   CONFIG.NUM_PORTS {3} \
+ ] $xlconcat_1
 
   # Create instance: xlconstant_0, and set properties
   set xlconstant_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0 ]
@@ -1430,13 +1435,13 @@ proc create_root_design { parentCell } {
    CONFIG.PSU_MIO_1_POLARITY {Default} \
    CONFIG.PSU_MIO_1_PULLUPDOWN {pullup} \
    CONFIG.PSU_MIO_1_SLEW {fast} \
-   CONFIG.PSU_MIO_20_DIRECTION {out} \
+   CONFIG.PSU_MIO_20_DIRECTION {inout} \
    CONFIG.PSU_MIO_20_DRIVE_STRENGTH {12} \
    CONFIG.PSU_MIO_20_INPUT_TYPE {cmos} \
    CONFIG.PSU_MIO_20_POLARITY {Default} \
    CONFIG.PSU_MIO_20_PULLUPDOWN {pullup} \
    CONFIG.PSU_MIO_20_SLEW {slow} \
-   CONFIG.PSU_MIO_21_DIRECTION {in} \
+   CONFIG.PSU_MIO_21_DIRECTION {inout} \
    CONFIG.PSU_MIO_21_DRIVE_STRENGTH {12} \
    CONFIG.PSU_MIO_21_INPUT_TYPE {cmos} \
    CONFIG.PSU_MIO_21_POLARITY {Default} \
@@ -1826,8 +1831,8 @@ proc create_root_design { parentCell } {
    CONFIG.PSU_MIO_9_POLARITY {Default} \
    CONFIG.PSU_MIO_9_PULLUPDOWN {disable} \
    CONFIG.PSU_MIO_9_SLEW {slow} \
-   CONFIG.PSU_MIO_TREE_PERIPHERALS {Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Feedback Clk#PCIE#I2C 1#I2C 1#GPIO0 MIO#GPIO0 MIO#SPI 0#GPIO0 MIO#SPI 0#SPI 0#SPI 0#SPI 0#UART 0#UART 0#UART 1#UART 1#I2C 0#I2C 0#GPIO0 MIO#GPIO0 MIO#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#GPIO1 MIO#SD 1#SD 1#SD 1#SD 1#SD 1#GPIO1 MIO#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#MDIO 0#MDIO 0} \
-   CONFIG.PSU_MIO_TREE_SIGNALS {sclk_out#miso_mo1#mo2#mo3#mosi_mi0#n_ss_out#clk_for_lpbk#reset_n#scl_out#sda_out#gpio0[10]#gpio0[11]#sclk_out#gpio0[13]#n_ss_out[1]#n_ss_out[0]#miso#mosi#rxd#txd#txd#rxd#scl_out#sda_out#gpio0[24]#gpio0[25]#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#gpio1[38]#sdio1_data_out[4]#sdio1_data_out[5]#sdio1_data_out[6]#sdio1_data_out[7]#sdio1_bus_pow#gpio1[44]#sdio1_cd_n#sdio1_data_out[0]#sdio1_data_out[1]#sdio1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#gem0_mdc#gem0_mdio_out} \
+   CONFIG.PSU_MIO_TREE_PERIPHERALS {Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Feedback Clk#PCIE#I2C 1#I2C 1#GPIO0 MIO#GPIO0 MIO#SPI 0#GPIO0 MIO#SPI 0#SPI 0#SPI 0#SPI 0#UART 0#UART 0#GPIO0 MIO#GPIO0 MIO#I2C 0#I2C 0#GPIO0 MIO#GPIO0 MIO#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#Gem 0#GPIO1 MIO#SD 1#SD 1#SD 1#SD 1#SD 1#GPIO1 MIO#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#MDIO 0#MDIO 0} \
+   CONFIG.PSU_MIO_TREE_SIGNALS {sclk_out#miso_mo1#mo2#mo3#mosi_mi0#n_ss_out#clk_for_lpbk#reset_n#scl_out#sda_out#gpio0[10]#gpio0[11]#sclk_out#gpio0[13]#n_ss_out[1]#n_ss_out[0]#miso#mosi#rxd#txd#gpio0[20]#gpio0[21]#scl_out#sda_out#gpio0[24]#gpio0[25]#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#gpio1[38]#sdio1_data_out[4]#sdio1_data_out[5]#sdio1_data_out[6]#sdio1_data_out[7]#sdio1_bus_pow#gpio1[44]#sdio1_cd_n#sdio1_data_out[0]#sdio1_data_out[1]#sdio1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#gem0_mdc#gem0_mdio_out} \
    CONFIG.PSU_PERIPHERAL_BOARD_PRESET {} \
    CONFIG.PSU_SD0_INTERNAL_BUS_WIDTH {8} \
    CONFIG.PSU_SD1_INTERNAL_BUS_WIDTH {8} \
@@ -2943,6 +2948,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net hdmi_hdmi_rx_hpd [get_bd_ports hdmi_rx_hpd] [get_bd_pins hdmi/hdmi_rx_hpd]
   connect_bd_net -net hdmi_hdmi_tx_clk_c_n [get_bd_ports hdmi_tx_clk_c_n] [get_bd_pins hdmi/hdmi_tx_clk_c_n]
   connect_bd_net -net hdmi_hdmi_tx_clk_c_p [get_bd_ports hdmi_tx_clk_c_p] [get_bd_pins hdmi/hdmi_tx_clk_c_p]
+  connect_bd_net -net hdmi_iic2intc_irpt [get_bd_pins hdmi/iic2intc_irpt] [get_bd_pins xlconcat_1/In2]
   connect_bd_net -net hdmi_irq [get_bd_pins hdmi/irq] [get_bd_pins xlconcat_0/In3]
   connect_bd_net -net hdmi_irq1 [get_bd_pins hdmi/irq1] [get_bd_pins xlconcat_0/In4]
   connect_bd_net -net hdmi_irq2 [get_bd_pins hdmi/irq2] [get_bd_pins xlconcat_0/In2]
