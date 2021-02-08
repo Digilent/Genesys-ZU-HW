@@ -94,7 +94,7 @@
 		<user_parameter name="CONFIG.PSU__PCIE__MSIX_BAR_INDICATOR" value=""/>
 		<user_parameter name="CONFIG.PSU__PCIE__MSIX_PBA_OFFSET" value="0"/>
 		<user_parameter name="CONFIG.PSU__PCIE__MSIX_PBA_BAR_INDICATOR" value=""/>
-		<user_parameter name="CONFIG.PSU_MIO_0_PULLUPDOWN" value="pullup"/>
+		<user_parameter name="CONFIG.PSU_MIO_0_PULLUPDOWN" value="disable"/>
 		<user_parameter name="CONFIG.PSU_MIO_0_DRIVE_STRENGTH" value="12"/>
 		<user_parameter name="CONFIG.PSU_MIO_0_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_0_INPUT_TYPE" value="cmos"/>
@@ -178,31 +178,31 @@
 		<user_parameter name="CONFIG.PSU_MIO_13_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_13_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_13_DIRECTION" value="inout"/>
-		<user_parameter name="CONFIG.PSU_MIO_14_PULLUPDOWN" value="pullup"/>
-		<user_parameter name="CONFIG.PSU_MIO_14_DRIVE_STRENGTH" value="12"/>
+		<user_parameter name="CONFIG.PSU_MIO_14_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_14_DRIVE_STRENGTH" value="4"/>
 		<user_parameter name="CONFIG.PSU_MIO_14_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_14_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_14_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_14_DIRECTION" value="out"/>
-		<user_parameter name="CONFIG.PSU_MIO_15_PULLUPDOWN" value="pullup"/>
-		<user_parameter name="CONFIG.PSU_MIO_15_DRIVE_STRENGTH" value="12"/>
+		<user_parameter name="CONFIG.PSU_MIO_15_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_15_DRIVE_STRENGTH" value="4"/>
 		<user_parameter name="CONFIG.PSU_MIO_15_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_15_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_15_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_15_DIRECTION" value="inout"/>
-		<user_parameter name="CONFIG.PSU_MIO_16_PULLUPDOWN" value="pullup"/>
+		<user_parameter name="CONFIG.PSU_MIO_16_PULLUPDOWN" value="disable"/>
 		<user_parameter name="CONFIG.PSU_MIO_16_DRIVE_STRENGTH" value="12"/>
 		<user_parameter name="CONFIG.PSU_MIO_16_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_16_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_16_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_16_DIRECTION" value="inout"/>
-		<user_parameter name="CONFIG.PSU_MIO_17_PULLUPDOWN" value="pullup"/>
+		<user_parameter name="CONFIG.PSU_MIO_17_PULLUPDOWN" value="disable"/>
 		<user_parameter name="CONFIG.PSU_MIO_17_DRIVE_STRENGTH" value="12"/>
 		<user_parameter name="CONFIG.PSU_MIO_17_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_17_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_17_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_17_DIRECTION" value="inout"/>
-		<user_parameter name="CONFIG.PSU_MIO_18_PULLUPDOWN" value="pullup"/>
+		<user_parameter name="CONFIG.PSU_MIO_18_PULLUPDOWN" value="disable"/>
 		<user_parameter name="CONFIG.PSU_MIO_18_DRIVE_STRENGTH" value="12"/>
 		<user_parameter name="CONFIG.PSU_MIO_18_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_18_INPUT_TYPE" value="cmos"/>
@@ -328,11 +328,11 @@
 		<user_parameter name="CONFIG.PSU_MIO_38_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_38_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_38_DIRECTION" value="inout"/>
-		<user_parameter name="CONFIG.PSU_MIO_39_PULLUPDOWN" value="pullup"/>
-		<user_parameter name="CONFIG.PSU_MIO_39_DRIVE_STRENGTH" value="12"/>
+		<user_parameter name="CONFIG.PSU_MIO_39_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_39_DRIVE_STRENGTH" value="4"/>
 		<user_parameter name="CONFIG.PSU_MIO_39_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_39_INPUT_TYPE" value="cmos"/>
-		<user_parameter name="CONFIG.PSU_MIO_39_SLEW" value="fast"/>
+		<user_parameter name="CONFIG.PSU_MIO_39_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_39_DIRECTION" value="inout"/>
 		<user_parameter name="CONFIG.PSU_MIO_40_PULLUPDOWN" value="pullup"/>
 		<user_parameter name="CONFIG.PSU_MIO_40_DRIVE_STRENGTH" value="12"/>
@@ -352,11 +352,11 @@
 		<user_parameter name="CONFIG.PSU_MIO_42_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_42_SLEW" value="fast"/>
 		<user_parameter name="CONFIG.PSU_MIO_42_DIRECTION" value="inout"/>
-		<user_parameter name="CONFIG.PSU_MIO_43_PULLUPDOWN" value="pullup"/>
-		<user_parameter name="CONFIG.PSU_MIO_43_DRIVE_STRENGTH" value="12"/>
+		<user_parameter name="CONFIG.PSU_MIO_43_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_43_DRIVE_STRENGTH" value="4"/>
 		<user_parameter name="CONFIG.PSU_MIO_43_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_43_INPUT_TYPE" value="cmos"/>
-		<user_parameter name="CONFIG.PSU_MIO_43_SLEW" value="fast"/>
+		<user_parameter name="CONFIG.PSU_MIO_43_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_43_DIRECTION" value="out"/>
 		<user_parameter name="CONFIG.PSU_MIO_44_PULLUPDOWN" value="disable"/>
 		<user_parameter name="CONFIG.PSU_MIO_44_DRIVE_STRENGTH" value="12"/>
@@ -364,7 +364,7 @@
 		<user_parameter name="CONFIG.PSU_MIO_44_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_44_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_44_DIRECTION" value="inout"/>
-		<user_parameter name="CONFIG.PSU_MIO_45_PULLUPDOWN" value="pullup"/>
+		<user_parameter name="CONFIG.PSU_MIO_45_PULLUPDOWN" value="disable"/>
 		<user_parameter name="CONFIG.PSU_MIO_45_DRIVE_STRENGTH" value="12"/>
 		<user_parameter name="CONFIG.PSU_MIO_45_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_45_INPUT_TYPE" value="cmos"/>
@@ -551,13 +551,13 @@
 		<user_parameter name="CONFIG.PSU_MIO_75_SLEW" value="fast"/>
 		<user_parameter name="CONFIG.PSU_MIO_75_DIRECTION" value="inout"/>
 		<user_parameter name="CONFIG.PSU_MIO_76_PULLUPDOWN" value="pullup"/>
-		<user_parameter name="CONFIG.PSU_MIO_76_DRIVE_STRENGTH" value="12"/>
+		<user_parameter name="CONFIG.PSU_MIO_76_DRIVE_STRENGTH" value="4"/>
 		<user_parameter name="CONFIG.PSU_MIO_76_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_76_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_76_SLEW" value="slow"/>
 		<user_parameter name="CONFIG.PSU_MIO_76_DIRECTION" value="out"/>
-		<user_parameter name="CONFIG.PSU_MIO_77_PULLUPDOWN" value="pullup"/>
-		<user_parameter name="CONFIG.PSU_MIO_77_DRIVE_STRENGTH" value="12"/>
+		<user_parameter name="CONFIG.PSU_MIO_77_PULLUPDOWN" value="disable"/>
+		<user_parameter name="CONFIG.PSU_MIO_77_DRIVE_STRENGTH" value="4"/>
 		<user_parameter name="CONFIG.PSU_MIO_77_POLARITY" value="Default"/>
 		<user_parameter name="CONFIG.PSU_MIO_77_INPUT_TYPE" value="cmos"/>
 		<user_parameter name="CONFIG.PSU_MIO_77_SLEW" value="slow"/>
