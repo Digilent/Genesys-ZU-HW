@@ -19,7 +19,7 @@ proj/*
 # ip repository
 repo/**
 !repo/vivado-library
-repo/vivado-library/**
+!repo/vivado-boards
 !repo/local
 !repo/local/**
 !repo/cache
