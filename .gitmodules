@@ -5,3 +5,7 @@
 [submodule "digilent-vivado-scripts"]
 	path = digilent-vivado-scripts
 	url = https://github.com/Digilent/digilent-vivado-scripts.git
+[submodule "repo/vivado-boards"]
+	path = repo/vivado-boards
+	url = https://github.com/Digilent/vivado-boards.git
+	branch = feature/gzu-5ev
