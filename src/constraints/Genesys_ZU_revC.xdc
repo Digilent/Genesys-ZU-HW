@@ -219,16 +219,16 @@ set_property IOSTANDARD LVCMOS18 [get_ports aud_*]
 ##set_property -dict { PACKAGE_PIN Y9    IOSTANDARD ANALOG } [get_ports { ja4_v_p }]; #IO_L11P_AD1P_43/44 Sch=ja4_r_p
 
 ## Platform MCU signals
-set_property PACKAGE_PIN AC14 [get_ports {vadj_level_0}];     #IO_L6P_HDGC_44/24 Sch=vadj_level[0]
-set_property PACKAGE_PIN AC13 [get_ports {vadj_level_1}];     #IO_L6N_HDGC_44/24 Sch=vadj_level[1]
-set_property PACKAGE_PIN G10 [get_ports {vadj_auton}];      #IO_L3N_AD13N_45/25 Sch=vadj_auton
-#set_property PACKAGE_PIN H11 [get_ports {mcu_tri_io[3]}];      #IO_L3P_AD13P_45/25 Sch=syzygy_detectedn
-set_property -dict { PACKAGE_PIN AA12  IOSTANDARD LVCMOS33 } [get_ports { PG_VADJ_R_tri_io }]; #IO_L12N_AD8N_44/24 Sch=pg_vadj_r
+set_property PACKAGE_PIN AC14 [get_ports {vadj_set_tri_io[0]}];     #IO_L6P_HDGC_44/24 Sch=vadj_level[0]
+set_property PACKAGE_PIN AC13 [get_ports {vadj_set_tri_io[1]}];     #IO_L6N_HDGC_44/24 Sch=vadj_level[1]
+set_property PACKAGE_PIN G10 [get_ports {vadj_set_tri_io[2]}];      #IO_L3N_AD13N_45/25 Sch=vadj_auton
+set_property PACKAGE_PIN H11 [get_ports {syzygy_detectedn_tri_i }];      #IO_L3P_AD13P_45/25 Sch=syzygy_detectedn
+set_property -dict { PACKAGE_PIN AA12  IOSTANDARD LVCMOS33 } [get_ports { PG_VADJ_R_tri_i }]; #IO_L12N_AD8N_44/24 Sch=pg_vadj_r
 
-set_property IOSTANDARD LVCMOS33 [get_ports {vadj_level_0}]
-set_property IOSTANDARD LVCMOS33 [get_ports {vadj_level_1}]
-set_property IOSTANDARD LVCMOS18 [get_ports {vadj_auton}]
-#set_property IOSTANDARD LVCMOS18 [get_ports {mcu_tri_io[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {vadj_set_tri_io[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {vadj_set_tri_io[1]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {vadj_set_tri_io[2]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {syzygy_detectedn_tri_i}]
 
 ##DisplayPort AUX channel over EMIO
 set_property PACKAGE_PIN K12 [get_ports dp_aux_din]
@@ -448,7 +448,7 @@ set_property  PACKAGE_PIN AB2  [get_ports { fmc_la_00_p_tri_io[16]}]; #IO_L14P_T
 set_property  PACKAGE_PIN AC6  [get_ports { fmc_la_01_n_tri_io[16]}]; #IO_L6N_T0U_N11_AD6N_64 Sch=fmc_la_n[33]
 set_property  PACKAGE_PIN AB6  [get_ports { fmc_la_01_p_tri_io[16]}]; #IO_L6P_T0U_N10_AD6P_64 Sch=fmc_la_p[33]
 
-set_property -dict {PACKAGE_PIN W11 IOSTANDARD LVCMOS33} [get_ports fmc_prsnt_tri_io]
+set_property -dict {PACKAGE_PIN W11 IOSTANDARD LVCMOS33} [get_ports fmc_prsnt_tri_i]
 
 set_property IOSTANDARD LVCMOS18 [get_ports {fmc_??_0?_?_tri_io[*]}];
 set_property SLEW SLOW [get_ports {fmc_??_0?_?_tri_io[*]}];
