@@ -771,8 +771,8 @@ proc create_hier_cell_hdmi { parentCell nameHier } {
    CONFIG.LOGO_FILE {data/sym_orgate.png} \
  ] $OR_LOGIC
 
-  # Create instance: axi_iic_0, and set properties
-  set axi_iic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.0 axi_iic_0 ]
+  # Create instance: axi_iic_1, and set properties
+  set axi_iic_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.0 axi_iic_1 ]
 
   # Create instance: rx_video_axis_reg_slice, and set properties
   set rx_video_axis_reg_slice [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_register_slice:1.1 rx_video_axis_reg_slice ]
@@ -846,11 +846,11 @@ proc create_hier_cell_hdmi { parentCell nameHier } {
   connect_bd_intf_net -intf_net Conn5 [get_bd_intf_pins S_AXI] [get_bd_intf_pins Control_SI5342_LOLN/S_AXI]
   connect_bd_intf_net -intf_net Conn6 [get_bd_intf_pins S_AXI_GPIO] [get_bd_intf_pins v_tpg_ss_0/S_AXI_GPIO]
   connect_bd_intf_net -intf_net Conn7 [get_bd_intf_pins S_AXI_TPG] [get_bd_intf_pins v_tpg_ss_0/S_AXI_TPG]
-  connect_bd_intf_net -intf_net Conn8 [get_bd_intf_pins mux] [get_bd_intf_pins axi_iic_0/IIC]
+  connect_bd_intf_net -intf_net Conn8 [get_bd_intf_pins mux] [get_bd_intf_pins axi_iic_1/IIC]
   connect_bd_intf_net -intf_net Conn9 [get_bd_intf_pins S_AXI_CPU_IN1] [get_bd_intf_pins v_hdmi_rx_ss_0/S_AXI_CPU_IN]
   connect_bd_intf_net -intf_net Conn10 [get_bd_intf_pins hdmi_rx_ddc] [get_bd_intf_pins v_hdmi_rx_ss_0/DDC_OUT]
   connect_bd_intf_net -intf_net Conn11 [get_bd_intf_pins AUDIO_OUT] [get_bd_intf_pins v_hdmi_rx_ss_0/AUDIO_OUT]
-  connect_bd_intf_net -intf_net Conn12 [get_bd_intf_pins S_AXI1] [get_bd_intf_pins axi_iic_0/S_AXI]
+  connect_bd_intf_net -intf_net Conn12 [get_bd_intf_pins S_AXI1] [get_bd_intf_pins axi_iic_1/S_AXI]
   connect_bd_intf_net -intf_net s_axis_video_1 [get_bd_intf_pins rx_video_axis_reg_slice/M_AXIS] [get_bd_intf_pins v_tpg_ss_0/s_axis_video]
   connect_bd_intf_net -intf_net tx_video_axis_reg_slice_M_AXIS [get_bd_intf_pins tx_video_axis_reg_slice/M_AXIS] [get_bd_intf_pins v_hdmi_tx_ss_0/VIDEO_IN]
   connect_bd_intf_net -intf_net v_hdmi_rx_ss_0_VIDEO_OUT [get_bd_intf_pins rx_video_axis_reg_slice/S_AXIS] [get_bd_intf_pins v_hdmi_rx_ss_0/VIDEO_OUT]
@@ -872,7 +872,7 @@ proc create_hier_cell_hdmi { parentCell nameHier } {
   connect_bd_net -net acr_cts_1 [get_bd_pins acr_cts] [get_bd_pins v_hdmi_tx_ss_0/acr_cts]
   connect_bd_net -net acr_n_1 [get_bd_pins acr_n] [get_bd_pins v_hdmi_tx_ss_0/acr_n]
   connect_bd_net -net acr_valid_1 [get_bd_pins acr_valid] [get_bd_pins v_hdmi_tx_ss_0/acr_valid]
-  connect_bd_net -net axi_iic_0_iic2intc_irpt [get_bd_pins iic2intc_irpt] [get_bd_pins axi_iic_0/iic2intc_irpt]
+  connect_bd_net -net axi_iic_0_iic2intc_irpt [get_bd_pins iic2intc_irpt] [get_bd_pins axi_iic_1/iic2intc_irpt]
   connect_bd_net -net clkgth_loln_ls_1 [get_bd_pins clkgth_loln_ls] [get_bd_pins OR_LOGIC/Op2]
   connect_bd_net -net hdmi_rx_5v_detn_1 [get_bd_pins hdmi_rx_5v_detn] [get_bd_pins v_hdmi_rx_ss_0/cable_detect]
   connect_bd_net -net hdmi_tx_hpd_1 [get_bd_pins hdmi_tx_hpd] [get_bd_pins v_hdmi_tx_ss_0/hpd]
@@ -882,8 +882,8 @@ proc create_hier_cell_hdmi { parentCell nameHier } {
   connect_bd_net -net mgtrefclk1_pad_p_in_0_1 [get_bd_pins mgtrefclk1_pad_p_in_0] [get_bd_pins vid_phy_controller_0/mgtrefclk1_pad_p_in]
   connect_bd_net -net phy_rxn_in_0_1 [get_bd_pins phy_rxn_in_0] [get_bd_pins vid_phy_controller_0/phy_rxn_in]
   connect_bd_net -net phy_rxp_in_0_1 [get_bd_pins phy_rxp_in_0] [get_bd_pins vid_phy_controller_0/phy_rxp_in]
-  connect_bd_net -net s_axi_cpu_aclk_1 [get_bd_pins s_axi_cpu_aclk] [get_bd_pins Control_SI5342_LOLN/s_axi_aclk] [get_bd_pins axi_iic_0/s_axi_aclk] [get_bd_pins v_hdmi_rx_ss_0/s_axi_cpu_aclk] [get_bd_pins v_hdmi_tx_ss_0/s_axi_cpu_aclk] [get_bd_pins vid_phy_controller_0/drpclk] [get_bd_pins vid_phy_controller_0/vid_phy_axi4lite_aclk] [get_bd_pins vid_phy_controller_0/vid_phy_sb_aclk]
-  connect_bd_net -net s_axi_cpu_aresetn_1 [get_bd_pins s_axi_cpu_aresetn] [get_bd_pins Control_SI5342_LOLN/s_axi_aresetn] [get_bd_pins axi_iic_0/s_axi_aresetn] [get_bd_pins v_hdmi_rx_ss_0/s_axi_cpu_aresetn] [get_bd_pins v_hdmi_tx_ss_0/s_axi_cpu_aresetn] [get_bd_pins vid_phy_controller_0/vid_phy_axi4lite_aresetn] [get_bd_pins vid_phy_controller_0/vid_phy_sb_aresetn]
+  connect_bd_net -net s_axi_cpu_aclk_1 [get_bd_pins s_axi_cpu_aclk] [get_bd_pins Control_SI5342_LOLN/s_axi_aclk] [get_bd_pins axi_iic_1/s_axi_aclk] [get_bd_pins v_hdmi_rx_ss_0/s_axi_cpu_aclk] [get_bd_pins v_hdmi_tx_ss_0/s_axi_cpu_aclk] [get_bd_pins vid_phy_controller_0/drpclk] [get_bd_pins vid_phy_controller_0/vid_phy_axi4lite_aclk] [get_bd_pins vid_phy_controller_0/vid_phy_sb_aclk]
+  connect_bd_net -net s_axi_cpu_aresetn_1 [get_bd_pins s_axi_cpu_aresetn] [get_bd_pins Control_SI5342_LOLN/s_axi_aresetn] [get_bd_pins axi_iic_1/s_axi_aresetn] [get_bd_pins v_hdmi_rx_ss_0/s_axi_cpu_aresetn] [get_bd_pins v_hdmi_tx_ss_0/s_axi_cpu_aresetn] [get_bd_pins vid_phy_controller_0/vid_phy_axi4lite_aresetn] [get_bd_pins vid_phy_controller_0/vid_phy_sb_aresetn]
   connect_bd_net -net s_axis_audio_aclk_1 [get_bd_pins s_axis_audio_aclk] [get_bd_pins v_hdmi_rx_ss_0/s_axis_audio_aclk] [get_bd_pins v_hdmi_tx_ss_0/s_axis_audio_aclk]
   connect_bd_net -net s_axis_audio_aresetn_1 [get_bd_pins s_axis_audio_aresetn] [get_bd_pins v_hdmi_rx_ss_0/s_axis_audio_aresetn] [get_bd_pins v_hdmi_tx_ss_0/s_axis_audio_aresetn]
   connect_bd_net -net s_axis_video_aclk_1 [get_bd_pins s_axis_video_aclk] [get_bd_pins rx_video_axis_reg_slice/aclk] [get_bd_pins tx_video_axis_reg_slice/aclk] [get_bd_pins v_hdmi_rx_ss_0/s_axis_video_aclk] [get_bd_pins v_hdmi_tx_ss_0/s_axis_video_aclk] [get_bd_pins v_tpg_ss_0/ap_clk]
@@ -1004,8 +1004,8 @@ proc create_hier_cell_audio_test { parentCell nameHier } {
    CONFIG.C_GPIO_WIDTH {24} \
  ] $axi_gpio_0
 
-  # Create instance: axi_iic_1, and set properties
-  set axi_iic_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.0 axi_iic_1 ]
+  # Create instance: axi_iic_0, and set properties
+  set axi_iic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.0 axi_iic_0 ]
 
   # Create instance: digilent_axi_i2s_0, and set properties
   set digilent_axi_i2s_0 [ create_bd_cell -type ip -vlnv digilentinc.com:user:digilent_axi_i2s:2.0 digilent_axi_i2s_0 ]
@@ -1042,8 +1042,8 @@ proc create_hier_cell_audio_test { parentCell nameHier } {
   connect_bd_intf_net -intf_net Conn6 [get_bd_intf_pins M_AXI_MM2S1] [get_bd_intf_pins axi_dma_1/M_AXI_MM2S]
   connect_bd_intf_net -intf_net Conn7 [get_bd_intf_pins M_AXI_S2MM1] [get_bd_intf_pins axi_dma_1/M_AXI_S2MM]
   connect_bd_intf_net -intf_net Conn8 [get_bd_intf_pins AXI_L] [get_bd_intf_pins digilent_axi_i2s_0/AXI_L]
-  connect_bd_intf_net -intf_net Conn9 [get_bd_intf_pins aud] [get_bd_intf_pins axi_iic_1/IIC]
-  connect_bd_intf_net -intf_net Conn10 [get_bd_intf_pins S_AXI1] [get_bd_intf_pins axi_iic_1/S_AXI]
+  connect_bd_intf_net -intf_net Conn9 [get_bd_intf_pins aud] [get_bd_intf_pins axi_iic_0/IIC]
+  connect_bd_intf_net -intf_net Conn10 [get_bd_intf_pins S_AXI1] [get_bd_intf_pins axi_iic_0/S_AXI]
   connect_bd_intf_net -intf_net axi_dma_0_M_AXIS_MM2S [get_bd_intf_pins axi_dma_0/M_AXIS_MM2S] [get_bd_intf_pins xfft_0/S_AXIS_DATA]
   connect_bd_intf_net -intf_net axi_dma_1_M_AXIS_MM2S [get_bd_intf_pins axi_dma_1/M_AXIS_MM2S] [get_bd_intf_pins digilent_axi_i2s_0/AXI_MM2S]
   connect_bd_intf_net -intf_net digilent_axi_i2s_0_AXI_S2MM [get_bd_intf_pins axi_dma_1/S_AXIS_S2MM] [get_bd_intf_pins digilent_axi_i2s_0/AXI_S2MM]
@@ -1056,14 +1056,14 @@ proc create_hier_cell_audio_test { parentCell nameHier } {
   connect_bd_net -net axi_dma_0_s2mm_introut [get_bd_pins s2mm_introut_0] [get_bd_pins axi_dma_0/s2mm_introut]
   connect_bd_net -net axi_dma_1_mm2s_introut [get_bd_pins mm2s_introut_1] [get_bd_pins axi_dma_1/mm2s_introut]
   connect_bd_net -net axi_dma_1_s2mm_introut [get_bd_pins s2mm_introut_1] [get_bd_pins axi_dma_1/s2mm_introut]
-  connect_bd_net -net axi_iic_1_iic2intc_irpt [get_bd_pins iic2intc_irpt] [get_bd_pins axi_iic_1/iic2intc_irpt]
-  connect_bd_net -net axi_resetn_1 [get_bd_pins axi_resetn] [get_bd_pins axi_dma_0/axi_resetn] [get_bd_pins axi_dma_1/axi_resetn] [get_bd_pins axi_gpio_0/s_axi_aresetn] [get_bd_pins axi_iic_1/s_axi_aresetn] [get_bd_pins digilent_axi_i2s_0/AXI_L_aresetn] [get_bd_pins digilent_axi_i2s_0/M_AXIS_S2MM_ARESETN] [get_bd_pins digilent_axi_i2s_0/S_AXIS_MM2S_ARESETN]
+  connect_bd_net -net axi_iic_1_iic2intc_irpt [get_bd_pins iic2intc_irpt] [get_bd_pins axi_iic_0/iic2intc_irpt]
+  connect_bd_net -net axi_resetn_1 [get_bd_pins axi_resetn] [get_bd_pins axi_dma_0/axi_resetn] [get_bd_pins axi_dma_1/axi_resetn] [get_bd_pins axi_gpio_0/s_axi_aresetn] [get_bd_pins axi_iic_0/s_axi_aresetn] [get_bd_pins digilent_axi_i2s_0/AXI_L_aresetn] [get_bd_pins digilent_axi_i2s_0/M_AXIS_S2MM_ARESETN] [get_bd_pins digilent_axi_i2s_0/S_AXIS_MM2S_ARESETN]
   connect_bd_net -net digilent_axi_i2s_0_BCLK_O [get_bd_pins BCLK_O_0] [get_bd_pins digilent_axi_i2s_0/BCLK_O]
   connect_bd_net -net digilent_axi_i2s_0_LRCLK1_O [get_bd_pins LRCLK1_O_0] [get_bd_pins digilent_axi_i2s_0/LRCLK1_O]
   connect_bd_net -net digilent_axi_i2s_0_MCLK_O [get_bd_pins MCLK_O_0] [get_bd_pins digilent_axi_i2s_0/MCLK_O]
   connect_bd_net -net digilent_axi_i2s_0_SDATA_O [get_bd_pins SDATA_O_0] [get_bd_pins digilent_axi_i2s_0/SDATA_O]
   connect_bd_net -net edge_detect_0_edge_detected [get_bd_pins edge_detect_0/edge_detected] [get_bd_pins xfft_0/s_axis_config_tvalid]
-  connect_bd_net -net m_axi_mm2s_aclk_1 [get_bd_pins m_axi_mm2s_aclk] [get_bd_pins axi_dma_0/m_axi_mm2s_aclk] [get_bd_pins axi_dma_0/m_axi_s2mm_aclk] [get_bd_pins axi_dma_0/s_axi_lite_aclk] [get_bd_pins axi_dma_1/m_axi_mm2s_aclk] [get_bd_pins axi_dma_1/m_axi_s2mm_aclk] [get_bd_pins axi_dma_1/s_axi_lite_aclk] [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins axi_iic_1/s_axi_aclk] [get_bd_pins digilent_axi_i2s_0/AXI_L_aclk] [get_bd_pins digilent_axi_i2s_0/CLK_100MHZ_I] [get_bd_pins digilent_axi_i2s_0/M_AXIS_S2MM_ACLK] [get_bd_pins digilent_axi_i2s_0/S_AXIS_MM2S_ACLK] [get_bd_pins edge_detect_0/clk] [get_bd_pins xfft_0/aclk]
+  connect_bd_net -net m_axi_mm2s_aclk_1 [get_bd_pins m_axi_mm2s_aclk] [get_bd_pins axi_dma_0/m_axi_mm2s_aclk] [get_bd_pins axi_dma_0/m_axi_s2mm_aclk] [get_bd_pins axi_dma_0/s_axi_lite_aclk] [get_bd_pins axi_dma_1/m_axi_mm2s_aclk] [get_bd_pins axi_dma_1/m_axi_s2mm_aclk] [get_bd_pins axi_dma_1/s_axi_lite_aclk] [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins axi_iic_0/s_axi_aclk] [get_bd_pins digilent_axi_i2s_0/AXI_L_aclk] [get_bd_pins digilent_axi_i2s_0/CLK_100MHZ_I] [get_bd_pins digilent_axi_i2s_0/M_AXIS_S2MM_ACLK] [get_bd_pins digilent_axi_i2s_0/S_AXIS_MM2S_ACLK] [get_bd_pins edge_detect_0/clk] [get_bd_pins xfft_0/aclk]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -3033,8 +3033,8 @@ proc create_root_design { parentCell } {
   assign_bd_address -offset 0x80000000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs uio/axi_gpio_btn/S_AXI/Reg] -force
   assign_bd_address -offset 0x80002000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs uio/axi_gpio_led/S_AXI/Reg] -force
   assign_bd_address -offset 0x80001000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs uio/axi_gpio_sw/S_AXI/Reg] -force
-  assign_bd_address -offset 0x80005000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs hdmi/axi_iic_0/S_AXI/Reg] -force
-  assign_bd_address -offset 0x800A0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_test/axi_iic_1/S_AXI/Reg] -force
+  assign_bd_address -offset 0x80005000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs hdmi/axi_iic_1/S_AXI/Reg] -force
+  assign_bd_address -offset 0x800A0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_test/axi_iic_0/S_AXI/Reg] -force
   assign_bd_address -offset 0x80040000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_ss_0/clk_wiz/s_axi_lite/Reg] -force
   assign_bd_address -offset 0x800B0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs audio_test/digilent_axi_i2s_0/AXI_L/AXI_L_reg] -force
   assign_bd_address -offset 0x800C0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs short_loopback_tests/fmc_prsnt/S_AXI/Reg] -force
