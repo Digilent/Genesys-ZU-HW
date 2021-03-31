@@ -1011,6 +1011,10 @@ proc create_hier_cell_audio_test { parentCell nameHier } {
 
   # Create instance: axi_iic_0, and set properties
   set axi_iic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.0 axi_iic_0 ]
+  set_property -dict [ list \
+   CONFIG.C_SCL_INERTIAL_DELAY {5} \
+   CONFIG.C_SDA_INERTIAL_DELAY {5} \
+ ] $axi_iic_0
 
   # Create instance: digilent_axi_i2s_0, and set properties
   set digilent_axi_i2s_0 [ create_bd_cell -type ip -vlnv digilentinc.com:user:digilent_axi_i2s:2.0 digilent_axi_i2s_0 ]
