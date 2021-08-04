@@ -1,5 +1,5 @@
-# Genesys ZU-5EV Hardware Repository
+# Genesys ZU Hardware Repository
 
-## Genesys ZU-5EV Base
+## Genesys ZU Base
 
 Root branch for this repository. This branch has no previous history and it is not branched off from master.   
