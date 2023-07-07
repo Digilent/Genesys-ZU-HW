@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?> 
-<board schema_version="2.1" vendor="digilentinc.com" name="gzu_3eg" display_name="Genesys ZU-3EG" url="https://www.digilentinc.com" preset_file="preset.xml">
+<!--
+MIT License
+
+Copyright (c) 2022 Digilent, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<board schema_version="2.1" vendor="digilentinc.com" name="gzu_3eg" display_name="Genesys ZU-3EG" url="https://digilent.com/reference/programmable-logic/genesys-zu/start" preset_file="preset.xml">
 <compatible_board_revisions>
 	<revision id="0">D.0</revision>
 </compatible_board_revisions>
-<file_version>1.0</file_version>
+<file_version>1.1</file_version>
 <description>Genesys ZU-3EG</description>
 
 <components>
 	<!-- Defines BD interfaces that can be used to connect the FPGA to a particular <component> -->
-	<component name="part0" display_name="Genesys ZU-3EG" type="fpga" part_name="xczu3eg-sfvc784-1-e" pin_map_file="part0_pins.xml" vendor="xilinx" spec_url="www.digilentinc.com">
+	<component name="part0" display_name="Genesys ZU-3EG" type="fpga" part_name="xczu3eg-sfvc784-1-e" pin_map_file="part0_pins.xml" vendor="xilinx" spec_url="https://digilent.com/reference/programmable-logic/genesys-zu/start">
 		<interfaces>
 			<interface mode="master" name="ps8_fixedio" type="xilinx.com:zynq_ultra_ps_e:fixedio_rtl:1.0" of_component="ps8_fixedio" preset_proc="zynq_ultra_ps_e_preset"> 
 				<preferred_ips>

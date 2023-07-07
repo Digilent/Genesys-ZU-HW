@@ -1,3 +1,4 @@
 **********Genesys ZU-3EG changelog **************
 
 1.0
+1.1
