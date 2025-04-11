@@ -133,9 +133,9 @@ if { $bCheckIPs == 1 } {
 xilinx.com:ip:util_vector_logic:*\
 xilinx.com:ip:zynq_ultra_ps_e:*\
 digilent.com:user:ZmodAWGController:*\
-xilinx.com:ip:xlconstant:*\
 xilinx.com:ip:clk_wiz:*\
 xilinx.com:ip:proc_sys_reset:*\
+digilent.com:user:ZmodAwgAxiConfiguration:*\
 "
 
    set list_ips_missing ""
@@ -1288,16 +1288,10 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
   set_property -dict [list \
     CONFIG.kCh1ScaleStatic {"1"} \
     CONFIG.kCh2ScaleStatic {"1"} \
+    CONFIG.kExtCalibEn {true} \
+    CONFIG.kExtScaleConfigEn {true} \
   ] $ZmodAWGController_0
 
-
-  # Create instance: xlconstant_0, and set properties
-  set xlconstant_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant xlconstant_0 ]
-  set_property CONFIG.CONST_VAL {0} $xlconstant_0
-
-
-  # Create instance: xlconstant_1, and set properties
-  set xlconstant_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant xlconstant_1 ]
 
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz clk_wiz_0 ]
@@ -1340,46 +1334,69 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
      return 1
    }
   
+  # Create instance: ZmodAwgAxiConfigurat_0, and set properties
+  set ZmodAwgAxiConfigurat_0 [ create_bd_cell -type ip -vlnv digilent.com:user:ZmodAwgAxiConfiguration ZmodAwgAxiConfigurat_0 ]
+
+  # Create instance: ps8_0_axi_periph, and set properties
+  set ps8_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect ps8_0_axi_periph ]
+  set_property CONFIG.NUM_MI {1} $ps8_0_axi_periph
+
+
+  # Create interface connections
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M00_AXI [get_bd_intf_pins ps8_0_axi_periph/M00_AXI] [get_bd_intf_pins ZmodAwgAxiConfigurat_0/s_axi_control]
+  connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_LPD [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_LPD] [get_bd_intf_pins ps8_0_axi_periph/S00_AXI]
+
   # Create port connections
   connect_bd_net -net Net [get_bd_ports sZmodDAC_SDIO_0] [get_bd_pins ZmodAWGController_0/sZmodDAC_SDIO]
   connect_bd_net -net ZmodAWGController_0_ZmodDAC_ClkIO [get_bd_pins ZmodAWGController_0/ZmodDAC_ClkIO] [get_bd_ports ZmodDAC_ClkIO_0]
   connect_bd_net -net ZmodAWGController_0_ZmodDAC_ClkIn [get_bd_pins ZmodAWGController_0/ZmodDAC_ClkIn] [get_bd_ports ZmodDAC_ClkIn_0]
   connect_bd_net -net ZmodAWGController_0_dZmodDAC_Data [get_bd_pins ZmodAWGController_0/dZmodDAC_Data] [get_bd_ports dZmodDAC_Data_0]
-  connect_bd_net -net ZmodAWGController_0_sConfigError [get_bd_pins ZmodAWGController_0/sConfigError] [get_bd_ports sConfigError_0]
-  connect_bd_net -net ZmodAWGController_0_sInitDoneDAC [get_bd_pins ZmodAWGController_0/sInitDoneDAC] [get_bd_ports sInitDoneDAC_0]
+  connect_bd_net -net ZmodAWGController_0_sConfigError [get_bd_pins ZmodAWGController_0/sConfigError] [get_bd_ports sConfigError_0] [get_bd_pins ZmodAwgAxiConfigurat_0/sConfigError]
+  connect_bd_net -net ZmodAWGController_0_sInitDoneDAC [get_bd_pins ZmodAWGController_0/sInitDoneDAC] [get_bd_ports sInitDoneDAC_0] [get_bd_pins ZmodAwgAxiConfigurat_0/sInitDoneDAC]
   connect_bd_net -net ZmodAWGController_0_sZmodDAC_CS [get_bd_pins ZmodAWGController_0/sZmodDAC_CS] [get_bd_ports sZmodDAC_CS_0]
   connect_bd_net -net ZmodAWGController_0_sZmodDAC_EnOut [get_bd_pins ZmodAWGController_0/sZmodDAC_EnOut] [get_bd_ports sZmodDAC_EnOut_0]
   connect_bd_net -net ZmodAWGController_0_sZmodDAC_Reset [get_bd_pins ZmodAWGController_0/sZmodDAC_Reset] [get_bd_ports sZmodDAC_Reset_0]
   connect_bd_net -net ZmodAWGController_0_sZmodDAC_SCLK [get_bd_pins ZmodAWGController_0/sZmodDAC_SCLK] [get_bd_ports sZmodDAC_SCLK_0]
   connect_bd_net -net ZmodAWGController_0_sZmodDAC_SetFS1 [get_bd_pins ZmodAWGController_0/sZmodDAC_SetFS1] [get_bd_ports sZmodDAC_SetFS1_0]
   connect_bd_net -net ZmodAWGController_0_sZmodDAC_SetFS2 [get_bd_pins ZmodAWGController_0/sZmodDAC_SetFS2] [get_bd_ports sZmodDAC_SetFS2_0]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_cExtCh1HgAddCoeff [get_bd_pins ZmodAwgAxiConfigurat_0/cExtCh1HgAddCoeff] [get_bd_pins ZmodAWGController_0/cExtCh1HgAddCoef]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_cExtCh1HgMultCoeff [get_bd_pins ZmodAwgAxiConfigurat_0/cExtCh1HgMultCoeff] [get_bd_pins ZmodAWGController_0/cExtCh1HgMultCoef]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_cExtCh1LgAddCoeff [get_bd_pins ZmodAwgAxiConfigurat_0/cExtCh1LgAddCoeff] [get_bd_pins ZmodAWGController_0/cExtCh1LgAddCoef]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_cExtCh1LgMultCoeff [get_bd_pins ZmodAwgAxiConfigurat_0/cExtCh1LgMultCoeff] [get_bd_pins ZmodAWGController_0/cExtCh1LgMultCoef]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_cExtCh2HgAddCoeff [get_bd_pins ZmodAwgAxiConfigurat_0/cExtCh2HgAddCoeff] [get_bd_pins ZmodAWGController_0/cExtCh2HgAddCoef]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_cExtCh2HgMultCoeff [get_bd_pins ZmodAwgAxiConfigurat_0/cExtCh2HgMultCoeff] [get_bd_pins ZmodAWGController_0/cExtCh2HgMultCoef]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_cExtCh2LgAddCoeff [get_bd_pins ZmodAwgAxiConfigurat_0/cExtCh2LgAddCoeff] [get_bd_pins ZmodAWGController_0/cExtCh2LgAddCoef]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_cExtCh2LgMultCoeff [get_bd_pins ZmodAwgAxiConfigurat_0/cExtCh2LgMultCoeff] [get_bd_pins ZmodAWGController_0/cExtCh2LgMultCoef]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_sDAC_EnIn [get_bd_pins ZmodAwgAxiConfigurat_0/sDAC_EnIn] [get_bd_pins ZmodAWGController_0/sDAC_EnIn]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_sExtCh1Scale [get_bd_pins ZmodAwgAxiConfigurat_0/sExtCh1Scale] [get_bd_pins ZmodAWGController_0/sExtCh1Scale]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_sExtCh2Scale [get_bd_pins ZmodAwgAxiConfigurat_0/sExtCh2Scale] [get_bd_pins ZmodAWGController_0/sExtCh2Scale]
+  connect_bd_net -net ZmodAwgAxiConfigurat_0_sTestMode [get_bd_pins ZmodAwgAxiConfigurat_0/sTestMode] [get_bd_pins ZmodAWGController_0/sTestMode]
   connect_bd_net -net btn_rstn_0_1 [get_bd_pins set_vadj_and_delay_0/enable_awg] [get_bd_pins ZmodAWGController_0/aRst_n] [get_bd_pins counter_0/cresetn]
-  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins ZmodAWGController_0/DAC_InIO_Clk] [get_bd_pins ZmodAWGController_0/SysClk100] [get_bd_pins proc_sys_reset_1/slowest_sync_clk] [get_bd_pins set_vadj_and_delay_0/clk] [get_bd_pins counter_0/clk]
+  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins ZmodAWGController_0/SysClk100] [get_bd_pins ZmodAWGController_0/DAC_InIO_Clk] [get_bd_pins proc_sys_reset_1/slowest_sync_clk] [get_bd_pins counter_0/clk] [get_bd_pins set_vadj_and_delay_0/clk] [get_bd_pins ZmodAwgAxiConfigurat_0/SysClk100] [get_bd_pins ZmodAwgAxiConfigurat_0/DAC_InIO_Clk]
   connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins ZmodAWGController_0/DAC_Clk]
   connect_bd_net -net counter_0_counter [get_bd_pins counter_0/counter] [get_bd_pins ZmodAWGController_0/cDataAxisTdata]
   connect_bd_net -net counter_0_dvalid [get_bd_pins counter_0/dvalid] [get_bd_pins ZmodAWGController_0/cDataAxisTvalid]
   connect_bd_net -net dp_aux_data_in_0_1 [get_bd_ports dp_aux_din] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_in]
   connect_bd_net -net dp_hot_plug_detect_0_1 [get_bd_ports dp_aux_hotplug_detect] [get_bd_pins zynq_ultra_ps_e_0/dp_hot_plug_detect]
+  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ZmodAwgAxiConfigurat_0/s_axi_areset_n] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/ARESETN]
   connect_bd_net -net proc_sys_reset_0_peripheral_reset [get_bd_pins proc_sys_reset_0/peripheral_reset] [get_bd_pins clk_wiz_0/reset]
   connect_bd_net -net proc_sys_reset_1_peripheral_aresetn [get_bd_pins proc_sys_reset_1/peripheral_aresetn] [get_bd_pins set_vadj_and_delay_0/cresetn]
   connect_bd_net -net set_vadj_and_delay_0_vadj_auton [get_bd_pins set_vadj_and_delay_0/vadj_auton] [get_bd_ports o_auto_vadj_0]
   connect_bd_net -net set_vadj_and_delay_0_vadj_level0 [get_bd_pins set_vadj_and_delay_0/vadj_level0] [get_bd_ports o_lvl_adj0_0]
   connect_bd_net -net set_vadj_and_delay_0_vadj_level1 [get_bd_pins set_vadj_and_delay_0/vadj_level1] [get_bd_ports o_lvl_adj1_0]
   connect_bd_net -net util_vector_logic_0_Res [get_bd_pins util_vector_logic_0/Res] [get_bd_ports dp_aux_doe]
-  connect_bd_net -net xlconstant_0_dout [get_bd_pins xlconstant_0/dout] [get_bd_pins ZmodAWGController_0/sTestMode]
-  connect_bd_net -net xlconstant_1_dout [get_bd_pins xlconstant_1/dout] [get_bd_pins ZmodAWGController_0/sDAC_EnIn]
   connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_oe_n [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_oe_n] [get_bd_pins util_vector_logic_0/Op1]
   connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_out [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_out] [get_bd_ports dp_aux_dout]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihpc0_fpd_aclk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihpc0_fpd_aclk] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins ZmodAwgAxiConfigurat_0/s_axi_aclk] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/ACLK]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0] [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins proc_sys_reset_1/ext_reset_in]
 
   # Create address segments
+  assign_bd_address -offset 0x80000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ZmodAwgAxiConfigurat_0/s_axi_control/s_axi_control_reg] -force
 
 
   # Restore current instance
   current_bd_instance $oldCurInst
 
-  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -1391,4 +1408,6 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
 
 create_root_design ""
 
+
+common::send_gid_msg -ssname BD::TCL -id 2053 -severity "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 

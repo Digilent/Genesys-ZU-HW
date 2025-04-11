@@ -22,8 +22,11 @@ proj/*
 repo/**
 !repo/vivado-library
 repo/vivado-library/**
-!repo/localgit 
-!repo/local/**
+!repo/localgit
+!repo/local
+!repo/spec
+!repo/spec/**
+!repo/README.md
 !repo/cache
 repo/cache/**
 
