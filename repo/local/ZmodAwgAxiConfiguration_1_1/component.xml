@@ -316,7 +316,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>2160a27e</spirit:value>
+            <spirit:value>0113243c</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -331,7 +331,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>a5b11268</spirit:value>
+            <spirit:value>24fb9452</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -346,7 +346,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>c4ca9900</spirit:value>
+            <spirit:value>9beb40c9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1122,13 +1122,13 @@
       <xilinx:displayName>ZmodAwgAxiConfiguration</xilinx:displayName>
       <xilinx:vendorURL>https://digilent.com</xilinx:vendorURL>
       <xilinx:coreRevision>2</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2025-04-08T04:58:38Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2025-04-11T02:19:10Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2024.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="71858867"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="17cf8e1b"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="cddf13d3"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="e2a5daeb"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="7dc77c4e"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="b535cfeb"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="0d6169ff"/>

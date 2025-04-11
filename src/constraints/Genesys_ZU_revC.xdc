@@ -201,10 +201,10 @@ set_property DCI_CASCADE {64} [get_iobanks 65]
 
 
 ## Platform MCU signals
-set_property -dict {PACKAGE_PIN AC14 IOSTANDARD LVCMOS33 SLEW SLOW DRIVE 4 } [get_ports {o_lvl_adj0_0}];     #IO_L6P_HDGC_44/24 Sch=vadj_level[0]
-set_property -dict {PACKAGE_PIN AC13 IOSTANDARD LVCMOS33 SLEW SLOW DRIVE 4 } [get_ports {o_lvl_adj1_0}];     #IO_L6N_HDGC_44/24 Sch=vadj_level[1]
-set_property -dict {PACKAGE_PIN G10 IOSTANDARD LVCMOS18 SLEW SLOW DRIVE 4 } [get_ports {o_auto_vadj_0}];      #IO_L3N_AD13N_45/25 Sch=vadj_auton
-#set_property PACKAGE_PIN H11 [get_ports {mcu_tri_io[3]}];      #IO_L3P_AD13P_45/25 Sch=syzygy_detectedn
+set_property -dict {PACKAGE_PIN AC14   IOSTANDARD LVCMOS33 SLEW SLOW DRIVE 4 } [get_ports {o_lvl_adj0_0}];     #IO_L6P_HDGC_44/24 Sch=vadj_level[0]
+set_property -dict {PACKAGE_PIN AC13   IOSTANDARD LVCMOS33 SLEW SLOW DRIVE 4 } [get_ports {o_lvl_adj1_0}];     #IO_L6N_HDGC_44/24 Sch=vadj_level[1]
+set_property -dict {PACKAGE_PIN G10    IOSTANDARD LVCMOS18 SLEW SLOW DRIVE 4 } [get_ports {o_auto_vadj_0}];      #IO_L3N_AD13N_45/25 Sch=vadj_auton
+set_property -dict {PACKAGE_PIN H11    IOSTANDARD LVCMOS18} [get_ports {syzygy_detectn_tri_i[0]}];      #IO_L3P_AD13P_45/25 Sch=syzygy_detectedn
 #set_property -dict { PACKAGE_PIN AA12  IOSTANDARD LVCMOS33 } [get_ports { PG_VADJ_R }]; #IO_L12N_AD8N_44/24 Sch=pg_vadj_r
 
 #set_property IOSTANDARD LVCMOS33 [get_ports {vadj_level_0}]
@@ -310,8 +310,8 @@ set_property -dict { PACKAGE_PIN K14   IOSTANDARD LVCMOS33 } [get_ports { sInitD
 
 ## MUX I2C
 set_property -dict { PACKAGE_PIN F6    IOSTANDARD LVCMOS12                  DRIVE 6 } [get_ports { iic_mux_rst[0] }]; #IO_L15N_T2L_N5_AD11N_66 Sch=fpga_mux_rst
-set_property -dict { PACKAGE_PIN G15   IOSTANDARD LVCMOS33   PULLUP false   DRIVE 4 } [get_ports mux_scl_io];  #IO_L9P_AD3P_46/26 Sch=mux_scl_ls
-set_property -dict { PACKAGE_PIN G14   IOSTANDARD LVCMOS33   PULLUP false   DRIVE 4 } [get_ports mux_sda_io]; #IO_L9N_AD3N_46/26 Sch=mux_sda_ls
+set_property -dict { PACKAGE_PIN G15   IOSTANDARD LVCMOS33   PULLUP false   DRIVE 4 } [get_ports IIC_DNA_scl_io];  #IO_L9P_AD3P_46/26 Sch=mux_scl_ls
+set_property -dict { PACKAGE_PIN G14   IOSTANDARD LVCMOS33   PULLUP false   DRIVE 4 } [get_ports IIC_DNA_sda_io]; #IO_L9N_AD3N_46/26 Sch=mux_sda_ls
 
 ## SYZYGY
 set_property -dict { PACKAGE_PIN AB1 IOSTANDARD LVCMOS18 SLEW SLOW DRIVE 4 } [get_ports {sZmodDAC_SetFS1_0}]; #5
