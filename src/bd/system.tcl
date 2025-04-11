@@ -136,6 +136,8 @@ digilent.com:user:ZmodAWGController:*\
 xilinx.com:ip:clk_wiz:*\
 xilinx.com:ip:proc_sys_reset:*\
 digilent.com:user:ZmodAwgAxiConfiguration:*\
+xilinx.com:ip:axi_iic:*\
+xilinx.com:ip:axi_gpio:*\
 "
 
    set list_ips_missing ""
@@ -225,6 +227,10 @@ proc create_root_design { parentCell } {
 
 
   # Create interface ports
+  set IIC_DNA [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 IIC_DNA ]
+
+  set syzygy_detectn [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 syzygy_detectn ]
+
 
   # Create ports
   set dp_aux_din [ create_bd_port -dir I dp_aux_din ]
@@ -246,6 +252,7 @@ proc create_root_design { parentCell } {
   set o_auto_vadj_0 [ create_bd_port -dir O o_auto_vadj_0 ]
   set sConfigError_0 [ create_bd_port -dir O sConfigError_0 ]
   set sInitDoneDAC_0 [ create_bd_port -dir O sInitDoneDAC_0 ]
+  set iic_mux_rst [ create_bd_port -dir O -from 0 -to 0 iic_mux_rst ]
 
   # Create instance: util_vector_logic_0, and set properties
   set util_vector_logic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic util_vector_logic_0 ]
@@ -1339,14 +1346,33 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
 
   # Create instance: ps8_0_axi_periph, and set properties
   set ps8_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect ps8_0_axi_periph ]
-  set_property CONFIG.NUM_MI {1} $ps8_0_axi_periph
+  set_property CONFIG.NUM_MI {3} $ps8_0_axi_periph
+
+
+  # Create instance: axi_iic_dna, and set properties
+  set axi_iic_dna [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic axi_iic_dna ]
+  set_property CONFIG.IIC_FREQ_KHZ {400} $axi_iic_dna
+
+
+  # Create instance: syzygy_detectn, and set properties
+  set syzygy_detectn [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio syzygy_detectn ]
+  set_property -dict [list \
+    CONFIG.C_ALL_INPUTS {1} \
+    CONFIG.C_GPIO_WIDTH {1} \
+  ] $syzygy_detectn
 
 
   # Create interface connections
+  connect_bd_intf_net -intf_net IIC_DNA_IIC [get_bd_intf_ports IIC_DNA] [get_bd_intf_pins axi_iic_dna/IIC]
+  connect_bd_intf_net -intf_net axi_gpio_0_GPIO [get_bd_intf_ports syzygy_detectn] [get_bd_intf_pins syzygy_detectn/GPIO]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M00_AXI [get_bd_intf_pins ps8_0_axi_periph/M00_AXI] [get_bd_intf_pins ZmodAwgAxiConfigurat_0/s_axi_control]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M01_AXI [get_bd_intf_pins ps8_0_axi_periph/M01_AXI] [get_bd_intf_pins axi_iic_dna/S_AXI]
+  connect_bd_intf_net -intf_net ps8_0_axi_periph_M02_AXI [get_bd_intf_pins ps8_0_axi_periph/M02_AXI] [get_bd_intf_pins syzygy_detectn/S_AXI]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_LPD [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_LPD] [get_bd_intf_pins ps8_0_axi_periph/S00_AXI]
 
   # Create port connections
+  connect_bd_net -net IIC_DNA_gpo [get_bd_pins axi_iic_dna/gpo] [get_bd_ports iic_mux_rst]
+  connect_bd_net -net IIC_DNA_iic2intc_irpt [get_bd_pins axi_iic_dna/iic2intc_irpt] [get_bd_pins zynq_ultra_ps_e_0/pl_ps_irq0]
   connect_bd_net -net Net [get_bd_ports sZmodDAC_SDIO_0] [get_bd_pins ZmodAWGController_0/sZmodDAC_SDIO]
   connect_bd_net -net ZmodAWGController_0_ZmodDAC_ClkIO [get_bd_pins ZmodAWGController_0/ZmodDAC_ClkIO] [get_bd_ports ZmodDAC_ClkIO_0]
   connect_bd_net -net ZmodAWGController_0_ZmodDAC_ClkIn [get_bd_pins ZmodAWGController_0/ZmodDAC_ClkIn] [get_bd_ports ZmodDAC_ClkIn_0]
@@ -1378,7 +1404,7 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
   connect_bd_net -net counter_0_dvalid [get_bd_pins counter_0/dvalid] [get_bd_pins ZmodAWGController_0/cDataAxisTvalid]
   connect_bd_net -net dp_aux_data_in_0_1 [get_bd_ports dp_aux_din] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_in]
   connect_bd_net -net dp_hot_plug_detect_0_1 [get_bd_ports dp_aux_hotplug_detect] [get_bd_pins zynq_ultra_ps_e_0/dp_hot_plug_detect]
-  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ZmodAwgAxiConfigurat_0/s_axi_areset_n] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/ARESETN]
+  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ZmodAwgAxiConfigurat_0/s_axi_areset_n] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins axi_iic_dna/s_axi_aresetn] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins syzygy_detectn/s_axi_aresetn] [get_bd_pins ps8_0_axi_periph/M02_ARESETN]
   connect_bd_net -net proc_sys_reset_0_peripheral_reset [get_bd_pins proc_sys_reset_0/peripheral_reset] [get_bd_pins clk_wiz_0/reset]
   connect_bd_net -net proc_sys_reset_1_peripheral_aresetn [get_bd_pins proc_sys_reset_1/peripheral_aresetn] [get_bd_pins set_vadj_and_delay_0/cresetn]
   connect_bd_net -net set_vadj_and_delay_0_vadj_auton [get_bd_pins set_vadj_and_delay_0/vadj_auton] [get_bd_ports o_auto_vadj_0]
@@ -1387,16 +1413,19 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
   connect_bd_net -net util_vector_logic_0_Res [get_bd_pins util_vector_logic_0/Res] [get_bd_ports dp_aux_doe]
   connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_oe_n [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_oe_n] [get_bd_pins util_vector_logic_0/Op1]
   connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_out [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_out] [get_bd_ports dp_aux_dout]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihpc0_fpd_aclk] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins ZmodAwgAxiConfigurat_0/s_axi_aclk] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/ACLK]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihpc0_fpd_aclk] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins ZmodAwgAxiConfigurat_0/s_axi_aclk] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins axi_iic_dna/s_axi_aclk] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins syzygy_detectn/s_axi_aclk] [get_bd_pins ps8_0_axi_periph/M02_ACLK]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0] [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins proc_sys_reset_1/ext_reset_in]
 
   # Create address segments
+  assign_bd_address -offset 0x80010000 -range 0x00010000 -with_name SEG_IIC_DNA_Reg -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_iic_dna/S_AXI/Reg] -force
   assign_bd_address -offset 0x80000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ZmodAwgAxiConfigurat_0/s_axi_control/s_axi_control_reg] -force
+  assign_bd_address -offset 0x80020000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs syzygy_detectn/S_AXI/Reg] -force
 
 
   # Restore current instance
   current_bd_instance $oldCurInst
 
+  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -1408,6 +1437,4 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
 
 create_root_design ""
 
-
-common::send_gid_msg -ssname BD::TCL -id 2053 -severity "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
