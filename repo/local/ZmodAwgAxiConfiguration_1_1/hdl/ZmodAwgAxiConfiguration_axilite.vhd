@@ -38,24 +38,15 @@ port (
 
 -- Each register gets an input port if read is allowed and an output port if write is allowed
 -- This core is bitfield agnostic
-    Reg0_i : IN STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     Reg0_o : OUT STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     Reg1_i : IN STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    Reg2_i : IN STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     Reg2_o : OUT STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    Reg3_i : IN STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     Reg3_o : OUT STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    Reg4_i : IN STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     Reg4_o : OUT STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    Reg5_i : IN STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     Reg5_o : OUT STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    Reg6_i : IN STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     Reg6_o : OUT STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    Reg7_i : IN STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     Reg7_o : OUT STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    Reg8_i : IN STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     Reg8_o : OUT STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    Reg9_i : IN STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     Reg9_o : OUT STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     interrupt: OUT STD_LOGIC
     );
@@ -154,25 +145,33 @@ end component;
     signal awready_int : STD_LOGIC;
     signal awvalid_int : STD_LOGIC;
     signal awaddr_int : STD_LOGIC_VECTOR(ADDR_WIDTH-1 downto 0);
-    signal reg0_enable : STD_LOGIC;
+    signal Reg0_i : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     signal Reg0_int : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    signal reg1_enable : STD_LOGIC;
-    signal reg2_enable : STD_LOGIC;
+    signal reg0_enable : STD_LOGIC;
+    signal Reg2_i : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     signal Reg2_int : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    signal reg3_enable : STD_LOGIC;
+    signal reg2_enable : STD_LOGIC;
+    signal Reg3_i : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     signal Reg3_int : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    signal reg4_enable : STD_LOGIC;
+    signal reg3_enable : STD_LOGIC;
+    signal Reg4_i : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     signal Reg4_int : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    signal reg5_enable : STD_LOGIC;
+    signal reg4_enable : STD_LOGIC;
+    signal Reg5_i : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     signal Reg5_int : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    signal reg6_enable : STD_LOGIC;
+    signal reg5_enable : STD_LOGIC;
+    signal Reg6_i : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     signal Reg6_int : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    signal reg7_enable : STD_LOGIC;
+    signal reg6_enable : STD_LOGIC;
+    signal Reg7_i : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     signal Reg7_int : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    signal reg8_enable : STD_LOGIC;
+    signal reg7_enable : STD_LOGIC;
+    signal Reg8_i : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     signal Reg8_int : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-    signal reg9_enable : STD_LOGIC;
+    signal reg8_enable : STD_LOGIC;
+    signal Reg9_i : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
     signal Reg9_int : STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
+    signal reg9_enable : STD_LOGIC;
 
 begin
     -- Always respond OKAY.
@@ -328,6 +327,7 @@ begin
             data_out => Reg0_int
         );
     Reg0_o <= Reg0_int;
+    -- No input port, output back to the input
     Reg0_i <= Reg0_int;
     -- Register 2 instantiation
     reg2_enable <= reg_en(2) and wreg_en;
@@ -345,6 +345,7 @@ begin
             data_out => Reg2_int
         );
     Reg2_o <= Reg2_int;
+    -- No input port, output back to the input
     Reg2_i <= Reg2_int;
     -- Register 3 instantiation
     reg3_enable <= reg_en(3) and wreg_en;
@@ -362,6 +363,7 @@ begin
             data_out => Reg3_int
         );
     Reg3_o <= Reg3_int;
+    -- No input port, output back to the input
     Reg3_i <= Reg3_int;
     -- Register 4 instantiation
     reg4_enable <= reg_en(4) and wreg_en;
@@ -379,6 +381,7 @@ begin
             data_out => Reg4_int
         );
     Reg4_o <= Reg4_int;
+    -- No input port, output back to the input
     Reg4_i <= Reg4_int;
     -- Register 5 instantiation
     reg5_enable <= reg_en(5) and wreg_en;
@@ -396,6 +399,7 @@ begin
             data_out => Reg5_int
         );
     Reg5_o <= Reg5_int;
+    -- No input port, output back to the input
     Reg5_i <= Reg5_int;
     -- Register 6 instantiation
     reg6_enable <= reg_en(6) and wreg_en;
@@ -413,6 +417,7 @@ begin
             data_out => Reg6_int
         );
     Reg6_o <= Reg6_int;
+    -- No input port, output back to the input
     Reg6_i <= Reg6_int;
     -- Register 7 instantiation
     reg7_enable <= reg_en(7) and wreg_en;
@@ -430,6 +435,7 @@ begin
             data_out => Reg7_int
         );
     Reg7_o <= Reg7_int;
+    -- No input port, output back to the input
     Reg7_i <= Reg7_int;
     -- Register 8 instantiation
     reg8_enable <= reg_en(8) and wreg_en;
@@ -447,6 +453,7 @@ begin
             data_out => Reg8_int
         );
     Reg8_o <= Reg8_int;
+    -- No input port, output back to the input
     Reg8_i <= Reg8_int;
     -- Register 9 instantiation
     reg9_enable <= reg_en(9) and wreg_en;
@@ -464,6 +471,7 @@ begin
             data_out => Reg9_int
         );
     Reg9_o <= Reg9_int;
+    -- No input port, output back to the input
     Reg9_i <= Reg9_int;
 
 -- Fire interrupt on a one cycle delay after write strobes, matching wdata to reg port latency

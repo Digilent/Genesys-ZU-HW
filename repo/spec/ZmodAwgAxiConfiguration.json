@@ -3,7 +3,7 @@
     "ip_name": "ZmodAwgAxiConfiguration",
     "underscore_name": "ZMOD_AWG_AXI_CONFIG",
     "version": "1_1",
-    "fpga_part": "xczu3eg-sfvc784-1-e",
+    "fpga_part": "xczu5ev-sfvc784-1-e",
     "target_clk_period": "10.00",
     "axi4lite_interface": {
         "name": "s_axi_control",
@@ -29,7 +29,7 @@
             "comment": ["all registers should be placed in ascending order of address in the register file and",
                         "start with base address [axi4lite_interface][reserved_addresses] * sizeof(u32)"],
             "name": "Control",
-            "access_type": "rw",
+            "access_type": "wo",
             "clock_domain": "SysClk100",
             "bitfields": [
                 {
@@ -73,7 +73,7 @@
         },
         {
             "name": "ExtCh1LgMultCoeff",
-            "access_type": "rw",
+            "access_type": "wo",
             "clock_domain": "DAC_InIO_Clk",
             "bitfields": [
                 {
@@ -85,7 +85,7 @@
         },
         {
             "name": "ExtCh1LgAddCoeff",
-            "access_type": "rw",
+            "access_type": "wo",
             "clock_domain": "DAC_InIO_Clk",
             "bitfields": [
                 {
@@ -97,7 +97,7 @@
         },
         {
             "name": "ExtCh1HgMultCoeff",
-            "access_type": "rw",
+            "access_type": "wo",
             "clock_domain": "DAC_InIO_Clk",
             "bitfields": [
                 {
@@ -109,7 +109,7 @@
         },
         {
             "name": "ExtCh1HgAddCoeff",
-            "access_type": "rw",
+            "access_type": "wo",
             "clock_domain": "DAC_InIO_Clk",
             "bitfields": [
                 {
@@ -121,7 +121,7 @@
         },
         {
             "name": "ExtCh2LgMultCoeff",
-            "access_type": "rw",
+            "access_type": "wo",
             "clock_domain": "DAC_InIO_Clk",
             "bitfields": [
                 {
@@ -133,7 +133,7 @@
         },
         {
             "name": "ExtCh2LgAddCoeff",
-            "access_type": "rw",
+            "access_type": "wo",
             "clock_domain": "DAC_InIO_Clk",
             "bitfields": [
                 {
@@ -145,7 +145,7 @@
         },
         {
             "name": "ExtCh2HgMultCoeff",
-            "access_type": "rw",
+            "access_type": "wo",
             "clock_domain": "DAC_InIO_Clk",
             "bitfields": [
                 {
@@ -157,7 +157,7 @@
         },
         {
             "name": "ExtCh2HgAddCoeff",
-            "access_type": "rw",
+            "access_type": "wo",
             "clock_domain": "DAC_InIO_Clk",
             "bitfields": [
                 {
