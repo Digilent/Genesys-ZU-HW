@@ -20,7 +20,7 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2024.1
+set scripts_vivado_version 2025.1
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -123,8 +123,8 @@ set bCheckIPsPassed 1
 set bCheckIPs 1
 if { $bCheckIPs == 1 } {
    set list_check_ips "\ 
-xilinx.com:ip:util_vector_logic:*\
 xilinx.com:ip:zynq_ultra_ps_e:*\
+xilinx.com:inline_hdl:ilvector_logic:*\
 "
 
    set list_ips_missing ""
@@ -194,14 +194,6 @@ proc create_root_design { parentCell } {
   set dp_aux_doe [ create_bd_port -dir O -from 0 -to 0 dp_aux_doe ]
   set dp_aux_dout [ create_bd_port -dir O dp_aux_dout ]
   set dp_aux_hotplug_detect [ create_bd_port -dir I dp_aux_hotplug_detect ]
-
-  # Create instance: util_vector_logic_0, and set properties
-  set util_vector_logic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic util_vector_logic_0 ]
-  set_property -dict [list \
-    CONFIG.C_OPERATION {not} \
-    CONFIG.C_SIZE {1} \
-  ] $util_vector_logic_0
-
 
   # Create instance: zynq_ultra_ps_e_0, and set properties
   set zynq_ultra_ps_e_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e zynq_ultra_ps_e_0 ]
@@ -1231,13 +1223,28 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
   ] $zynq_ultra_ps_e_0
 
 
+  # Create instance: ilvector_logic_0, and set properties
+  set ilvector_logic_0 [ create_bd_cell -type inline_hdl -vlnv xilinx.com:inline_hdl:ilvector_logic ilvector_logic_0 ]
+  set_property -dict [list \
+    CONFIG.C_OPERATION {not} \
+    CONFIG.C_SIZE {1} \
+  ] $ilvector_logic_0
+
+
   # Create port connections
-  connect_bd_net -net dp_aux_data_in_0_1 [get_bd_ports dp_aux_din] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_in]
-  connect_bd_net -net dp_hot_plug_detect_0_1 [get_bd_ports dp_aux_hotplug_detect] [get_bd_pins zynq_ultra_ps_e_0/dp_hot_plug_detect]
-  connect_bd_net -net util_vector_logic_0_Res [get_bd_pins util_vector_logic_0/Res] [get_bd_ports dp_aux_doe]
-  connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_oe_n [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_oe_n] [get_bd_pins util_vector_logic_0/Op1]
-  connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_out [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_out] [get_bd_ports dp_aux_dout]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihpc0_fpd_aclk]
+  connect_bd_net -net dp_aux_data_in_0_1  [get_bd_ports dp_aux_din] \
+  [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_in]
+  connect_bd_net -net dp_hot_plug_detect_0_1  [get_bd_ports dp_aux_hotplug_detect] \
+  [get_bd_pins zynq_ultra_ps_e_0/dp_hot_plug_detect]
+  connect_bd_net -net ilvector_logic_0_Res  [get_bd_pins ilvector_logic_0/Res] \
+  [get_bd_ports dp_aux_doe]
+  connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_oe_n  [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_oe_n] \
+  [get_bd_pins ilvector_logic_0/Op1]
+  connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_out  [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_out] \
+  [get_bd_ports dp_aux_dout]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0  [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] \
+  [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] \
+  [get_bd_pins zynq_ultra_ps_e_0/saxihpc0_fpd_aclk]
 
   # Create address segments
 
