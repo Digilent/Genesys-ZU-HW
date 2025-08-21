@@ -20,7 +20,7 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2024.1
+set scripts_vivado_version 2025.1
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -576,8 +576,6 @@ proc create_root_design { parentCell } {
     CONFIG.PSU__CRF_APB__DBG_FPD_CTRL__ACT_FREQMHZ {250.000000} \
     CONFIG.PSU__CRF_APB__DBG_FPD_CTRL__FREQMHZ {250} \
     CONFIG.PSU__CRF_APB__DBG_FPD_CTRL__SRCSEL {IOPLL} \
-    CONFIG.PSU__CRF_APB__DBG_TRACE_CTRL__ACT_FREQMHZ {250} \
-    CONFIG.PSU__CRF_APB__DBG_TRACE_CTRL__FREQMHZ {250} \
     CONFIG.PSU__CRF_APB__DBG_TRACE_CTRL__SRCSEL {IOPLL} \
     CONFIG.PSU__CRF_APB__DBG_TSTMP_CTRL__ACT_FREQMHZ {250.000000} \
     CONFIG.PSU__CRF_APB__DBG_TSTMP_CTRL__FREQMHZ {250} \
@@ -1050,12 +1048,12 @@ proc create_root_design { parentCell } {
     CONFIG.PSU__PRESET_APPLIED {1} \
     CONFIG.PSU__PROTECTION__DDR_SEGMENTS {NONE} \
     CONFIG.PSU__PROTECTION__ENABLE {0} \
-    CONFIG.PSU__PROTECTION__FPD_SEGMENTS {SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware    |     SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
-subsystemId:PMU Firmware    |     SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware    |     SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
-subsystemId:PMU Firmware    |     SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware    |     SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
-subsystemId:PMU Firmware    |     SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware    |     SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
-subsystemId:PMU Firmware    |     SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware    |    SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write;\
-subsystemId:Secure Subsystem} \
+    CONFIG.PSU__PROTECTION__FPD_SEGMENTS {SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware     |      SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure;\
+WrAllowed:Read/Write; subsystemId:PMU Firmware     |      SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware     |      SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure;\
+WrAllowed:Read/Write; subsystemId:PMU Firmware     |      SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware     |      SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure;\
+WrAllowed:Read/Write; subsystemId:PMU Firmware     |      SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware     |      SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure;\
+WrAllowed:Read/Write; subsystemId:PMU Firmware     |      SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware     |     SA:0xFD1A0000 ; SIZE:1280; UNIT:KB;\
+RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem} \
     CONFIG.PSU__PROTECTION__LPD_SEGMENTS {SA:0xFF980000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF5E0000; SIZE:2560; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
 subsystemId:PMU Firmware| SA:0xFFCC0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF180000; SIZE:768; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU\
 Firmware| SA:0xFF410000; SIZE:640; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFA70000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware|\
@@ -1232,12 +1230,19 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
 
 
   # Create port connections
-  connect_bd_net -net dp_aux_data_in_0_1 [get_bd_ports dp_aux_din] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_in]
-  connect_bd_net -net dp_hot_plug_detect_0_1 [get_bd_ports dp_aux_hotplug_detect] [get_bd_pins zynq_ultra_ps_e_0/dp_hot_plug_detect]
-  connect_bd_net -net util_vector_logic_0_Res [get_bd_pins util_vector_logic_0/Res] [get_bd_ports dp_aux_doe]
-  connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_oe_n [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_oe_n] [get_bd_pins util_vector_logic_0/Op1]
-  connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_out [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_out] [get_bd_ports dp_aux_dout]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihpc0_fpd_aclk]
+  connect_bd_net -net dp_aux_data_in_0_1  [get_bd_ports dp_aux_din] \
+  [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_in]
+  connect_bd_net -net dp_hot_plug_detect_0_1  [get_bd_ports dp_aux_hotplug_detect] \
+  [get_bd_pins zynq_ultra_ps_e_0/dp_hot_plug_detect]
+  connect_bd_net -net util_vector_logic_0_Res  [get_bd_pins util_vector_logic_0/Res] \
+  [get_bd_ports dp_aux_doe]
+  connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_oe_n  [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_oe_n] \
+  [get_bd_pins util_vector_logic_0/Op1]
+  connect_bd_net -net zynq_ultra_ps_e_0_dp_aux_data_out  [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_out] \
+  [get_bd_ports dp_aux_dout]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0  [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] \
+  [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_lpd_aclk] \
+  [get_bd_pins zynq_ultra_ps_e_0/saxihpc0_fpd_aclk]
 
   # Create address segments
 
