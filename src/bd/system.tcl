@@ -1303,13 +1303,27 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz clk_wiz_0 ]
   set_property -dict [list \
-    CONFIG.CLKOUT2_JITTER {115.831} \
-    CONFIG.CLKOUT2_PHASE_ERROR {87.180} \
-    CONFIG.CLKOUT2_REQUESTED_PHASE {90} \
+    CONFIG.CLKOUT1_JITTER {222.400} \
+    CONFIG.CLKOUT1_MATCHED_ROUTING {true} \
+    CONFIG.CLKOUT1_PHASE_ERROR {299.555} \
+    CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {85.000} \
+    CONFIG.CLKOUT2_JITTER {222.400} \
+    CONFIG.CLKOUT2_MATCHED_ROUTING {true} \
+    CONFIG.CLKOUT2_PHASE_ERROR {299.555} \
+    CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {85.000} \
+    CONFIG.CLKOUT2_REQUESTED_PHASE {100} \
     CONFIG.CLKOUT2_USED {true} \
-    CONFIG.MMCM_CLKOUT1_DIVIDE {12} \
-    CONFIG.MMCM_CLKOUT1_PHASE {90.000} \
-    CONFIG.NUM_OUT_CLKS {2} \
+    CONFIG.CLKOUT3_JITTER {217.457} \
+    CONFIG.CLKOUT3_PHASE_ERROR {299.555} \
+    CONFIG.CLKOUT3_USED {true} \
+    CONFIG.MMCM_CLKFBOUT_MULT_F {55.250} \
+    CONFIG.MMCM_CLKOUT0_DIVIDE_F {13.000} \
+    CONFIG.MMCM_CLKOUT1_DIVIDE {13} \
+    CONFIG.MMCM_CLKOUT1_PHASE {100.385} \
+    CONFIG.MMCM_CLKOUT2_DIVIDE {11} \
+    CONFIG.MMCM_DIVCLK_DIVIDE {5} \
+    CONFIG.NUM_OUT_CLKS {3} \
+    CONFIG.PHASESHIFT_MODE {WAVEFORM} \
   ] $clk_wiz_0
 
 
@@ -1398,8 +1412,9 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
   connect_bd_net -net ZmodAwgAxiConfigurat_0_sExtCh2Scale [get_bd_pins ZmodAwgAxiConfigurat_0/sExtCh2Scale] [get_bd_pins ZmodAWGController_0/sExtCh2Scale]
   connect_bd_net -net ZmodAwgAxiConfigurat_0_sTestMode [get_bd_pins ZmodAwgAxiConfigurat_0/sTestMode] [get_bd_pins ZmodAWGController_0/sTestMode]
   connect_bd_net -net btn_rstn_0_1 [get_bd_pins set_vadj_and_delay_0/enable_awg] [get_bd_pins ZmodAWGController_0/aRst_n] [get_bd_pins counter_0/cresetn]
-  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins ZmodAWGController_0/SysClk100] [get_bd_pins ZmodAWGController_0/DAC_InIO_Clk] [get_bd_pins proc_sys_reset_1/slowest_sync_clk] [get_bd_pins counter_0/clk] [get_bd_pins set_vadj_and_delay_0/clk] [get_bd_pins ZmodAwgAxiConfigurat_0/SysClk100] [get_bd_pins ZmodAwgAxiConfigurat_0/DAC_InIO_Clk]
+  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins ZmodAWGController_0/DAC_InIO_Clk] [get_bd_pins proc_sys_reset_1/slowest_sync_clk] [get_bd_pins counter_0/clk] [get_bd_pins set_vadj_and_delay_0/clk] [get_bd_pins ZmodAwgAxiConfigurat_0/DAC_InIO_Clk]
   connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins ZmodAWGController_0/DAC_Clk]
+  connect_bd_net -net clk_wiz_0_clk_out3 [get_bd_pins clk_wiz_0/clk_out3] [get_bd_pins ZmodAWGController_0/SysClk100] [get_bd_pins ZmodAwgAxiConfigurat_0/SysClk100]
   connect_bd_net -net counter_0_counter [get_bd_pins counter_0/counter] [get_bd_pins ZmodAWGController_0/cDataAxisTdata]
   connect_bd_net -net counter_0_dvalid [get_bd_pins counter_0/dvalid] [get_bd_pins ZmodAWGController_0/cDataAxisTvalid]
   connect_bd_net -net dp_aux_data_in_0_1 [get_bd_ports dp_aux_din] [get_bd_pins zynq_ultra_ps_e_0/dp_aux_data_in]
